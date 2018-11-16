@@ -4,5 +4,8 @@
         <file>src/qml/main.qml</file>
         <file>src/qml/Page1Form.ui.qml</file>
         <file>src/qml/Page2Form.ui.qml</file>
+        <file>src/qml/Home.qml</file>
+        <file>src/qml/ControlPanel.qml</file>
+        <file>src/qml/SettingItem.qml</file>
     </qresource>
 </RCC>
