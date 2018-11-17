@@ -4,6 +4,13 @@ import QtQuick.Layouts 1.3
 
 /* 控制面板 */
 GroupBox {
+    property alias refreshRbtn: refreshRbtn
+    property alias switchRbtn: switchRbtn
+    property alias portNum: portNum
+
+    signal refreshDevClicked() //刷新设备
+
+
     title: qsTr("串口设置")
     ColumnLayout {
         anchors {
@@ -13,6 +20,7 @@ GroupBox {
 
         //串口号
         SettingItem {
+            id: portNum
             settingName {
                 text: qsTr("串口号")
             }
@@ -25,7 +33,7 @@ GroupBox {
                 text: qsTr("波特率")
             }
             settingValue {
-                model: ["9600", "115200"]
+                model: [9600, 115200]
             }
         }
         //位数
@@ -34,7 +42,7 @@ GroupBox {
                 text: qsTr("数据位数")
             }
             settingValue {
-                model: ["5", "6", "7", "8"]
+                model: [5, 6, 7, 8]
             }
         }
         //停止位
@@ -43,7 +51,7 @@ GroupBox {
                 text: qsTr("停止位")
             }
             settingValue {
-                model: ["1", "1.5", "2"]
+                model: [1, 1.5, 2]
             }
         }
         //校验位
@@ -72,6 +80,10 @@ GroupBox {
                 implicitWidth: 100
                 radius: 2
                 text: qsTr("刷新")
+                onClicked: {
+                    refreshDevClicked();
+                    console.log("refreshDev clicked")
+                }
             }
             RoundButton {
                 id: switchRbtn
@@ -80,6 +92,16 @@ GroupBox {
                 text: qsTr("开启")
             }
         }
+    }
+
+    function setPortName(nameList){
+        portNum.valueListModel.clear()
+        for (var id in nameList){
+            console.log("setPortName " , id, nameList[id]
+                        , typeof(nameList), typeof(nameList[id]))
+            portNum.valueListModel.append({value: nameList[id]})
+        }
+        portNum.settingValue.currentIndex = 0 //选中第一项
     }
 }
 

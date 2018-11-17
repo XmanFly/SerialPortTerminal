@@ -10,6 +10,7 @@ Rectangle {
 
     property alias settingName: settingName
     property alias settingValue: settingValue
+    property alias valueListModel: valueListModel
 
     RowLayout {
         anchors {
@@ -23,6 +24,10 @@ Rectangle {
         ComboBox {
             id: settingValue
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+            model: ListModel {
+                    id: valueListModel
+//                    ListElement { value: 123 }
+                }
         }
     }
 }

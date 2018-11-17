@@ -7,5 +7,6 @@
         <file>src/qml/Home.qml</file>
         <file>src/qml/ControlPanel.qml</file>
         <file>src/qml/SettingItem.qml</file>
+        <file>src/qml/HomeForm.ui.qml</file>
     </qresource>
 </RCC>
