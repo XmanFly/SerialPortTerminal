@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import SerialPortTerminal.Interface 1.0
+import SerialPortTerminal.SerialPortPara 1.0
 
 HomeForm {
 
@@ -17,6 +18,11 @@ HomeForm {
         onSwitchDev: {
             console.log("switch port",
                         para.number, para.baudrate, para.databit, para.stopbit)
+            var curState = ctrlPanel.getSwitchState();
+            if(curState){
+                mInterface.setSerialPortPara(para)
+            }
+            mInterface.switchDev(curState)
         }
     }
 

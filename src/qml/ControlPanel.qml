@@ -127,5 +127,15 @@ GroupBox {
         mPara.stopbit = stopBit.getSettingValue()
         return mPara
     }
+    //获取开关状态
+    function getSwitchState(){
+        var state
+        if(switchRbtn.text === "开启"){
+            state = true
+        } else {
+            state = false
+        }
+        return state
+    }
 }
 

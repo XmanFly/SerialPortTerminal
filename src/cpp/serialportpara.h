@@ -2,6 +2,7 @@
 #define SERIALPORTPARA_H
 
 #include <QObject>
+#include <QSerialPort>
 
 /* 串口参数 */
 class SerialPortPara : public QObject
@@ -23,6 +24,12 @@ public:
     void	setDatabit(qint32 databit);
     float	getStopbit();
     void	setStopbit(float stopbit);
+
+public:
+    //QT专用格式
+    QSerialPort::BaudRate getQtBaudrate();
+    QSerialPort::DataBits getQtDatabit();
+    QSerialPort::StopBits getQtStopbit();
 
 private:
     QString number; //串口号
