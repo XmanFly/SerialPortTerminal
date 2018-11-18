@@ -18,7 +18,7 @@ private:
     QSerialPort *mSerialPort; //串口对象
 
 signals:
-    void sig_state(bool isOpen);
+    void sig_state(bool isOpen); //状态返回
 
 public slots:
     void slot_init();

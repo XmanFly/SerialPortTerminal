@@ -4,9 +4,7 @@ import SerialPortTerminal.SerialPortPara 1.0
 
 HomeForm {
 
-    Interface {
-        id: mInterface
-    }
+    property Interface mInterface
 
     ctrlPanel {
         //刷新设备
@@ -26,4 +24,14 @@ HomeForm {
         }
     }
 
+    function setInterface(mInf){
+        mInterface = mInf
+    }
+
+    Connections {
+        target: mInterface
+        onSig_serialPortState : {
+            ctrlPanel.setSwitchState(isOpen)
+        }
+    }
 }

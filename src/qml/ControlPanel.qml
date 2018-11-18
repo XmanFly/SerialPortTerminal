@@ -137,5 +137,13 @@ GroupBox {
         }
         return state
     }
+    //设置开关状态
+    function setSwitchState(isOpen){
+        if(isOpen){
+            switchRbtn.text = "关闭"
+        } else {
+            switchRbtn.text = "开启"
+        }
+    }
 }
 

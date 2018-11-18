@@ -17,6 +17,8 @@ class Interface : public QObject
 public:
     explicit Interface(QObject *parent = nullptr);
 
+    Q_PROPERTY(NOTIFY sig_serialPortState)
+
     Q_INVOKABLE QList<QString> refreshDev(); //刷新串口设备
     Q_INVOKABLE void setSerialPortPara(SerialPortPara *mPara); //设置串口参数
     Q_INVOKABLE void switchDev(bool isOpen); //控制设备开关
@@ -31,6 +33,9 @@ private:
 signals:
     void sig_openSerialPort(SerialPortParaNonQobj para); //打开串口
     void sig_closeSerialPort(); //关闭串口
+
+signals:
+    void sig_serialPortState(bool isOpen); //串口状态
 
 public slots:
 };

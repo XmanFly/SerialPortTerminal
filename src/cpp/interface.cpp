@@ -11,6 +11,8 @@ Interface::Interface(QObject *parent) : QObject(parent)
             mSerialPortControl, &SerialPortControl::slot_open);
     connect(this, &Interface::sig_closeSerialPort,
             mSerialPortControl, &SerialPortControl::slot_close);
+    connect(mSerialPortControl, &SerialPortControl::sig_state,
+            this, &Interface::sig_serialPortState);
     mSerialPortThread->start();
 }
 

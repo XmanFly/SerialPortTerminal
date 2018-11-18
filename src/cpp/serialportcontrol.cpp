@@ -49,11 +49,13 @@ void SerialPortControl::slot_open(SerialPortParaNonQobj para)
 
 void SerialPortControl::slot_close()
 {
-    bool isClose = false; //默认打开状态
+    bool isOpen = true; //默认打开状态
     if(mSerialPort != nullptr){
         mSerialPort->close();
-        isClose = true;
+        isOpen = false;
     }
-    emit sig_state(isClose);
+    emit sig_state(isOpen);
+    qDebug() << "SerialPortControl::slot_close "
+             << "result " << isOpen;
 }
 

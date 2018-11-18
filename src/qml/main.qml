@@ -1,5 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import SerialPortTerminal.Interface 1.0
+import SerialPortTerminal.SerialPortPara 1.0
 
 ApplicationWindow {
     visible: true
@@ -7,12 +9,17 @@ ApplicationWindow {
     height: 768
     title: qsTr("Tabs")
 
+    Interface {
+        id: mInterface
+    }
+
     SwipeView {
         id: swipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
         Home {
+            id: home
 
         }
 
@@ -30,5 +37,9 @@ ApplicationWindow {
         TabButton {
             text: qsTr("Page 2")
         }
+    }
+
+    Component.onCompleted: {
+        home.setInterface(mInterface)
     }
 }
