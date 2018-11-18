@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
+import SerialPortTerminal.SerialPortPara 1.0
 
 /* 控制面板 */
 GroupBox {
@@ -8,9 +9,10 @@ GroupBox {
     property alias switchRbtn: switchRbtn
     property alias portNum: portNum
 
-    signal refreshDevClicked() //刷新设备
+    signal refreshDev() //刷新设备
+    signal switchDev(SerialPortPara para) //开关设备
 
-
+    id: root
     title: qsTr("串口设置")
     ColumnLayout {
         anchors {
@@ -29,6 +31,7 @@ GroupBox {
         }
         //波特率
         SettingItem {
+            id: baudrate
             settingName {
                 text: qsTr("波特率")
             }
@@ -38,15 +41,18 @@ GroupBox {
         }
         //位数
         SettingItem {
+            id: dataBit
             settingName {
                 text: qsTr("数据位数")
             }
             settingValue {
                 model: [5, 6, 7, 8]
+                currentIndex: 3
             }
         }
         //停止位
         SettingItem {
+            id: stopBit
             settingName {
                 text: qsTr("停止位")
             }
@@ -56,6 +62,7 @@ GroupBox {
         }
         //校验位
         SettingItem {
+            id: check
             settingName {
                 text: qsTr("校验位")
             }
@@ -65,6 +72,7 @@ GroupBox {
         }
         //流控制
         SettingItem {
+            id: flowControl
             settingName {
                 text: qsTr("流控制")
             }
@@ -81,7 +89,7 @@ GroupBox {
                 radius: 2
                 text: qsTr("刷新")
                 onClicked: {
-                    refreshDevClicked();
+                    refreshDev();
                     console.log("refreshDev clicked")
                 }
             }
@@ -90,10 +98,15 @@ GroupBox {
                 radius: 2
                 implicitWidth: 100
                 text: qsTr("开启")
+                onClicked: {
+                    switchDev(getSerialPortPara());
+                    console.log("switchDev clicked")
+                }
             }
         }
     }
 
+    //设置端口号
     function setPortName(nameList){
         portNum.valueListModel.clear()
         for (var id in nameList){
@@ -102,6 +115,17 @@ GroupBox {
             portNum.valueListModel.append({value: nameList[id]})
         }
         portNum.settingValue.currentIndex = 0 //选中第一项
+    }
+    //获取串口参数
+    function getSerialPortPara(){
+        //创建串口参数对象
+        var mPara = Qt.createQmlObject("import QtQuick 2.9; import SerialPortTerminal.SerialPortPara 1.0;"
+                                       + "SerialPortPara {}", root)
+        mPara.number = portNum.getSettingValue()
+        mPara.baudrate = baudrate.getSettingValue()
+        mPara.databit = dataBit.getSettingValue()
+        mPara.stopbit = stopBit.getSettingValue()
+        return mPara
     }
 }
 

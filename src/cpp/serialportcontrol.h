@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSerialPort>
+#include "serialportpara.h"
 
 /* 串口控制类 */
 class SerialPortControl : public QObject
@@ -15,6 +16,7 @@ public:
 signals:
 
 public slots:
+    void open();
 
 };
 

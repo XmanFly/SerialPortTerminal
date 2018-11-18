@@ -8,11 +8,16 @@ HomeForm {
     }
 
     ctrlPanel {
-        onRefreshDevClicked: {
+        //刷新设备
+        onRefreshDev: {
             var devList = mInterface.refreshDev()
             ctrlPanel.setPortName(devList)
-//            console.log("kao", devList.size())
         }      
+        //打开设备
+        onSwitchDev: {
+            console.log("switch port",
+                        para.number, para.baudrate, para.databit, para.stopbit)
+        }
     }
 
 }

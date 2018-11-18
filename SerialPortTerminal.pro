@@ -15,7 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         ./src/cpp/main.cpp \
     src/cpp/serialportcontrol.cpp \
-    src/cpp/interface.cpp
+    src/cpp/interface.cpp \
+    src/cpp/serialportpara.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +33,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/cpp/serialportcontrol.h \
-    src/cpp/interface.h
+    src/cpp/interface.h \
+    src/cpp/serialportpara.h

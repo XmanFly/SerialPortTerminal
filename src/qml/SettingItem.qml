@@ -30,4 +30,7 @@ Rectangle {
                 }
         }
     }
+    function getSettingValue(){
+        return settingValue.currentText
+    }
 }
