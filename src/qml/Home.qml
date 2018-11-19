@@ -6,6 +6,7 @@ HomeForm {
 
     property Interface mInterface
 
+    //设置面板
     ctrlPanel {
         //刷新设备
         onRefreshDev: {
@@ -24,14 +25,27 @@ HomeForm {
         }
     }
 
+    //发送区域
+    sendAera {
+        //发送数据
+        onSendData: {
+            mInterface.sendData(data)
+        }
+    }
+
     function setInterface(mInf){
         mInterface = mInf
     }
 
-    Connections {
-        target: mInterface
-        onSig_serialPortState : {
-            ctrlPanel.setSwitchState(isOpen)
-        }
+    Binding {
+        target: ctrlPanel
+        property: "devState"
+        value: mInterface.serialState
+    }
+
+    Binding {
+        target: sendAera
+        property: "sendEnable"
+        value: mInterface.serialState
     }
 }

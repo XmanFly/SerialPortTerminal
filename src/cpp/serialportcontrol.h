@@ -25,6 +25,7 @@ public slots:
     void slot_init();
     void slot_open(SerialPortParaNonQobj para);
     void slot_close();
+    void slot_send(QByteArray data);
 
 };
 

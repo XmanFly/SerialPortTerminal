@@ -60,3 +60,10 @@ void SerialPortControl::slot_close()
              << "result " << isOpen;
 }
 
+void SerialPortControl::slot_send(QByteArray data)
+{
+    if(mSerialPort != nullptr){
+        mSerialPort->write(data);
+    }
+}
+

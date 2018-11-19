@@ -9,6 +9,11 @@ GroupBox {
     title: qsTr("发送区")
     contentHeight: 100 //指定内容高度 防止循环绑定
     implicitWidth: 100 //指定宽度 防止循环绑定
+
+    property bool sendEnable: false //发送使能
+
+    signal sendData(string data) //发送数据
+
     ColumnLayout {
         anchors {
             fill: parent
@@ -43,6 +48,10 @@ GroupBox {
                 radius: 2
                 text: qsTr("发送")
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                enabled: sendEnable
+                onClicked: {
+                    sendData(sendBuffer.text)
+                }
             }
         }
     }

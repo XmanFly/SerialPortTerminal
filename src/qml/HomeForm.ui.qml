@@ -7,6 +7,7 @@ Page {
     height: 768
 
     property alias ctrlPanel: ctrlPanel
+    property alias sendAera: sendAera
 
     //控制面板
     ControlPanel {

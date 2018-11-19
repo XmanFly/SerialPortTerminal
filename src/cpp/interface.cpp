@@ -1,6 +1,8 @@
 #include "interface.h"
 
-Interface::Interface(QObject *parent) : QObject(parent)
+Interface::Interface(QObject *parent) :
+    QObject(parent),
+    serialState(false)
 {
     mSerialPortInfo = new QSerialPortInfo();
     mSerialPortControl = new SerialPortControl();
@@ -11,10 +13,12 @@ Interface::Interface(QObject *parent) : QObject(parent)
             mSerialPortControl, &SerialPortControl::slot_open);
     connect(this, &Interface::sig_closeSerialPort,
             mSerialPortControl, &SerialPortControl::slot_close);
-    connect(mSerialPortControl, &SerialPortControl::sig_state,
-            this, &Interface::sig_serialPortState);
+    connect(this, &Interface::sig_sendData,
+            mSerialPortControl, &SerialPortControl::slot_send);
     connect(mSerialPortControl, &SerialPortControl::sig_message,
             this, &Interface::sig_message);
+    connect(mSerialPortControl, &SerialPortControl::sig_state,
+            this, &Interface::slot_serialState);
     mSerialPortThread->start();
 }
 
@@ -27,6 +31,7 @@ QList<QString> Interface::refreshDev()
         devName.append(each.portName());
     }
     qDebug() << "Interface::refreshDev " << sysSerialPort.size();
+    qDebug() << "serial state" << serialState;
     return devName;
 }
 
@@ -48,4 +53,28 @@ void Interface::switchDev(bool isOpen)
     } else {
         emit sig_closeSerialPort();
     }
+}
+
+//设置串口状态
+void Interface::slot_serialState(bool isOpen)
+{
+    serialState = isOpen;
+    emit sig_serialPortState(serialState);
+    qDebug() << "Interface::slot_serialState " << isOpen;
+}
+
+//发送数据
+void Interface::sendData(QString data)
+{
+    if(serialState){
+        QByteArray hexFormat = QByteArray::fromHex(data.toLatin1());
+        emit sig_sendData(hexFormat);
+    }
+}
+
+//获取串口状态
+bool Interface::getSerialPortState()
+{
+    qDebug() << "getSerialPortState " << serialState;
+    return  serialState;
 }

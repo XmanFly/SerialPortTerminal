@@ -8,6 +8,7 @@ GroupBox {
     property alias refreshRbtn: refreshRbtn
     property alias switchRbtn: switchRbtn
     property alias portNum: portNum
+    property bool devState: false //设备 默认关闭
 
     signal refreshDev() //刷新设备
     signal switchDev(SerialPortPara para) //开关设备
@@ -26,7 +27,7 @@ GroupBox {
             settingName {
                 text: qsTr("串口号")
             }
-            settingValue {
+            settingValue {                
             }
         }
         //波特率
@@ -97,7 +98,13 @@ GroupBox {
                 id: switchRbtn
                 radius: 2
                 implicitWidth: 100
-                text: qsTr("开启")
+                text: {
+                    if(devState === false) {
+                        return qsTr("开启")
+                    } else {
+                        return qsTr("关闭")
+                    }
+                }
                 onClicked: {
                     switchDev(getSerialPortPara());
                     console.log("switchDev clicked")

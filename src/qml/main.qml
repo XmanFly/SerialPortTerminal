@@ -44,7 +44,7 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-//        home.setInterface(mInterface)
+        home.setInterface(mInterface)
     }
 
     Connections {
