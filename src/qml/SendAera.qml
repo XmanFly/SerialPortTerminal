@@ -41,6 +41,16 @@ GroupBox {
 
         RowLayout {
             Layout.preferredWidth: parent.width
+            //清空按钮
+            RoundButton {
+                id: clearRbtn
+                implicitWidth: 100
+                radius: 2
+                text: qsTr("清空")
+                onClicked: {
+                    sendBuffer.clear()
+                }
+            }
             //发送按钮
             RoundButton {
                 id: sendRbtn
