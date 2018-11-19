@@ -19,6 +19,7 @@ private:
 
 signals:
     void sig_state(bool isOpen); //状态返回
+    void sig_message(QString msg);//消息
 
 public slots:
     void slot_init();

@@ -40,6 +40,7 @@ void SerialPortControl::slot_open(SerialPortParaNonQobj para)
            isOpen = true;
        } else {
            mSerialPort = nullptr; //串口打开失败
+           emit sig_message("串口打开失败!\r\n(1)请检查是否已被占用\r\n(2)重新刷新设备");
        }
     }
     emit sig_state(isOpen); //串口状态变更
