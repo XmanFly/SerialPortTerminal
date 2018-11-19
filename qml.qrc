@@ -8,5 +8,6 @@
         <file>src/qml/ControlPanel.qml</file>
         <file>src/qml/SettingItem.qml</file>
         <file>src/qml/HomeForm.ui.qml</file>
+        <file>src/qml/SendAera.qml</file>
     </qresource>
 </RCC>

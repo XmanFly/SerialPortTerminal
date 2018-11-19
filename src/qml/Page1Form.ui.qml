@@ -6,13 +6,17 @@ Page {
     width: 1366
     height: 768
 
-    ControlPanel {
-        anchors {
-            left: parent.left
-            top: parent.top
-        }
-        width: parent.width * 2 / 10
+    SendAera {
+        anchors.fill: parent
     }
+
+//    ControlPanel {
+//        anchors {
+//            left: parent.left
+//            top: parent.top
+//        }
+//        width: parent.width * 2 / 10
+//    }
 
     //            SettingItem {
     //                anchors {
