@@ -28,6 +28,7 @@ GroupBox {
                 text: qsTr("串口号")
             }
             settingValue {                
+                enabled: !devState
             }
         }
         //波特率
@@ -37,6 +38,7 @@ GroupBox {
                 text: qsTr("波特率")
             }
             settingValue {
+                enabled: !devState
                 model: [9600, 115200]
             }
         }
@@ -47,6 +49,7 @@ GroupBox {
                 text: qsTr("数据位数")
             }
             settingValue {
+                enabled: !devState
                 model: [5, 6, 7, 8]
                 currentIndex: 3
             }
@@ -58,6 +61,7 @@ GroupBox {
                 text: qsTr("停止位")
             }
             settingValue {
+                enabled: !devState
                 model: [1, 1.5, 2]
             }
         }
@@ -68,6 +72,7 @@ GroupBox {
                 text: qsTr("校验位")
             }
             settingValue {
+                enabled: !devState
                 model: ["None", "Odd", "Even", "Mark", "Space"]
             }
         }
@@ -78,6 +83,7 @@ GroupBox {
                 text: qsTr("流控制")
             }
             settingValue {
+                enabled: !devState
                 model: ["None", "Hardware", "Software"]
             }
         }
@@ -89,6 +95,7 @@ GroupBox {
                 implicitWidth: 100
                 radius: 2
                 text: qsTr("刷新")
+                enabled: !devState
                 onClicked: {
                     refreshDev();
                     console.log("refreshDev clicked")

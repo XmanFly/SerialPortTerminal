@@ -20,12 +20,14 @@ private:
 signals:
     void sig_state(bool isOpen); //状态返回
     void sig_message(QString msg);//消息
+    void sig_receive(QByteArray data);
 
 public slots:
     void slot_init();
     void slot_open(SerialPortParaNonQobj para);
     void slot_close();
     void slot_send(QByteArray data);
+    void slot_receive(); //接收数据
 
 };
 

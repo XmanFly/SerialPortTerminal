@@ -35,8 +35,8 @@ void SerialPortControl::slot_open(SerialPortParaNonQobj para)
 //           mSerialPort->setReadBufferSize(SerialPortOneFrameSize);
 //           mSerialPort->setDataTerminalReady(true);
            /* 连接串口接收数据槽 */
-//           connect(mSerialPort, SIGNAL(readyRead()),
-//                   this, SLOT(on_receiveData()));
+           connect(mSerialPort, &QSerialPort::readyRead,
+                   this, &SerialPortControl::slot_receive);
            isOpen = true;
        } else {
            mSerialPort = nullptr; //串口打开失败
@@ -65,5 +65,14 @@ void SerialPortControl::slot_send(QByteArray data)
     if(mSerialPort != nullptr){
         mSerialPort->write(data);
     }
+}
+
+//接收数据
+void SerialPortControl::slot_receive()
+{
+    QByteArray readBuf;
+    readBuf = mSerialPort->readAll();
+    emit sig_receive(readBuf);
+    qDebug() << "SerialPortControl::slot_receive " << readBuf.toHex();
 }
 

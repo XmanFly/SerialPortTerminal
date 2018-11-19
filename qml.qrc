@@ -9,5 +9,6 @@
         <file>src/qml/SettingItem.qml</file>
         <file>src/qml/HomeForm.ui.qml</file>
         <file>src/qml/SendAera.qml</file>
+        <file>src/qml/ReceiveAera.qml</file>
     </qresource>
 </RCC>
