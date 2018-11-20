@@ -10,8 +10,7 @@ HomeForm {
     ctrlPanel {
         //刷新设备
         onRefreshDev: {
-            var devList = mInterface.refreshDev()
-            ctrlPanel.setPortName(devList)
+            refreshDev()
         }      
         //打开设备
         onSwitchDev: {
@@ -38,6 +37,12 @@ HomeForm {
         receiveAera.setModel(mInf.getDataModel())
     }
 
+    //刷新设备名
+    function refreshDev(){
+        var devList = mInterface.refreshDev()
+        ctrlPanel.setPortName(devList)
+    }
+
     Binding {
         target: ctrlPanel
         property: "devState"
@@ -55,5 +60,9 @@ HomeForm {
         onSig_resetDataList : {
             receiveAera.setModel(mInterface.getDataModel())
         }
+    }
+
+    Component.onCompleted: {
+        refreshDev()
     }
 }
