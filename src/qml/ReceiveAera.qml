@@ -26,17 +26,17 @@ GroupBox {
             id: dataFlick
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height * 8 / 10
-            flickableDirection:Flickable.HorizontalAndVerticalFlick
             clip: true
+            boundsBehavior: Flickable.StopAtBounds
+            contentWidth: parent.width * 20 //横向显示内容最大长度
+            contentHeight: parent.height
 
             ListView {
                 id: dataListView
-                orientation: ListView.Horizontal | ListView.Vertical
+                interactive: true
                 anchors {
                     fill: parent
                 }
-
-    //            model: DataObject
 
                 delegate:
                     RowLayout {
@@ -52,7 +52,7 @@ GroupBox {
                     TextEdit {
                         text: "  "
                     }
-                    TextEdit {
+                    TextInput {
                         text: model.modelData.data
                         width: parent.width
                         font {
@@ -61,23 +61,15 @@ GroupBox {
     //                onClicked: console.log("clicked:", modelData)
                     }
                 }
-
-                ScrollBar.vertical: ScrollBar {
-                    width: 20
-                }
-                ScrollBar.horizontal: ScrollBar {
-                    width: 20
-                }
             }
 
-            //            ScrollBar.horizontal: ScrollBar {
-//                parent: dataFlick.parent
-////                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-////                anchors.top: dataFlick.top
-//                anchors.left: dataFlick.left
-//                anchors.right: dataFlick.right
-//                anchors.bottom: dataFlick.bottom
-//            }
+            ScrollBar.vertical: ScrollBar {
+                width: 20
+            }
+            ScrollBar.horizontal: ScrollBar {
+                height: 20
+                minimumSize: 0.3
+            }
         }
 
         RowLayout {
