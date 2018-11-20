@@ -8,6 +8,7 @@ Page {
 
     property alias ctrlPanel: ctrlPanel
     property alias sendAera: sendAera
+    property alias receiveAera: receiveAera
 
     //控制面板
     ControlPanel {
@@ -25,20 +26,21 @@ Page {
         anchors {
             top: parent.top
             bottom: parent.bottom
+            bottomMargin: 20
             left: ctrlPanel.right
             leftMargin: 20
             right: parent.right
             rightMargin: 20
         }
+        ReceiveAera {
+            id: receiveAera
+            Layout.preferredWidth: parent.width
+            Layout.preferredHeight: parent.height * 3 / 5
+        }
         SendAera {
             id: sendAera
             Layout.preferredWidth: parent.width
-            Layout.preferredHeight: parent.height / 2
-        }
-        SendAera {
-            id: sendAera2
-            Layout.preferredWidth: parent.width
-            Layout.preferredHeight: parent.height / 2
+            Layout.preferredHeight: parent.height * 2 / 5
         }
     }
 }

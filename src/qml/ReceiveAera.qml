@@ -2,6 +2,8 @@ import QtQuick 2.9
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 import SerialPortTerminal.SerialPortPara 1.0
+import SerialPortTerminal.DataObject 1.0
+import SerialPortTerminal.TableModel 1.0
 
 /* 接收区域 */
 GroupBox {
@@ -21,22 +23,37 @@ GroupBox {
         spacing: 10
 
         ListView {
+            id: dataListView
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height * 8 / 10
 
-            model: Qt.fontFamilies()
+//            model: DataObject
 
-            delegate: ItemDelegate {
-                text: modelData
-                width: parent.width
-                onClicked: console.log("clicked:", modelData)
-            }
+            delegate:
+                RowLayout {
+                    TextEdit {
+                        text: model.modelData.time
+                        font {
+                            pointSize: 12
+                        }
+                        width: parent.width
+                        color: "blue"
+    //                onClicked: console.log("clicked:", modelData)
+                    }
+                    TextEdit {
+                        text: "  "
+                    }
+                    TextEdit {
+                        text: model.modelData.data
+                        width: parent.width
+                        font {
+                            pointSize: 12
+                        }
+    //                onClicked: console.log("clicked:", modelData)
+                    }
+                }
 
             ScrollIndicator.vertical: ScrollIndicator {
-//                Layout.width: 10
-//                Layout.preferredWidth: 10
-//                implicitWidth: 10
-//                width: 6
             }
         }
 
@@ -49,9 +66,14 @@ GroupBox {
                 radius: 2
                 text: qsTr("清空")
                 onClicked: {
-                    sendBuffer.clear()
+                    mInterface.clearDataModel()
                 }
             }
         }
+    }
+
+    function setModel(mModel){
+        dataListView.model = mModel
+        dataListView.positionViewAtEnd()
     }
 }

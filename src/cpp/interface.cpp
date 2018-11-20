@@ -19,7 +19,21 @@ Interface::Interface(QObject *parent) :
             this, &Interface::sig_message);
     connect(mSerialPortControl, &SerialPortControl::sig_state,
             this, &Interface::slot_serialState);
+    connect(mSerialPortControl, &SerialPortControl::sig_receive,
+            this, &Interface::slot_serialReceive);
     mSerialPortThread->start();
+
+    dataList.append(new DataObject("Item 3", "blue"));
+    dataList.append(new DataObject("Item 4", "yellow"));
+
+#if 0
+    table = new TableModel(this);
+    table->insertRows(0, 1, QModelIndex());
+    QModelIndex index = table->index(0, 0, QModelIndex());
+    table->setData(index, "kao", Qt::EditRole);
+    index = table->index(0, 1, QModelIndex());
+    table->setData(index, "nani", Qt::EditRole);
+#endif
 }
 
 //刷新串口设备
@@ -63,6 +77,16 @@ void Interface::slot_serialState(bool isOpen)
     qDebug() << "Interface::slot_serialState " << isOpen;
 }
 
+//收到串口数据
+void Interface::slot_serialReceive(QByteArray data)
+{
+    QString curTime = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
+    QString dataStr = QString(data.toHex());
+    dataList.append(new DataObject(curTime, dataStr));
+    emit sig_resetDataList();
+    qDebug() << "Interface::slot_serialReceive " << dataStr;
+}
+
 //发送数据
 void Interface::sendData(QString data)
 {
@@ -78,3 +102,17 @@ bool Interface::getSerialPortState()
     qDebug() << "getSerialPortState " << serialState;
     return  serialState;
 }
+
+//获取数据Model
+QVariant Interface::getDataModel()
+{
+    return QVariant::fromValue(dataList);
+}
+
+//清空数据Model
+void Interface::clearDataModel()
+{
+    dataList.clear();
+    emit sig_resetDataList();
+}
+

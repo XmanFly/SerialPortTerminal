@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include "interface.h"
 #include "serialportpara.h"
+#include "dataobject.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +13,9 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<Interface>("SerialPortTerminal.Interface", 1, 0, "Interface");
     qmlRegisterType<SerialPortPara>("SerialPortTerminal.SerialPortPara", 1, 0, "SerialPortPara");
+    qmlRegisterType<DataObject>("SerialPortTerminal.DataObject", 1, 0, "DataObject");
+    qmlRegisterType<TableModel>("SerialPortTerminal.TableModel", 1, 0, "TableModel");
+
 //    QQmlContext *context = engine.rootContext();
 //    Interface *mInterface = new Interface();
 //    context->setContextProperty("Interface",mInterface);

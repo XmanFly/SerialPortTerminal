@@ -35,6 +35,7 @@ HomeForm {
 
     function setInterface(mInf){
         mInterface = mInf
+        receiveAera.setModel(mInf.getDataModel())
     }
 
     Binding {
@@ -47,5 +48,12 @@ HomeForm {
         target: sendAera
         property: "sendEnable"
         value: mInterface.serialState
+    }
+
+    Connections {
+        target: mInterface
+        onSig_resetDataList : {
+            receiveAera.setModel(mInterface.getDataModel())
+        }
     }
 }

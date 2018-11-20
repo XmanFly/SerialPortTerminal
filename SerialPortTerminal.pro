@@ -17,7 +17,10 @@ SOURCES += \
     src/cpp/serialportcontrol.cpp \
     src/cpp/interface.cpp \
     src/cpp/serialportpara.cpp \
-    src/cpp/serialportparanonqobj.cpp
+    src/cpp/serialportparanonqobj.cpp \
+    src/cpp/dataobject.cpp \
+    src/cpp/serialdatamodel.cpp \
+    src/cpp/tablemodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,4 +39,7 @@ HEADERS += \
     src/cpp/serialportcontrol.h \
     src/cpp/interface.h \
     src/cpp/serialportpara.h \
-    src/cpp/serialportparanonqobj.h
+    src/cpp/serialportparanonqobj.h \
+    src/cpp/dataobject.h \
+    src/cpp/serialdatamodel.h \
+    src/cpp/tablemodel.h
