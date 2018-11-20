@@ -47,6 +47,7 @@ GroupBox {
                             }
                             width: parent.width
                             color: "blue"
+                            selectByMouse: true
     //                onClicked: console.log("clicked:", modelData)
                     }
                     TextEdit {
@@ -58,6 +59,7 @@ GroupBox {
                         font {
                             pointSize: 12
                         }
+                        selectByMouse: true
     //                onClicked: console.log("clicked:", modelData)
                     }
                 }
