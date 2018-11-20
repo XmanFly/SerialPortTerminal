@@ -42,15 +42,29 @@ GroupBox {
 
         RowLayout {
             Layout.preferredWidth: parent.width
-            //清空按钮
-            RoundButton {
-                id: clearRbtn
-                implicitWidth: 100
-                radius: 2
-                text: qsTr("清空")
-                onClicked: {
-                    sendBuffer.clear()
+            RowLayout {
+                //清空按钮
+                RoundButton {
+                    id: clearRbtn
+                    implicitWidth: 100
+                    radius: 2
+                    text: qsTr("清空")
+                    onClicked: {
+                        sendBuffer.clear()
+                    }
                 }
+                ToolSeparator {}
+                //定时发送
+                TextArea {
+                    id: sendPeriod
+                    width: 100
+                    placeholderText: qsTr("输入间隔(ms)")
+                }
+                Switch {
+                    id: periodSendSw
+                    text: qsTr("定时发送")
+                }
+                ToolSeparator {}
             }
             //发送按钮
             RoundButton {
