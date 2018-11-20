@@ -53,7 +53,11 @@ GroupBox {
                     }
                 }
 
-            ScrollIndicator.vertical: ScrollIndicator {
+            ScrollBar.vertical: ScrollBar {
+                width: 20
+            }
+            ScrollBar.horizontal: ScrollBar {
+                width: 20
             }
         }
 
