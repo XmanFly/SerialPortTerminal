@@ -77,7 +77,7 @@ void Interface::slot_serialState(bool isOpen)
 //收到串口数据
 void Interface::slot_serialReceive(QByteArray data)
 {
-    QString curTime = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
+    QString curTime = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss.zzz");
     QString dataStr = QString(data.toHex());
     dataList.append(new DataObject(curTime, dataStr));
     emit sig_resetDataList();
