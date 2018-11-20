@@ -31,6 +31,7 @@ GroupBox {
                 font {
                     pointSize: 12
                 }
+                selectByMouse: true
                 background :
                     Rectangle {
                         anchors.fill: parent
