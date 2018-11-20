@@ -17,13 +17,15 @@ ApplicationWindow {
 
     SwipeView {
         id: swipeView
-        anchors.fill: parent
+        anchors {
+            fill: parent
+            topMargin: 20
+        }
         currentIndex: tabBar.currentIndex
         interactive: false
 
         Home {
             id: home
-
         }
 //        Page1Form{
 //        }
@@ -32,15 +34,24 @@ ApplicationWindow {
         }
     }
 
-    footer: TabBar {
+    header: TabBar {
         id: tabBar
+        implicitHeight: 40
         currentIndex: swipeView.currentIndex
 
         TabButton {
-            text: qsTr("Page 1")
+            implicitHeight: parent.height
+            text: qsTr("主页")
+            background: Rectangle{
+                color: tabBar.currentIndex === 0 ? "lightblue" : "gray"
+            }
         }
         TabButton {
-            text: qsTr("Page 2")
+            implicitHeight: parent.height
+            text: qsTr("其他")
+            background: Rectangle{
+                color: tabBar.currentIndex === 1 ? "lightblue" : "gray"
+            }
         }
     }
 
