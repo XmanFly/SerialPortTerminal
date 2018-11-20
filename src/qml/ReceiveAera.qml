@@ -22,22 +22,31 @@ GroupBox {
         }
         spacing: 10
 
-        ListView {
-            id: dataListView
+        Flickable {
+            id: dataFlick
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height * 8 / 10
+            flickableDirection:Flickable.HorizontalAndVerticalFlick
+            clip: true
 
-//            model: DataObject
+            ListView {
+                id: dataListView
+                orientation: ListView.Horizontal | ListView.Vertical
+                anchors {
+                    fill: parent
+                }
 
-            delegate:
-                RowLayout {
-                    TextEdit {
-                        text: model.modelData.time
-                        font {
-                            pointSize: 12
-                        }
-                        width: parent.width
-                        color: "blue"
+    //            model: DataObject
+
+                delegate:
+                    RowLayout {
+                        TextEdit {
+                            text: model.modelData.time
+                            font {
+                                pointSize: 12
+                            }
+                            width: parent.width
+                            color: "blue"
     //                onClicked: console.log("clicked:", modelData)
                     }
                     TextEdit {
@@ -53,12 +62,22 @@ GroupBox {
                     }
                 }
 
-            ScrollBar.vertical: ScrollBar {
-                width: 20
+                ScrollBar.vertical: ScrollBar {
+                    width: 20
+                }
+                ScrollBar.horizontal: ScrollBar {
+                    width: 20
+                }
             }
-            ScrollBar.horizontal: ScrollBar {
-                width: 20
-            }
+
+            //            ScrollBar.horizontal: ScrollBar {
+//                parent: dataFlick.parent
+////                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
+////                anchors.top: dataFlick.top
+//                anchors.left: dataFlick.left
+//                anchors.right: dataFlick.right
+//                anchors.bottom: dataFlick.bottom
+//            }
         }
 
         RowLayout {

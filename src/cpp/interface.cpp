@@ -23,9 +23,6 @@ Interface::Interface(QObject *parent) :
             this, &Interface::slot_serialReceive);
     mSerialPortThread->start();
 
-    dataList.append(new DataObject("Item 3", "blue"));
-    dataList.append(new DataObject("Item 4", "yellow"));
-
 #if 0
     table = new TableModel(this);
     table->insertRows(0, 1, QModelIndex());
