@@ -10,5 +10,7 @@
         <file>src/qml/HomeForm.ui.qml</file>
         <file>src/qml/SendAera.qml</file>
         <file>src/qml/ReceiveAera.qml</file>
+        <file>src/qml/DataInforPanel.qml</file>
+        <file>src/qml/CntItem.qml</file>
     </qresource>
 </RCC>
