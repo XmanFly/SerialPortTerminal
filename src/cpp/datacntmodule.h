@@ -2,7 +2,7 @@
 #define DATACNTMODULE_H
 
 #include <QObject>
-#include "datacnt.h"
+#include "datacntmodel.h"
 
 /* 收发数据个数模块 */
 class DataCntModule : public QObject
@@ -12,8 +12,8 @@ public:
     explicit DataCntModule(QObject *parent = nullptr);
 
     QList<QObject*>* getModel();
-    DataCnt* getRcvCnt();
-    DataCnt* getSendCnt();
+    DataCntModel* getRcvCnt();
+    DataCntModel* getSendCnt();
     void clear(qint32 id);
 
 signals:
@@ -21,8 +21,8 @@ signals:
 public slots:
 
 private:
-    DataCnt *mRcvCnt; //接收数据个数
-    DataCnt *mSendCnt; //发送数据个数
+    DataCntModel *mRcvCnt; //接收数据个数
+    DataCntModel *mSendCnt; //发送数据个数
     QList<QObject*> dataCnt; //数据个数
 };
 

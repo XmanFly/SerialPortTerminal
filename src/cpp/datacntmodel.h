@@ -1,10 +1,10 @@
-#ifndef DATACNT_H
-#define DATACNT_H
+#ifndef DATACNTMODEL_H
+#define DATACNTMODEL_H
 
 #include <QObject>
 
 /* 收发数据信息 */
-class DataCnt : public QObject
+class DataCntModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(qint32 cnt READ getCnt WRITE setCnt NOTIFY sig_cntChanged)
@@ -12,8 +12,8 @@ class DataCnt : public QObject
     Q_PROPERTY(qint32 id READ getId)
 
 public:
-    DataCnt(qint32 m_id, const QString &m_name, const int m_cnt, QObject *parent = nullptr);
-    DataCnt(QObject *parent = nullptr);
+    DataCntModel(qint32 m_id, const QString &m_name, const int m_cnt, QObject *parent = nullptr);
+    DataCntModel(QObject *parent = nullptr);
 
     qint32	getId();
     qint32	getCnt();
@@ -33,4 +33,4 @@ public slots:
     void slot_add(qint32 cnt);
 };
 
-#endif // DATACNT_H
+#endif // DATACNTMODEL_H

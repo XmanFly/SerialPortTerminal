@@ -2,8 +2,8 @@
 
 DataCntModule::DataCntModule(QObject *parent) : QObject(parent)
 {
-    mRcvCnt = new DataCnt(0, "接收", 0); //接收数据个数
-    mSendCnt = new DataCnt(1, "发送", 0); //发送数据个数
+    mRcvCnt = new DataCntModel(0, "接收", 0); //接收数据个数
+    mSendCnt = new DataCntModel(1, "发送", 0); //发送数据个数
 
     dataCnt.append(mRcvCnt);
     dataCnt.append(mSendCnt);
@@ -14,12 +14,12 @@ QList<QObject*>* DataCntModule::getModel()
     return &dataCnt;
 }
 
-DataCnt* DataCntModule::getRcvCnt()
+DataCntModel* DataCntModule::getRcvCnt()
 {
     return mRcvCnt;
 }
 
-DataCnt* DataCntModule::getSendCnt()
+DataCntModel* DataCntModule::getSendCnt()
 {
     return mSendCnt;
 }
@@ -27,7 +27,7 @@ DataCnt* DataCntModule::getSendCnt()
 void DataCntModule::clear(qint32 id)
 {
     foreach(QObject* each , dataCnt){
-        DataCnt* cntPtr = static_cast<DataCnt*>(each);
+        DataCntModel* cntPtr = static_cast<DataCntModel*>(each);
         if(cntPtr->getId() == id){
             cntPtr->setCnt(0);
         }

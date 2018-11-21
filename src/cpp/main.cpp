@@ -4,7 +4,7 @@
 #include "interface.h"
 #include "serialportpara.h"
 #include "dataobject.h"
-#include "datacnt.h"
+#include "datacntmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SerialPortPara>("SerialPortTerminal.SerialPortPara", 1, 0, "SerialPortPara");
     qmlRegisterType<DataObject>("SerialPortTerminal.DataObject", 1, 0, "DataObject");
     qmlRegisterType<TableModel>("SerialPortTerminal.TableModel", 1, 0, "TableModel");
-    qmlRegisterType<DataCnt>("SerialPortTerminal.DataCnt", 1, 0, "DataCnt");
+    qmlRegisterType<DataCntModel>("SerialPortTerminal.DataCntModel", 1, 0, "DataCntModel");
 
 //    QQmlContext *context = engine.rootContext();
 //    Interface *mInterface = new Interface();

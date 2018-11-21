@@ -57,9 +57,9 @@ void Interface::dataCntInit()
 {
     mDataCntModule = new DataCntModule();
     connect(mSerialPortControl, &SerialPortControl::sig_sendCnt,
-            mDataCntModule->getSendCnt(), &DataCnt::slot_add);
+            mDataCntModule->getSendCnt(), &DataCntModel::slot_add);
     connect(mSerialPortControl, &SerialPortControl::sig_receiveCnt,
-            mDataCntModule->getRcvCnt(), &DataCnt::slot_add);
+            mDataCntModule->getRcvCnt(), &DataCntModel::slot_add);
 }
 
 
