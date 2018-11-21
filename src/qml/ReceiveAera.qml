@@ -17,19 +17,26 @@ GroupBox {
     signal sendData(string data) //发送数据
 
     ColumnLayout {
+
         anchors {
             fill: parent
         }
         spacing: 10
 
         Flickable {
+            property int listViewRealHeight : parent.height //listview实时高度
+            property int listViewRealWidth : parent.width //listview实时宽度
+
             id: dataFlick
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height * 8 / 10
             clip: true
             boundsBehavior: Flickable.StopAtBounds
-            contentWidth: parent.width * 20 //横向显示内容最大长度
-            contentHeight: parent.height
+            contentWidth: listViewRealWidth
+            contentHeight: {
+                return listViewRealHeight
+            }
+            contentY : contentHeight-height //定位至最后一行
 
             ListView {
                 id: dataListView
@@ -63,10 +70,29 @@ GroupBox {
     //                onClicked: console.log("clicked:", modelData)
                     }
                 }
+                onCurrentItemChanged: {
+                }
+
+
+                onCountChanged: {
+
+                    var curHeight = 0
+                    var curWidth = 0
+                    for(var child in dataListView.contentItem.children) {
+                        curHeight += dataListView.contentItem.children[child].height
+                        if(dataListView.contentItem.children[child].width > curWidth){
+                            curWidth = dataListView.contentItem.children[child].width
+                        }
+                    }
+                    dataFlick.listViewRealHeight = curHeight
+                    dataFlick.listViewRealWidth = curWidth
+                }
             }
 
             ScrollBar.vertical: ScrollBar {
+                id: listVerticalScrBar
                 width: 20
+                minimumSize: 0.3
             }
             ScrollBar.horizontal: ScrollBar {
                 height: 20
@@ -84,6 +110,7 @@ GroupBox {
                 text: qsTr("清空")
                 onClicked: {
                     mInterface.clearDataModel()
+                    dataFlick.listViewRealHeight = 0
                 }
             }
         }
@@ -91,6 +118,5 @@ GroupBox {
 
     function setModel(mModel){
         dataListView.model = mModel
-        dataListView.positionViewAtEnd()
     }
 }
