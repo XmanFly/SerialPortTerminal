@@ -58,16 +58,8 @@ void Interface::dataCntInit()
     mDataCntModule = new DataCntModule();
     connect(mSerialPortControl, &SerialPortControl::sig_sendCnt,
             mDataCntModule->getSendCnt(), &DataCnt::slot_add);
-
-
-//    mRcvCnt = new DataCnt(0, "接收", 0); //接收数据个数
-//    mSendCnt = new DataCnt(1, "发送", 0); //发送数据个数
-
-//    connect(mSerialPortControl, &SerialPortControl::sig_sendCnt,
-//            mSendCnt, &DataCnt::slot_add);
-
-//    dataCnt.append(mRcvCnt);
-//    dataCnt.append(mSendCnt);
+    connect(mSerialPortControl, &SerialPortControl::sig_receiveCnt,
+            mDataCntModule->getRcvCnt(), &DataCnt::slot_add);
 }
 
 

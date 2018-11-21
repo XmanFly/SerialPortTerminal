@@ -74,6 +74,7 @@ void SerialPortControl::slot_receive()
     QByteArray readBuf;
     readBuf = mSerialPort->readAll();
     emit sig_receive(readBuf);
+    emit sig_receiveCnt(readBuf.size());
     qDebug() << "SerialPortControl::slot_receive " << readBuf.toHex();
 }
 

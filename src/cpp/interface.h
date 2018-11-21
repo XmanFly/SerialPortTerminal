@@ -49,9 +49,6 @@ private:
     bool serialState; //串口当前状态
     QList<QObject*> dataList; //数据记录
     TableModel *table; //数据model
-//    DataCnt *mRcvCnt; //接收数据个数
-//    DataCnt *mSendCnt; //发送数据个数
-//    QList<QObject*> dataCnt; //数据个数
     DataCntModule *mDataCntModule; //数据个数模块
 
     void periodSendInit(); //定时发送模块初始化
