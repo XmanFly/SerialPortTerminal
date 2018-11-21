@@ -24,6 +24,13 @@ HomeForm {
         }
     }
 
+    //数据个数统计区
+    dataInforPanel {
+        onClearCnt: {
+            mInterface.clearCnt(id)
+        }
+    }
+
     //发送区域
     sendAera {
         //发送数据
@@ -39,6 +46,7 @@ HomeForm {
     function setInterface(mInf){
         mInterface = mInf
         receiveAera.setModel(mInf.getDataModel())
+        dataInforPanel.setDataModel(mInf.getDataCntModel())
     }
 
     //刷新设备名

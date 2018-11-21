@@ -63,7 +63,8 @@ void SerialPortControl::slot_close()
 void SerialPortControl::slot_send(QByteArray data)
 {
     if(mSerialPort != nullptr){
-        mSerialPort->write(data);
+        qint64 cnt = mSerialPort->write(data);
+        emit sig_sendCnt(static_cast<qint32>(cnt));
     }
 }
 

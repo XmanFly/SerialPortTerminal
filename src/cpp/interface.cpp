@@ -24,6 +24,7 @@ Interface::Interface(QObject *parent) :
     mSerialPortThread->start();
 
     periodSendInit(); //定时发送模块初始化
+    dataCntInit(); //收发数据个数初始化
 
 #if 0
     table = new TableModel(this);
@@ -50,6 +51,25 @@ void Interface::periodSendInit()
         mSerialPortControl, &SerialPortControl::slot_send);
     mPeriodSendThread->start();
 }
+
+//收发数据个数初始化
+void Interface::dataCntInit()
+{
+    mDataCntModule = new DataCntModule();
+    connect(mSerialPortControl, &SerialPortControl::sig_sendCnt,
+            mDataCntModule->getRcvCnt(), &DataCnt::slot_add);
+
+
+//    mRcvCnt = new DataCnt(0, "接收", 0); //接收数据个数
+//    mSendCnt = new DataCnt(1, "发送", 0); //发送数据个数
+
+//    connect(mSerialPortControl, &SerialPortControl::sig_sendCnt,
+//            mSendCnt, &DataCnt::slot_add);
+
+//    dataCnt.append(mRcvCnt);
+//    dataCnt.append(mSendCnt);
+}
+
 
 //刷新串口设备
 QList<QString> Interface::refreshDev()
@@ -122,6 +142,18 @@ bool Interface::getSerialPortState()
 QVariant Interface::getDataModel()
 {
     return QVariant::fromValue(dataList);
+}
+
+//获取收发数据个数
+QVariant Interface::getDataCntModel()
+{
+    return QVariant::fromValue(*mDataCntModule->getModel());
+}
+
+//清零收发计数
+void Interface::clearCnt(int id)
+{
+    mDataCntModule->clear(id);
 }
 
 //清空数据Model

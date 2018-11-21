@@ -13,6 +13,7 @@
 #include "dataobject.h"
 #include "tablemodel.h"
 #include "periodsend.h"
+#include "datacntmodule.h"
 
 /* UI与设备接口层 */
 class Interface : public QObject
@@ -32,7 +33,8 @@ public:
     Q_INVOKABLE QVariant getDataModel(); //获取数据Model
     Q_INVOKABLE void clearDataModel(); //清空数据Model
     Q_INVOKABLE void periodSendStart(qint32 period, QString data, bool isStart); //开启周期发送
-
+    Q_INVOKABLE QVariant getDataCntModel(); //获取收发数据个数
+    Q_INVOKABLE void clearCnt(int id); //清零收发计数
 
     bool getSerialPortState(); //获取串口状态
 
@@ -47,8 +49,13 @@ private:
     bool serialState; //串口当前状态
     QList<QObject*> dataList; //数据记录
     TableModel *table; //数据model
+//    DataCnt *mRcvCnt; //接收数据个数
+//    DataCnt *mSendCnt; //发送数据个数
+//    QList<QObject*> dataCnt; //数据个数
+    DataCntModule *mDataCntModule; //数据个数模块
 
     void periodSendInit(); //定时发送模块初始化
+    void dataCntInit(); //收发数据个数初始化
 
 //控制串口设备
 signals:

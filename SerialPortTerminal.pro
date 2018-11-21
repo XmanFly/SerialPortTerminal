@@ -21,7 +21,9 @@ SOURCES += \
     src/cpp/dataobject.cpp \
     src/cpp/serialdatamodel.cpp \
     src/cpp/tablemodel.cpp \
-    src/cpp/periodsend.cpp
+    src/cpp/periodsend.cpp \
+    src/cpp/datacnt.cpp \
+    src/cpp/datacntmodule.cpp
 
 RESOURCES += qml.qrc
 
@@ -44,4 +46,6 @@ HEADERS += \
     src/cpp/dataobject.h \
     src/cpp/serialdatamodel.h \
     src/cpp/tablemodel.h \
-    src/cpp/periodsend.h
+    src/cpp/periodsend.h \
+    src/cpp/datacnt.h \
+    src/cpp/datacntmodule.h
