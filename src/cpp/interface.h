@@ -12,6 +12,7 @@
 #include "serialportparanonqobj.h"
 #include "dataobject.h"
 #include "tablemodel.h"
+#include "periodsend.h"
 
 /* UI与设备接口层 */
 class Interface : public QObject
@@ -30,6 +31,8 @@ public:
     Q_INVOKABLE void sendData(QString data); //发送数据
     Q_INVOKABLE QVariant getDataModel(); //获取数据Model
     Q_INVOKABLE void clearDataModel(); //清空数据Model
+    Q_INVOKABLE void periodSendStart(qint32 period, QString data, bool isStart); //开启周期发送
+
 
     bool getSerialPortState(); //获取串口状态
 
@@ -39,15 +42,24 @@ private:
     SerialPortParaNonQobj *mSerialPortParaNoQobj; //串口参数 非QObject
     SerialPortControl *mSerialPortControl; //串口控制类
     QThread	*mSerialPortThread; //串口线程
+    PeriodSend *mPeriodSend; //定时发送类
+    QThread	*mPeriodSendThread; //定时发送线程
     bool serialState; //串口当前状态
     QList<QObject*> dataList; //数据记录
     TableModel *table; //数据model
+
+    void periodSendInit(); //定时发送模块初始化
 
 //控制串口设备
 signals:
     void sig_openSerialPort(SerialPortParaNonQobj para); //打开串口
     void sig_closeSerialPort(); //关闭串口
     void sig_sendData(QByteArray data); //发送数据
+
+//定时发送模块
+signals:
+    void sig_periodSendStart(qint32 period, QByteArray data); //开启定时发送
+    void sig_periodSendStop(); //关闭定时发送
 
 //UI交互
 signals:

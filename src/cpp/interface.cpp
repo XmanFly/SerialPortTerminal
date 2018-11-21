@@ -23,6 +23,8 @@ Interface::Interface(QObject *parent) :
             this, &Interface::slot_serialReceive);
     mSerialPortThread->start();
 
+    periodSendInit(); //定时发送模块初始化
+
 #if 0
     table = new TableModel(this);
     table->insertRows(0, 1, QModelIndex());
@@ -31,6 +33,22 @@ Interface::Interface(QObject *parent) :
     index = table->index(0, 1, QModelIndex());
     table->setData(index, "nani", Qt::EditRole);
 #endif
+}
+
+//定时发送模块初始化
+void Interface::periodSendInit()
+{
+    mPeriodSend = new PeriodSend();
+    mPeriodSendThread = new QThread();
+    connect(mPeriodSendThread, &QThread::started,
+        mPeriodSend, &PeriodSend::slot_init);
+    connect(this, &Interface::sig_periodSendStart,
+        mPeriodSend, &PeriodSend::slot_start);
+    connect(this, &Interface::sig_periodSendStop,
+        mPeriodSend, &PeriodSend::slot_stop);
+    connect(mPeriodSend, &PeriodSend::sig_send,
+        mSerialPortControl, &SerialPortControl::slot_send);
+    mPeriodSendThread->start();
 }
 
 //刷新串口设备
@@ -113,3 +131,12 @@ void Interface::clearDataModel()
     emit sig_resetDataList();
 }
 
+//开启周期发送
+void Interface::periodSendStart(qint32 period, QString data, bool isStart)
+{
+    if(isStart) {
+        emit sig_periodSendStart(period, QByteArray::fromHex(data.toLatin1()));
+    } else {
+        emit sig_periodSendStop();
+    }
+}

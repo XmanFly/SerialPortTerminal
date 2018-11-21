@@ -30,6 +30,10 @@ HomeForm {
         onSendData: {
             mInterface.sendData(data)
         }
+        //定时发送
+        onPeriodSend: {
+            mInterface.periodSendStart(period, data, isEnable)
+        }
     }
 
     function setInterface(mInf){

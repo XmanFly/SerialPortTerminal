@@ -20,7 +20,8 @@ SOURCES += \
     src/cpp/serialportparanonqobj.cpp \
     src/cpp/dataobject.cpp \
     src/cpp/serialdatamodel.cpp \
-    src/cpp/tablemodel.cpp
+    src/cpp/tablemodel.cpp \
+    src/cpp/periodsend.cpp
 
 RESOURCES += qml.qrc
 
@@ -42,4 +43,5 @@ HEADERS += \
     src/cpp/serialportparanonqobj.h \
     src/cpp/dataobject.h \
     src/cpp/serialdatamodel.h \
-    src/cpp/tablemodel.h
+    src/cpp/tablemodel.h \
+    src/cpp/periodsend.h
