@@ -32,7 +32,7 @@ void SerialPortControl::slot_open(SerialPortParaNonQobj para)
        /* 打开串口 */
        if(mSerialPort->open(QIODevice::ReadWrite)){
            /* 设置串口缓冲区大小，这里必须设置为这么大 */
-//           mSerialPort->setReadBufferSize(SerialPortOneFrameSize);
+           mSerialPort->setReadBufferSize(1024000);
 //           mSerialPort->setDataTerminalReady(true);
            /* 连接串口接收数据槽 */
            connect(mSerialPort, &QSerialPort::readyRead,

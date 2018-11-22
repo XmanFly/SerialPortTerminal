@@ -24,8 +24,10 @@ GroupBox {
         spacing: 10
 
         Flickable {
-            property int listViewRealHeight : parent.height //listview实时高度
-            property int listViewRealWidth : parent.width //listview实时宽度
+            property int initHeight: parent.height * 8 / 10
+            property int initWidth: parent.width
+            property int listViewRealHeight : initHeight  //listview实时高度
+            property int listViewRealWidth : initWidth //listview实时宽度
 
             id: dataFlick
             Layout.fillWidth: true
@@ -33,9 +35,7 @@ GroupBox {
             clip: true
             boundsBehavior: Flickable.StopAtBounds
             contentWidth: listViewRealWidth
-            contentHeight: {
-                return listViewRealHeight
-            }
+            contentHeight: listViewRealHeight
             contentY : contentHeight-height //定位至最后一行
 
             ListView {
@@ -44,6 +44,7 @@ GroupBox {
                 anchors {
                     fill: parent
                 }
+                cacheBuffer: 4000000
 
                 delegate:
                     RowLayout {
@@ -73,34 +74,71 @@ GroupBox {
                 onCurrentItemChanged: {
                 }
 
-
                 onCountChanged: {
+                    rcvAeraAjustTimer.restart() //开启调整显示区定时器
+                }
 
+                onContentYChanged: {
+                }
+
+                //调整显示区
+                function rcvAeraAjust(){
                     var curHeight = 0
                     var curWidth = 0
                     for(var child in dataListView.contentItem.children) {
-                        curHeight += dataListView.contentItem.children[child].height
                         if(dataListView.contentItem.children[child].width > curWidth){
                             curWidth = dataListView.contentItem.children[child].width
                         }
                     }
-                    dataFlick.listViewRealHeight = curHeight
-                    dataFlick.listViewRealWidth = curWidth
+                    if(curWidth > dataFlick.initWidth){
+                        dataFlick.listViewRealWidth = curWidth
+                    }
+                    console.log("rcvAeraAjust "
+                                + "length " + dataListView.contentItem.children.length + " "
+                                + dataFlick.listViewRealHeight + " "
+                                + dataFlick.initHeight + " "
+                                + dataFlick.listViewRealWidth + " "
+                                + dataFlick.initWidth + " "
+                                + curWidth + " "
+                                + dataFlick.width + " ")
+                }
+
+                ScrollBar.vertical: ScrollBar {
+                    id: listVerticalScrBar
+                    interactive: true
+                    width: 20
+                    minimumSize: 0.2
                 }
             }
 
-            ScrollBar.vertical: ScrollBar {
-                id: listVerticalScrBar
-                width: 20
-                minimumSize: 0.3
-            }
             ScrollBar.horizontal: ScrollBar {
                 height: 20
                 minimumSize: 0.3
             }
+
+
+            //调整显示区定时器
+            Timer {
+                id: rcvAeraAjustTimer;
+                interval: 500;
+                running: false;
+                repeat: false;
+                triggeredOnStart: false;
+                onTriggered:{
+                    dataListView.rcvAeraAjust()
+                    console.log("rcvAeraAjustTimer trigger ")
+                }
+            }
+
+            //定位至最后
+            function moveToEnd(){
+//                dataFlick.contentY = dataFlick.contentHeight-dataFlick.height //定位至最后一行
+                dataListView.positionViewAtEnd()
+            }
         }
 
         RowLayout {
+            id: controlLayout
             Layout.preferredWidth: parent.width
             //清空按钮
             RoundButton {
@@ -110,7 +148,10 @@ GroupBox {
                 text: qsTr("清空")
                 onClicked: {
                     mInterface.clearDataModel()
-                    dataFlick.listViewRealHeight = 0
+                    dataFlick.listViewRealHeight = dataFlick.initHeight
+                    dataFlick.listViewRealWidth = dataFlick.initWidth
+                     console.log("refresh "
+                                + "length " + dataListView.contentItem.children.length )
                 }
             }
         }
@@ -118,5 +159,6 @@ GroupBox {
 
     function setModel(mModel){
         dataListView.model = mModel
+        dataFlick.moveToEnd()
     }
 }
