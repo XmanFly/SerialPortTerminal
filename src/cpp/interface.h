@@ -14,6 +14,7 @@
 #include "tablemodel.h"
 #include "periodsend.h"
 #include "datacntmodule.h"
+#include "formatmodule.h"
 
 /* UI与设备接口层 */
 class Interface : public QObject
@@ -35,6 +36,7 @@ public:
     Q_INVOKABLE void periodSendStart(qint32 period, QString data, bool isStart); //开启周期发送
     Q_INVOKABLE QVariant getDataCntModel(); //获取收发数据个数
     Q_INVOKABLE void clearCnt(int id); //清零收发计数
+    Q_INVOKABLE QVariant getFormatModel(); //获取显示格式
 
     bool getSerialPortState(); //获取串口状态
 
@@ -50,9 +52,11 @@ private:
     QList<QObject*> dataList; //数据记录
     TableModel *table; //数据model
     DataCntModule *mDataCntModule; //数据个数模块
+    FormatModule *mFormatModule; //显示格式模块
 
     void periodSendInit(); //定时发送模块初始化
     void dataCntInit(); //收发数据个数初始化
+    void formatInit(); //显示格式模块初始化
 
 //控制串口设备
 signals:
@@ -74,6 +78,7 @@ signals:
 public slots:
     void slot_serialState(bool isOpen); //设置串口状态
     void slot_serialReceive(QByteArray data); //收到串口数据
+    void slot_formatChanged(FormatModel::DisplayFormat mFormat); //切换显示模式
 
 };
 

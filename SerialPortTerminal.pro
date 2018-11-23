@@ -23,7 +23,9 @@ SOURCES += \
     src/cpp/tablemodel.cpp \
     src/cpp/periodsend.cpp \
     src/cpp/datacntmodule.cpp \
-    src/cpp/datacntmodel.cpp
+    src/cpp/datacntmodel.cpp \
+    src/cpp/formatmodel.cpp \
+    src/cpp/formatmodule.cpp
 
 RESOURCES += qml.qrc
 
@@ -48,4 +50,6 @@ HEADERS += \
     src/cpp/tablemodel.h \
     src/cpp/periodsend.h \
     src/cpp/datacntmodule.h \
-    src/cpp/datacntmodel.h
+    src/cpp/datacntmodel.h \
+    src/cpp/formatmodel.h \
+    src/cpp/formatmodule.h

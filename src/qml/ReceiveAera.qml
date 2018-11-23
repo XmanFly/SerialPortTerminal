@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 import SerialPortTerminal.SerialPortPara 1.0
 import SerialPortTerminal.DataObject 1.0
 import SerialPortTerminal.TableModel 1.0
+import SerialPortTerminal.FormatModel 1.0
 
 /* 接收区域 */
 GroupBox {
@@ -73,11 +74,9 @@ GroupBox {
                 }
                 onCurrentItemChanged: {
                 }
-
                 onCountChanged: {
                     rcvAeraAjustTimer.restart() //开启调整显示区定时器
                 }
-
                 onContentYChanged: {
                 }
 
@@ -140,19 +139,64 @@ GroupBox {
         RowLayout {
             id: controlLayout
             Layout.preferredWidth: parent.width
-            //清空按钮
-            RoundButton {
-                id: clearRbtn
-                implicitWidth: 100
-                radius: 2
-                text: qsTr("清空")
-                onClicked: {
-                    mInterface.clearDataModel()
-                    dataFlick.listViewRealHeight = dataFlick.initHeight
-                    dataFlick.listViewRealWidth = dataFlick.initWidth
-                     console.log("refresh "
-                                + "length " + dataListView.contentItem.children.length )
+            Layout.preferredHeight: 40
+            RowLayout {
+                //清空按钮
+                RoundButton {
+                    id: clearRbtn
+                    implicitWidth: 100
+                    radius: 2
+                    text: qsTr("清空")
+                    onClicked: {
+                        mInterface.clearDataModel()
+                        dataFlick.listViewRealHeight = dataFlick.initHeight
+                        dataFlick.listViewRealWidth = dataFlick.initWidth
+                         console.log("refresh "
+                                    + "length " + dataListView.contentItem.children.length )
+                    }
                 }
+                ToolSeparator {}
+                Rectangle {
+                    id: formatRect
+                    property int realWidth : 220
+                    implicitWidth: realWidth
+                    implicitHeight: controlLayout.height
+//                    color: "red"
+                    ButtonGroup {
+                        id: buttonGroup
+                    }
+                    ListView {
+                        id: fomatListView
+                        anchors {
+                            fill: parent
+                        }
+                        orientation: ListView.Horizontal
+                        delegate: RadioDelegate {
+                            id: rd
+                            text: model.modelData.name
+                            checked: index == 0
+                            ButtonGroup.group: buttonGroup
+                            Binding {
+                                target: model.modelData
+                                property: "isSelected"
+                                value: rd.checked
+                            }
+                        }
+                        Component.onCompleted: {
+                            var curWidth = 0
+                            var child
+                            for(child in contentItem.children) {
+                                if(contentItem.children[child].text){
+                                    curWidth  += contentItem.children[child].width
+                                }
+                                console.log("formatrect name " + contentItem.children[child].text)
+                            }
+                            formatRect.realWidth = curWidth
+                            console.log("formatrect width " + contentItem.children.length)
+                        }
+                    }
+                }
+                ToolSeparator {}
             }
         }
     }
@@ -160,5 +204,10 @@ GroupBox {
     function setModel(mModel){
         dataListView.model = mModel
         dataFlick.moveToEnd()
+    }
+
+    //设置显示格式model
+    function setFormatModel(mModel){
+        fomatListView.model = mModel
     }
 }

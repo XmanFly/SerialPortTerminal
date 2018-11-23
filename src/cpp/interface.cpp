@@ -25,6 +25,7 @@ Interface::Interface(QObject *parent) :
 
     periodSendInit(); //定时发送模块初始化
     dataCntInit(); //收发数据个数初始化
+    formatInit();//数据格式初始化
 
 #if 0
     table = new TableModel(this);
@@ -62,6 +63,12 @@ void Interface::dataCntInit()
             mDataCntModule->getRcvCnt(), &DataCntModel::slot_add);
 }
 
+//显示格式模块初始化
+void Interface::formatInit()
+{
+    mFormatModule = new FormatModule();
+
+}
 
 //刷新串口设备
 QList<QString> Interface::refreshDev()
@@ -114,6 +121,13 @@ void Interface::slot_serialReceive(QByteArray data)
     qDebug() << "Interface::slot_serialReceive " << dataStr;
 }
 
+//切换显示模式
+void Interface::slot_formatChanged(FormatModel::DisplayFormat mFormat)
+{
+    qDebug() << "Interface::slot_formatChanged "
+             << mFormat ;
+}
+
 //发送数据
 void Interface::sendData(QString data)
 {
@@ -140,6 +154,12 @@ QVariant Interface::getDataModel()
 QVariant Interface::getDataCntModel()
 {
     return QVariant::fromValue(*mDataCntModule->getModel());
+}
+
+//获取显示格式
+QVariant Interface::getFormatModel()
+{
+    return QVariant::fromValue(*mFormatModule->getModel());
 }
 
 //清零收发计数
