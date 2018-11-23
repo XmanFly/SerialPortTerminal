@@ -36,7 +36,6 @@ public:
     Q_INVOKABLE void clearDataModel(); //清空数据Model
     Q_INVOKABLE void periodSendStart(qint32 period, QString data, bool isStart); //开启周期发送
     Q_INVOKABLE QVariant getDataCntModel(); //获取收发数据个数
-    Q_INVOKABLE void clearCnt(int id); //清零收发计数
     Q_INVOKABLE QVariant getFormatModel(); //获取显示格式
 
     bool getSerialPortState(); //获取串口状态

@@ -8,8 +8,6 @@ import SerialPortTerminal.DataCntModel 1.0
 GroupBox {
     id: root
 
-    signal clearCnt(int id)
-
     title: qsTr("数据统计")
     ColumnLayout {
         anchors {
@@ -23,7 +21,7 @@ GroupBox {
                 cnt: model.modelData.cnt
                 clear {
                     onClicked: {
-                        clearCnt(model.modelData.id)
+                        model.modelData.cnt = 0
                     }
                 }
             }

@@ -165,12 +165,6 @@ QVariant Interface::getFormatModel()
     return QVariant::fromValue(*mFormatModule->getModel());
 }
 
-//清零收发计数
-void Interface::clearCnt(int id)
-{
-    mDataCntModule->clear(id);
-}
-
 //清空数据Model
 void Interface::clearDataModel()
 {

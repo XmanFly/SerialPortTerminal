@@ -26,9 +26,6 @@ HomeForm {
 
     //数据个数统计区
     dataInforPanel {
-        onClearCnt: {
-            mInterface.clearCnt(id)
-        }
     }
 
     //发送区域
