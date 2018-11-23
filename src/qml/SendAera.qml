@@ -56,6 +56,10 @@ GroupBox {
                     }
                 }
                 ToolSeparator {}
+                FormatSwitch {
+                    id: formatRect
+                }
+                ToolSeparator {}
                 //定时发送
                 TextArea {
                     id: sendPeriod
@@ -138,5 +142,9 @@ GroupBox {
         msgDlg.msgDlg.text = hint
         msgDlg.msgDlg.icon = StandardIcon.Warning
         return msgDlg
+    }
+    //设置发送格式model
+    function setFormatModel(mModel){
+        formatRect.fomatRpt.model = mModel
     }
 }

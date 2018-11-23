@@ -43,7 +43,8 @@ HomeForm {
     function setInterface(mInf){
         mInterface = mInf
         receiveAera.setModel(mInf.getDataModel())
-        receiveAera.setFormatModel(mInf.getFormatModel())
+        receiveAera.setFormatModel(mInf.getRcvFormatModel())
+        sendAera.setFormatModel(mInf.getSendFormatModel())
         dataInforPanel.setDataModel(mInf.getDataCntModel())
     }
 

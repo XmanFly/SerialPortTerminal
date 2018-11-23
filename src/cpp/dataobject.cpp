@@ -45,10 +45,8 @@ QString DataObject::convertValue(const QByteArray &value, FormatModel::DisplayFo
     case FormatModel::DisplayFormat::HEX:
         curStr = QString(value.toHex());
         break;
-    case FormatModel::DisplayFormat::STR:
+    case FormatModel::DisplayFormat::ASCII:
         curStr = QString::fromLatin1(value.data());
-        break;
-    default:
         break;
     }
     return curStr;

@@ -36,7 +36,8 @@ public:
     Q_INVOKABLE void clearDataModel(); //清空数据Model
     Q_INVOKABLE void periodSendStart(qint32 period, QString data, bool isStart); //开启周期发送
     Q_INVOKABLE QVariant getDataCntModel(); //获取收发数据个数
-    Q_INVOKABLE QVariant getFormatModel(); //获取显示格式
+    Q_INVOKABLE QVariant getRcvFormatModel(); //获取接收数据显示格式
+    Q_INVOKABLE QVariant getSendFormatModel(); //获取发送数据格式
 
     bool getSerialPortState(); //获取串口状态
 
@@ -52,11 +53,12 @@ private:
     RcvDataModule *mRcvDataModule; //接收数据模块
     TableModel *table; //数据model
     DataCntModule *mDataCntModule; //数据个数模块
-    FormatModule *mFormatModule; //显示格式模块
+    FormatModule *mRcvFormatModule; //接收数据显示格式模块
+    FormatModule *mSendFormatModule; //发送数据显示格式模块
 
     void periodSendInit(); //定时发送模块初始化
     void dataCntInit(); //收发数据个数初始化
-    void formatInit(); //显示格式模块初始化
+    QByteArray convertSendData(QString data, FormatModel::DisplayFormat format); //转换发送数据
 
 //控制串口设备
 signals:

@@ -23,12 +23,14 @@ Interface::Interface(QObject *parent) :
             this, &Interface::slot_serialReceive);
     mSerialPortThread->start();
 
+    mRcvFormatModule = new FormatModule(); //接收数据格式
+    mSendFormatModule = new FormatModule(); //发送数据格式
     mRcvDataModule = new RcvDataModule(); //接收数据模块初始化
     connect(mRcvDataModule, &RcvDataModule::sig_reset,
             this, &Interface::sig_resetDataList);
+
     periodSendInit(); //定时发送模块初始化
     dataCntInit(); //收发数据个数初始化
-    formatInit();//数据格式初始化
 
 #if 0
     table = new TableModel(this);
@@ -64,13 +66,6 @@ void Interface::dataCntInit()
             mDataCntModule->getSendCnt(), &DataCntModel::slot_add);
     connect(mSerialPortControl, &SerialPortControl::sig_receiveCnt,
             mDataCntModule->getRcvCnt(), &DataCntModel::slot_add);
-}
-
-//显示格式模块初始化
-void Interface::formatInit()
-{
-    mFormatModule = new FormatModule();
-
 }
 
 //刷新串口设备
@@ -119,7 +114,7 @@ void Interface::slot_serialReceive(QByteArray data)
 {
     QString curTime = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss.zzz");
 //    QString dataStr = QString(data.toHex());
-    mRcvDataModule->addData(new DataObject(curTime, data, mFormatModule->getFormat()));
+    mRcvDataModule->addData(new DataObject(curTime, data, mRcvFormatModule->getFormat()));
 //    emit sig_resetDataList();
 //    qDebug() << "Interface::slot_serialReceive " << dataStr;
 }
@@ -135,8 +130,8 @@ void Interface::slot_formatChanged(FormatModel::DisplayFormat mFormat)
 void Interface::sendData(QString data)
 {
     if(serialState){
-        QByteArray hexFormat = QByteArray::fromHex(data.toLatin1());
-        emit sig_sendData(hexFormat);
+        QByteArray sendData = convertSendData(data, mSendFormatModule->getFormat());
+        emit sig_sendData(sendData);
     }
 }
 
@@ -160,9 +155,15 @@ QVariant Interface::getDataCntModel()
 }
 
 //获取显示格式
-QVariant Interface::getFormatModel()
+QVariant Interface::getRcvFormatModel()
 {
-    return QVariant::fromValue(*mFormatModule->getModel());
+    return QVariant::fromValue(*mRcvFormatModule->getModel());
+}
+
+//获取发送数据格式
+QVariant Interface::getSendFormatModel()
+{
+    return QVariant::fromValue(*mSendFormatModule->getModel());
 }
 
 //清空数据Model
@@ -175,8 +176,27 @@ void Interface::clearDataModel()
 void Interface::periodSendStart(qint32 period, QString data, bool isStart)
 {
     if(isStart) {
-        emit sig_periodSendStart(period, QByteArray::fromHex(data.toLatin1()));
+        emit sig_periodSendStart(period, convertSendData(data, mSendFormatModule->getFormat()));
     } else {
         emit sig_periodSendStop();
     }
 }
+
+//转换发送数据
+QByteArray Interface::convertSendData(QString data, FormatModel::DisplayFormat format)
+{
+    QByteArray sendData;
+    switch (format) {
+        case FormatModel::DisplayFormat::HEX:
+            sendData = QByteArray::fromHex(data.toLatin1());
+            qDebug() << "send hex";
+            break;
+        case FormatModel::DisplayFormat::ASCII:
+            sendData = data.toLocal8Bit();
+            qDebug() << "send ascii";
+            break;
+    }
+    return sendData;
+}
+
+

@@ -14,7 +14,7 @@ public:
     //显示格式
     enum DisplayFormat{
         HEX, //十六进制
-        STR, //字符
+        ASCII, //ASCII
     };
     Q_ENUM(DisplayFormat)
 

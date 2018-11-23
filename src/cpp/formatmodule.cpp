@@ -3,7 +3,7 @@
 FormatModule::FormatModule(QObject *parent) : QObject(parent)
 {
     mHexModel = new FormatModel("HEX", true, FormatModel::DisplayFormat::HEX); //十六进制形式
-    mStrModel = new FormatModel("ASCII", false, FormatModel::DisplayFormat::STR); //字符形式
+    mStrModel = new FormatModel("ASCII", false, FormatModel::DisplayFormat::ASCII); //字符形式
     formatList.append(mHexModel);
     formatList.append(mStrModel);
     foreach(QObject* each, formatList){
