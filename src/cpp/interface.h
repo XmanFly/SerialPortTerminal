@@ -11,6 +11,7 @@
 #include "serialportpara.h"
 #include "serialportparanonqobj.h"
 #include "dataobject.h"
+#include "rcvdatamodule.h"
 #include "tablemodel.h"
 #include "periodsend.h"
 #include "datacntmodule.h"
@@ -49,7 +50,7 @@ private:
     PeriodSend *mPeriodSend; //定时发送类
     QThread	*mPeriodSendThread; //定时发送线程
     bool serialState; //串口当前状态
-    QList<QObject*> dataList; //数据记录
+    RcvDataModule *mRcvDataModule; //接收数据模块
     TableModel *table; //数据model
     DataCntModule *mDataCntModule; //数据个数模块
     FormatModule *mFormatModule; //显示格式模块

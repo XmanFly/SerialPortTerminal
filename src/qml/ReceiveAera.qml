@@ -63,7 +63,7 @@ GroupBox {
                         text: "  "
                     }
                     TextInput {
-                        text: model.modelData.data
+                        text: model.modelData.value
                         width: parent.width
                         font {
                             pointSize: 12

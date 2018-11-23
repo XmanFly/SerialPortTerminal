@@ -2,33 +2,38 @@
 #define DATAOBJECT_H
 
 #include <QObject>
+#include "formatmodel.h"
 
 //![0]
 class DataObject : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString time READ time WRITE setTime NOTIFY timeChanged)
-    Q_PROPERTY(QString data READ data WRITE setData NOTIFY dataChanged)
+    Q_PROPERTY(QString time READ getTime WRITE setTime NOTIFY timeChanged)
+    Q_PROPERTY(QString value READ getValue WRITE setValue NOTIFY valueChanged)
 //![0]
 
 public:
     DataObject(QObject *parent=nullptr);
-    DataObject(const QString &time, const QString &data, QObject *parent=nullptr);
+    DataObject(const QString &m_time, const QByteArray &m_raw, FormatModel::DisplayFormat format, QObject *parent=nullptr);
 
-    QString time() const;
+    QString getTime() const;
     void setTime(const QString &time);
 
-    QString data() const;
-    void setData(const QString &data);
+    QString getValue() const;
+    void setValue(const QString &value);
+
+    QString convertValue(const QByteArray &value, FormatModel::DisplayFormat format);
 
 signals:
     void timeChanged();
-    void dataChanged();
+    void valueChanged();
 
 private:
-    QString m_time; //记录时间
-    QString m_data; //数据
+    QString time; //记录时间
+    QByteArray raw; //原始数据
+    QString value; //显示字符
+
 //![1]
 };
 //![1]

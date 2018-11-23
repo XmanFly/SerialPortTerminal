@@ -6,33 +6,52 @@ DataObject::DataObject(QObject *parent)
 {
 }
 
-DataObject::DataObject(const QString &time, const QString &data, QObject *parent)
-    : QObject(parent), m_time(time), m_data(data)
+DataObject::DataObject(const QString &m_time, const QByteArray &m_raw, FormatModel::DisplayFormat format, QObject *parent)
+    : QObject(parent), time(m_time), raw(m_raw)
 {
+    setValue(convertValue(m_raw, format));
 }
 
-QString DataObject::time() const
+QString DataObject::getTime() const
 {
-    return m_time;
+    return time;
 }
 
 void DataObject::setTime(const QString &time)
 {
-    if (time != m_time) {
-        m_time = time;
+    if (this->time != time) {
+        this->time = time;
         emit timeChanged();
     }
 }
 
-QString DataObject::data() const
+QString DataObject::getValue() const
 {
-    return m_data;
+    return value;
 }
 
-void DataObject::setData(const QString &data)
+void DataObject::setValue(const QString &value)
 {
-    if (data != m_data) {
-        m_data = data;
-        emit dataChanged();
+    if (this->value != value) {
+        this->value = value;
+        emit valueChanged();
     }
 }
+
+QString DataObject::convertValue(const QByteArray &value, FormatModel::DisplayFormat format)
+{
+    QString curStr;
+    switch (format) {
+    case FormatModel::DisplayFormat::HEX:
+        curStr = QString(value.toHex());
+        break;
+    case FormatModel::DisplayFormat::STR:
+        curStr = QString::fromLatin1(value.data());
+        break;
+    default:
+        break;
+    }
+    return curStr;
+
+}
+

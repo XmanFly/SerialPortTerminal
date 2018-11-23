@@ -25,7 +25,8 @@ SOURCES += \
     src/cpp/datacntmodule.cpp \
     src/cpp/datacntmodel.cpp \
     src/cpp/formatmodel.cpp \
-    src/cpp/formatmodule.cpp
+    src/cpp/formatmodule.cpp \
+    src/cpp/rcvdatamodule.cpp
 
 RESOURCES += qml.qrc
 
@@ -52,4 +53,5 @@ HEADERS += \
     src/cpp/datacntmodule.h \
     src/cpp/datacntmodel.h \
     src/cpp/formatmodel.h \
-    src/cpp/formatmodule.h
+    src/cpp/formatmodule.h \
+    src/cpp/rcvdatamodule.h

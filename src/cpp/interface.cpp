@@ -23,6 +23,9 @@ Interface::Interface(QObject *parent) :
             this, &Interface::slot_serialReceive);
     mSerialPortThread->start();
 
+    mRcvDataModule = new RcvDataModule(); //接收数据模块初始化
+    connect(mRcvDataModule, &RcvDataModule::sig_reset,
+            this, &Interface::sig_resetDataList);
     periodSendInit(); //定时发送模块初始化
     dataCntInit(); //收发数据个数初始化
     formatInit();//数据格式初始化
@@ -115,10 +118,10 @@ void Interface::slot_serialState(bool isOpen)
 void Interface::slot_serialReceive(QByteArray data)
 {
     QString curTime = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss.zzz");
-    QString dataStr = QString(data.toHex());
-    dataList.append(new DataObject(curTime, dataStr));
-    emit sig_resetDataList();
-    qDebug() << "Interface::slot_serialReceive " << dataStr;
+//    QString dataStr = QString(data.toHex());
+    mRcvDataModule->addData(new DataObject(curTime, data, mFormatModule->getFormat()));
+//    emit sig_resetDataList();
+//    qDebug() << "Interface::slot_serialReceive " << dataStr;
 }
 
 //切换显示模式
@@ -147,7 +150,7 @@ bool Interface::getSerialPortState()
 //获取数据Model
 QVariant Interface::getDataModel()
 {
-    return QVariant::fromValue(dataList);
+    return QVariant::fromValue(*mRcvDataModule->getModel());
 }
 
 //获取收发数据个数
@@ -171,8 +174,7 @@ void Interface::clearCnt(int id)
 //清空数据Model
 void Interface::clearDataModel()
 {
-    dataList.clear();
-    emit sig_resetDataList();
+    mRcvDataModule->clear();
 }
 
 //开启周期发送
