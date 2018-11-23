@@ -12,5 +12,6 @@
         <file>src/qml/ReceiveAera.qml</file>
         <file>src/qml/DataInforPanel.qml</file>
         <file>src/qml/CntItem.qml</file>
+        <file>src/qml/FormatSwitch.qml</file>
     </qresource>
 </RCC>

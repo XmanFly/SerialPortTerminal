@@ -156,45 +156,8 @@ GroupBox {
                     }
                 }
                 ToolSeparator {}
-                Rectangle {
+                FormatSwitch {
                     id: formatRect
-                    property int realWidth : 220
-                    implicitWidth: realWidth
-                    implicitHeight: controlLayout.height
-//                    color: "red"
-                    ButtonGroup {
-                        id: buttonGroup
-                    }
-                    ListView {
-                        id: fomatListView
-                        anchors {
-                            fill: parent
-                        }
-                        orientation: ListView.Horizontal
-                        delegate: RadioDelegate {
-                            id: rd
-                            text: model.modelData.name
-                            checked: index == 0
-                            ButtonGroup.group: buttonGroup
-                            Binding {
-                                target: model.modelData
-                                property: "isSelected"
-                                value: rd.checked
-                            }
-                        }
-                        Component.onCompleted: {
-                            var curWidth = 0
-                            var child
-                            for(child in contentItem.children) {
-                                if(contentItem.children[child].text){
-                                    curWidth  += contentItem.children[child].width
-                                }
-                                console.log("formatrect name " + contentItem.children[child].text)
-                            }
-                            formatRect.realWidth = curWidth
-                            console.log("formatrect width " + contentItem.children.length)
-                        }
-                    }
                 }
                 ToolSeparator {}
             }
@@ -208,6 +171,6 @@ GroupBox {
 
     //设置显示格式model
     function setFormatModel(mModel){
-        fomatListView.model = mModel
+        formatRect.fomatRpt.model = mModel
     }
 }
