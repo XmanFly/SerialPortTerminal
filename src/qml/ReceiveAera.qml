@@ -24,7 +24,7 @@ GroupBox {
         }
         spacing: 10
 
-        Flickable {
+        ScrollView {
             property int initHeight: parent.height * 8 / 10
             property int initWidth: parent.width
             property int listViewRealHeight : initHeight  //listview实时高度
@@ -33,88 +33,84 @@ GroupBox {
             id: dataFlick
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height * 8 / 10
+//                        anchors {
+//                            bottom: parent.bottom
+//                        }
             clip: true
-            boundsBehavior: Flickable.StopAtBounds
-            contentWidth: listViewRealWidth
-            contentHeight: listViewRealHeight
-            contentY : contentHeight-height //定位至最后一行
+//            boundsBehavior: Flickable.StopAtBounds
+//            contentWidth: listViewRealWidth
+//            contentHeight: listViewRealHeight
+//            contentY : contentHeight-height //定位至最后一行
+//            contentHeight: cl.height
 
-            ListView {
-                id: dataListView
-                interactive: true
+
+            ColumnLayout {
+                id: cl
                 anchors {
-                    fill: parent
+//                    top: parent.bottom
+                    bottom: parent.bottom
+//                    bottomMargin: - dataFlick.height
                 }
-                cacheBuffer: 4000000
+//                layoutDirection: Qt.RightToLeft
+                Repeater {
+                    id: dataListView
 
-                delegate:
-                    RowLayout {
+                    delegate:
+                        RowLayout {
+//                        anchors {
+//                            bottom:  dataFlick.bottom
+//                        }
+                            TextEdit {
+                                text: model.modelData.time
+                                font {
+                                    pointSize: 12
+                                }
+                                width: parent.width
+                                color: "blue"
+                                selectByMouse: true
+        //                onClicked: console.log("clicked:", modelData)
+                        }
                         TextEdit {
-                            text: model.modelData.time
+                            text: "  "
+                        }
+                        TextInput {
+                            text: model.modelData.value
+                            width: parent.width
                             font {
                                 pointSize: 12
                             }
-                            width: parent.width
-                            color: "blue"
                             selectByMouse: true
-    //                onClicked: console.log("clicked:", modelData)
-                    }
-                    TextEdit {
-                        text: "  "
-                    }
-                    TextInput {
-                        text: model.modelData.value
-                        width: parent.width
-                        font {
-                            pointSize: 12
-                        }
-                        selectByMouse: true
-    //                onClicked: console.log("clicked:", modelData)
-                    }
-                }
-                onCurrentItemChanged: {
-                }
-                onCountChanged: {
-                    rcvAeraAjustTimer.restart() //开启调整显示区定时器
-                }
-                onContentYChanged: {
-                }
-
-                //调整显示区
-                function rcvAeraAjust(){
-                    var curHeight = 0
-                    var curWidth = 0
-                    for(var child in dataListView.contentItem.children) {
-                        if(dataListView.contentItem.children[child].width > curWidth){
-                            curWidth = dataListView.contentItem.children[child].width
+        //                onClicked: console.log("clicked:", modelData)
                         }
                     }
-                    if(curWidth > dataFlick.initWidth){
-                        dataFlick.listViewRealWidth = curWidth
+                    onCountChanged: {
+                        dataFlick.moveToEnd()
                     }
-                    console.log("rcvAeraAjust "
-                                + "length " + dataListView.contentItem.children.length + " "
-                                + dataFlick.listViewRealHeight + " "
-                                + dataFlick.initHeight + " "
-                                + dataFlick.listViewRealWidth + " "
-                                + dataFlick.initWidth + " "
-                                + curWidth + " "
-                                + dataFlick.width + " ")
-                }
-
-                ScrollBar.vertical: ScrollBar {
-                    id: listVerticalScrBar
-                    interactive: true
-                    width: 20
-                    minimumSize: 0.2
                 }
             }
-
-            ScrollBar.horizontal: ScrollBar {
-                height: 20
+            ScrollBar.vertical: ScrollBar {
+                id: vBar
+                width: 20
+                anchors {
+                    right: parent.right
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                onSizeChanged: {
+//                    position = 1
+                }
+                policy: ScrollBar.AlwaysOn
                 minimumSize: 0.3
             }
-
+            ScrollBar.horizontal: ScrollBar {
+                height: 20
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
+                minimumSize: 0.3
+            }
 
             //调整显示区定时器
             Timer {
@@ -131,8 +127,24 @@ GroupBox {
 
             //定位至最后
             function moveToEnd(){
-//                dataFlick.contentY = dataFlick.contentHeight-dataFlick.height //定位至最后一行
-                dataListView.positionViewAtEnd()
+                cl.anchors.bottom = cl.parent.bottom
+//                dataListView.itemAt(dataListView.count-1).x = 100
+//                var realHeight = 0
+//                for(var child in dataListView.children){
+//                    realHeight += dataListView.children[child].height
+//                    console.log("dataFlick child " , dataFlick.contentChildren[child].text)
+//                }
+//                for(var child in dataListView.count){
+//                    realHeight += dataListView.itemAt(child).height
+//                    console.log("dataFlick child " , dataListView.itemAt(child).height)
+//                }
+//                console.log("move to end " + dataListView.count
+//                            + "  " + realHeight
+//                            + "  " + cl.height)
+//                dataFlick.contentHeight = realHeight
+//                vBar.position = 0.8
+//                dataFlick.y = dataFlick.contentHeight-dataFlick.height //定位至最后一行
+//                dataListView.positionViewAtEnd()
             }
         }
 
@@ -149,10 +161,10 @@ GroupBox {
                     text: qsTr("清空")
                     onClicked: {
                         mInterface.clearDataModel()
-                        dataFlick.listViewRealHeight = dataFlick.initHeight
-                        dataFlick.listViewRealWidth = dataFlick.initWidth
-                         console.log("refresh "
-                                    + "length " + dataListView.contentItem.children.length )
+//                        dataFlick.listViewRealHeight = dataFlick.initHeight
+//                        dataFlick.listViewRealWidth = dataFlick.initWidth
+//                        console.log("refresh "
+//                                    + "length " + dataListView.contentItem.children.length )
                     }
                 }
                 ToolSeparator {}
@@ -166,7 +178,7 @@ GroupBox {
 
     function setModel(mModel){
         dataListView.model = mModel
-        dataFlick.moveToEnd()
+//        dataFlick.moveToEnd()
     }
 
     //设置显示格式model
