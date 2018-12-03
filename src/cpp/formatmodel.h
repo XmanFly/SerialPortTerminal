@@ -7,7 +7,7 @@
 class FormatModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString name READ getName)
+    Q_PROPERTY(QString name READ getName CONSTANT)
     Q_PROPERTY(bool isSelected READ getIsSelected WRITE setIsSelected NOTIFY sig_selected)
 
 public:

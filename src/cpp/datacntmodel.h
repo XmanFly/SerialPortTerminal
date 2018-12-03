@@ -8,8 +8,8 @@ class DataCntModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(qint32 cnt READ getCnt WRITE setCnt NOTIFY sig_cntChanged)
-    Q_PROPERTY(QString name READ getName)
-    Q_PROPERTY(qint32 id READ getId)
+    Q_PROPERTY(QString name READ getName CONSTANT)
+    Q_PROPERTY(qint32 id READ getId CONSTANT)
 
 public:
     DataCntModel(qint32 m_id, const QString &m_name, const int m_cnt, QObject *parent = nullptr);
