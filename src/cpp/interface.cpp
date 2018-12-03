@@ -7,6 +7,7 @@ Interface::Interface(QObject *parent) :
     mSerialPortInfo = new QSerialPortInfo();
     mSerialPortControl = new SerialPortControl();
     mSerialPortThread = new QThread();
+    mSerialPortThread->setPriority(QThread::Priority::TimeCriticalPriority);
     connect(mSerialPortThread, &QThread::started,
             mSerialPortControl, &SerialPortControl::slot_init);
     connect(this, &Interface::sig_openSerialPort,
@@ -21,6 +22,7 @@ Interface::Interface(QObject *parent) :
             this, &Interface::slot_serialState);
     connect(mSerialPortControl, &SerialPortControl::sig_receive,
             this, &Interface::slot_serialReceive);
+    mSerialPortControl->moveToThread(mSerialPortThread);
     mSerialPortThread->start();
 
     mRcvFormatModule = new FormatModule(); //接收数据格式

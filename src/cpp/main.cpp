@@ -6,6 +6,7 @@
 #include "dataobject.h"
 #include "datacntmodel.h"
 #include "formatmodel.h"
+#include "serialportparanonqobj.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<TableModel>("SerialPortTerminal.TableModel", 1, 0, "TableModel");
     qmlRegisterType<DataCntModel>("SerialPortTerminal.DataCntModel", 1, 0, "DataCntModel");
     qmlRegisterType<FormatModel>("SerialPortTerminal.FormatModel", 1, 0, "FormatModel");
+    qRegisterMetaType<SerialPortParaNonQobj>("SerialPortParaNonQobj");
 
 //    QQmlContext *context = engine.rootContext();
 //    Interface *mInterface = new Interface();
