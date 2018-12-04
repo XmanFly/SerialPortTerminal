@@ -12,8 +12,7 @@ class DataCntModel : public QObject
     Q_PROPERTY(qint32 id READ getId CONSTANT)
 
 public:
-    DataCntModel(qint32 m_id, const QString &m_name, const int m_cnt, QObject *parent = nullptr);
-    DataCntModel(QObject *parent = nullptr);
+    DataCntModel(qint32 m_id = 0, const QString &m_name = "", const int m_cnt = 0, QObject *parent = nullptr);
 
     qint32	getId();
     qint32	getCnt();

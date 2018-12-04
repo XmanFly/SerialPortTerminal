@@ -14,8 +14,7 @@ class DataObject : public QObject
 //![0]
 
 public:
-    DataObject(QObject *parent=nullptr);
-    DataObject(const QString &m_time, const QByteArray &m_raw, FormatModel::DisplayFormat format, QObject *parent=nullptr);
+    DataObject(const QString &m_time="", const QByteArray &m_raw=QByteArray(), FormatModel::DisplayFormat format=FormatModel::HEX, QObject *parent=nullptr);
 
     QString getTime() const;
     void setTime(const QString &time);

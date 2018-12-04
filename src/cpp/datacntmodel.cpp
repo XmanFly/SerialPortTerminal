@@ -1,10 +1,5 @@
 #include "datacntmodel.h"
 
-DataCntModel::DataCntModel(QObject *parent) : QObject(parent)
-{
-
-}
-
 DataCntModel::DataCntModel(qint32 m_id, const QString &m_name, const int m_cnt, QObject *parent)
     : QObject(parent),
       id(m_id),

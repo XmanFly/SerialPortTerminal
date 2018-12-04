@@ -19,8 +19,7 @@ public:
     Q_ENUM(DisplayFormat)
 
 public:
-    FormatModel(QObject *parent = nullptr);
-    FormatModel(QString m_name, bool m_isSelected, DisplayFormat m_format, QObject *parent = nullptr);
+    FormatModel(QString m_name="", bool m_isSelected=false, DisplayFormat m_format=DisplayFormat::HEX, QObject *parent = nullptr);
 
     QString getName();
     bool	getIsSelected();

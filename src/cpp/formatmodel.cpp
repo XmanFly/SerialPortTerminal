@@ -1,11 +1,5 @@
 #include "formatmodel.h"
 
-FormatModel::FormatModel(QObject *parent) : QObject(parent)
-{
-
-}
-
-
 FormatModel::FormatModel(QString m_name, bool m_isSelected, DisplayFormat m_format, QObject *parent)
   : QObject(parent),
     name(m_name),

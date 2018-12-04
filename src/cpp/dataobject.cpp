@@ -1,11 +1,6 @@
 #include <QDebug>
 #include "dataobject.h"
 
-DataObject::DataObject(QObject *parent)
-    : QObject(parent)
-{
-}
-
 DataObject::DataObject(const QString &m_time, const QByteArray &m_raw, FormatModel::DisplayFormat format, QObject *parent)
     : QObject(parent), time(m_time), raw(m_raw)
 {
