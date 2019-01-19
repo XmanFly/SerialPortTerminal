@@ -33,6 +33,7 @@ Interface::Interface(QObject *parent) :
 
     periodSendInit(); //定时发送模块初始化
     dataCntInit(); //收发数据个数初始化
+    afpsInit(); //荧光模块初始化
 
 #if 0
     table = new TableModel(this);
@@ -201,4 +202,40 @@ QByteArray Interface::convertSendData(QString data, FormatModel::DisplayFormat f
     return sendData;
 }
 
+void Interface::afpsInit() //初始化
+{
+    mAfpsParseModule = new ParseModule();
+    AfpsParse *mParseIf =
+            new AfpsParse();
+    mAfpsParseModule->setParseIf(
+                reinterpret_cast<ParseBasic<QByteArray,  ProtFormatBasic<PROT_FIELD, QByteArray>> *>(mParseIf));
+    QThread *afpsTh = new QThread();
+    mAfpsParseModule->moveToThread(afpsTh);
+    afpsTh->start();
 
+#if AFPS_TEST == true
+    mAfpsDummyData = new AfpsDummyData(70);
+    connect(mAfpsDummyData, &AfpsDummyData::sig_data,
+            mAfpsParseModule, &ParseModule::slot_receiveData);
+    connect(mAfpsDummyData, &AfpsDummyData::sig_data,
+            this, &Interface::slot_serialReceive);
+    connect(mAfpsDummyData, &AfpsDummyData::sig_cnt,
+            mDataCntModule->getSendCnt(), &DataCntModel::slot_add);
+#endif
+}
+
+//荧光开始
+void Interface::afpsStart()
+{
+#if AFPS_TEST == true
+    mAfpsDummyData->start();
+#endif
+}
+
+//荧光停止
+void Interface::afpsStop()
+{
+#if AFPS_TEST == true
+    mAfpsDummyData->stop();
+#endif
+}

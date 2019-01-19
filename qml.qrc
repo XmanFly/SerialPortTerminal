@@ -13,5 +13,7 @@
         <file>src/qml/DataInforPanel.qml</file>
         <file>src/qml/CntItem.qml</file>
         <file>src/qml/FormatSwitch.qml</file>
+        <file>src/qml/AFPs.qml</file>
+        <file>src/qml/AFPsForm.ui.qml</file>
     </qresource>
 </RCC>

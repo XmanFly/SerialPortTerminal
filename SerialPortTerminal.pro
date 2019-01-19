@@ -1,4 +1,4 @@
-QT += quick serialport
+QT += quick serialport charts
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -26,7 +26,11 @@ SOURCES += \
     src/cpp/datacntmodel.cpp \
     src/cpp/formatmodel.cpp \
     src/cpp/formatmodule.cpp \
-    src/cpp/rcvdatamodule.cpp
+    src/cpp/rcvdatamodule.cpp \
+    src/cpp/ProtBasic/parsemodule.cpp \
+    src/cpp/AfpsProt/afpsparse.cpp \
+    src/cpp/DummyData/dummydatabasic.cpp \
+    src/cpp/DummyData/afpsdummydata.cpp
 
 RESOURCES += qml.qrc
 
@@ -54,4 +58,12 @@ HEADERS += \
     src/cpp/datacntmodel.h \
     src/cpp/formatmodel.h \
     src/cpp/formatmodule.h \
-    src/cpp/rcvdatamodule.h
+    src/cpp/rcvdatamodule.h \
+    src/cpp/ProtBasic/parsemodule.h \
+    src/cpp/ProtBasic/protpara.h \
+    src/cpp/ProtBasic/parsebasic.h \
+    src/cpp/ProtBasic/protformatbasic.h \
+    src/cpp/AfpsProt/afpsparse.h \
+    src/cpp/DummyData/dummydatabasic.h \
+    src/cpp/DummyData/afpsdummydata.h \
+    src/cpp/AfpsProt/afpsdbgswitch.h

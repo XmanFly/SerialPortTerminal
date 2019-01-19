@@ -30,7 +30,15 @@ ApplicationWindow {
 //        Page1Form{
 //        }
 
-        Page2Form {
+        AFPs {
+            id: afps
+
+//            onSig_start : {
+//                mInterface.afpsStart()
+//            }
+//            onSig_stop : {
+//                mInterface.afpsStop()
+//            }
         }
     }
 
@@ -48,7 +56,7 @@ ApplicationWindow {
         }
         TabButton {
             implicitHeight: parent.height
-            text: qsTr("其他")
+            text: qsTr("荧光")
             background: Rectangle{
                 color: tabBar.currentIndex === 1 ? "lightblue" : "gray"
             }
@@ -67,6 +75,16 @@ ApplicationWindow {
                                             + "MessageDialog {property alias msgDlg : msgDlg; id: msgDlg; onAccepted : {} Component.onCompleted: visible = true}", root)
             msgDlg.msgDlg.text = msg
             msgDlg.msgDlg.icon = StandardIcon.Warning
+        }
+    }
+
+    Connections {
+        target: afps
+        onSig_start : {
+            mInterface.afpsStart()
+        }
+        onSig_stop : {
+            mInterface.afpsStop()
         }
     }
 }

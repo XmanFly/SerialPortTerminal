@@ -1,0 +1,6 @@
+#ifndef AFPSDBGSWITCH_H
+#define AFPSDBGSWITCH_H
+
+#define AFPS_TEST true
+
+#endif // AFPSDBGSWITCH_H

@@ -16,6 +16,10 @@
 #include "periodsend.h"
 #include "datacntmodule.h"
 #include "formatmodule.h"
+#include "ProtBasic/parsemodule.h"
+#include "AfpsProt/afpsdbgswitch.h"
+#include "AfpsProt/afpsparse.h"
+#include "DummyData/afpsdummydata.h"
 
 /* UI与设备接口层 */
 class Interface : public QObject
@@ -38,6 +42,8 @@ public:
     Q_INVOKABLE QVariant getDataCntModel(); //获取收发数据个数
     Q_INVOKABLE QVariant getRcvFormatModel(); //获取接收数据显示格式
     Q_INVOKABLE QVariant getSendFormatModel(); //获取发送数据格式
+    Q_INVOKABLE void afpsStart(); //荧光开始
+    Q_INVOKABLE void afpsStop(); //荧光停止
 
     bool getSerialPortState(); //获取串口状态
 
@@ -59,6 +65,12 @@ private:
     void periodSendInit(); //定时发送模块初始化
     void dataCntInit(); //收发数据个数初始化
     QByteArray convertSendData(QString data, FormatModel::DisplayFormat format); //转换发送数据
+
+//荧光
+private:
+    ParseModule *mAfpsParseModule; //协议解析模块
+    AfpsDummyData *mAfpsDummyData;
+    void afpsInit(); //初始化
 
 //控制串口设备
 signals:
