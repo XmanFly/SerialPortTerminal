@@ -15,5 +15,6 @@
         <file>src/qml/FormatSwitch.qml</file>
         <file>src/qml/AFPs.qml</file>
         <file>src/qml/AFPsForm.ui.qml</file>
+        <file>src/qml/AdChart.qml</file>
     </qresource>
 </RCC>

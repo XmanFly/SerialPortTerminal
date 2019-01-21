@@ -17,8 +17,9 @@
 #include "datacntmodule.h"
 #include "formatmodule.h"
 #include "ProtBasic/parsemodule.h"
-#include "AfpsProt/afpsdbgswitch.h"
-#include "AfpsProt/afpsparse.h"
+#include "Afps/afpsdbgswitch.h"
+#include "Afps/afpsparse.h"
+#include "Afps/afpsmodule.h"
 #include "DummyData/afpsdummydata.h"
 
 /* UI与设备接口层 */
@@ -68,8 +69,8 @@ private:
 
 //荧光
 private:
-    ParseModule *mAfpsParseModule; //协议解析模块
-    AfpsDummyData *mAfpsDummyData;
+    AfpsModule *mAfpsModule;
+    AfpsDummyData *mAfpsDummyData;    
     void afpsInit(); //初始化
 
 //控制串口设备

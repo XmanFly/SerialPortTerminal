@@ -204,19 +204,12 @@ QByteArray Interface::convertSendData(QString data, FormatModel::DisplayFormat f
 
 void Interface::afpsInit() //初始化
 {
-    mAfpsParseModule = new ParseModule();
-    AfpsParse *mParseIf =
-            new AfpsParse();
-    mAfpsParseModule->setParseIf(
-                reinterpret_cast<ParseBasic<QByteArray,  ProtFormatBasic<PROT_FIELD, QByteArray>> *>(mParseIf));
-    QThread *afpsTh = new QThread();
-    mAfpsParseModule->moveToThread(afpsTh);
-    afpsTh->start();
+    mAfpsModule = new AfpsModule();
 
 #if AFPS_TEST == true
     mAfpsDummyData = new AfpsDummyData(70);
     connect(mAfpsDummyData, &AfpsDummyData::sig_data,
-            mAfpsParseModule, &ParseModule::slot_receiveData);
+            mAfpsModule->mAfpsParseModule, &ParseModule::slot_receiveData);
     connect(mAfpsDummyData, &AfpsDummyData::sig_data,
             this, &Interface::slot_serialReceive);
     connect(mAfpsDummyData, &AfpsDummyData::sig_cnt,

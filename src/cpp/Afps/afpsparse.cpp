@@ -5,7 +5,7 @@ AfpsParse::AfpsParse()
 
 }
 
-void AfpsParse::parse(QByteArray &buf, ProtFormatBasic<PROT_FIELD, QByteArray> &mProtResult)
+void AfpsParse::parse(QByteArray &buf, AfpsFormat &mProtResult)
 {
     //置为未解出协议
     mProtResult.setIsValid(false);

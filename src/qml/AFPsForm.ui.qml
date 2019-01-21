@@ -6,6 +6,10 @@ import QtCharts 2.3
 Page {
     width: 1366
     height: 768
+    property alias channel4: channel4
+    property alias channel3: channel3
+    property alias channel2: channel2
+    property alias channel1: channel1
     property alias stopBtn: stopBtn
     property alias startBtn: startBtn
 
@@ -39,20 +43,16 @@ Page {
             top: parent.top
             bottom: parent.bottom
         }
-        ChartView {
+        AdChart {
             id: channel1
-            backgroundRoundness: 3
-            theme: ChartView.ChartThemeLight
-            //            legend.visible: false //关闭图例
-            antialiasing: true //抗锯齿
         }
-        ChartView {
+        AdChart {
             id: channel2
         }
-        ChartView {
+        AdChart {
             id: channel3
         }
-        ChartView {
+        AdChart {
             id: channel4
         }
     }

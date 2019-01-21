@@ -28,9 +28,14 @@ SOURCES += \
     src/cpp/formatmodule.cpp \
     src/cpp/rcvdatamodule.cpp \
     src/cpp/ProtBasic/parsemodule.cpp \
-    src/cpp/AfpsProt/afpsparse.cpp \
+    src/cpp/Afps/afpsparse.cpp \
     src/cpp/DummyData/dummydatabasic.cpp \
-    src/cpp/DummyData/afpsdummydata.cpp
+    src/cpp/DummyData/afpsdummydata.cpp \
+    src/cpp/Afps/adchanneldev.cpp \
+    src/cpp/Afps/afpsformat.cpp \
+    src/cpp/Afps/afpsmodule.cpp \
+    src/cpp/Afps/afpsdevmng.cpp \
+    src/cpp/Afps/afpsdevbasic.cpp
 
 RESOURCES += qml.qrc
 
@@ -63,7 +68,13 @@ HEADERS += \
     src/cpp/ProtBasic/protpara.h \
     src/cpp/ProtBasic/parsebasic.h \
     src/cpp/ProtBasic/protformatbasic.h \
-    src/cpp/AfpsProt/afpsparse.h \
+    src/cpp/Afps/afpsparse.h \
     src/cpp/DummyData/dummydatabasic.h \
     src/cpp/DummyData/afpsdummydata.h \
-    src/cpp/AfpsProt/afpsdbgswitch.h
+    src/cpp/Afps/afpsdbgswitch.h \
+    src/cpp/ProtBasic/basicdev.h \
+    src/cpp/Afps/adchanneldev.h \
+    src/cpp/Afps/afpsformat.h \
+    src/cpp/Afps/afpsmodule.h \
+    src/cpp/Afps/afpsdevmng.h \
+    src/cpp/Afps/afpsdevbasic.h

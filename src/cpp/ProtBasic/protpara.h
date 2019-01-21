@@ -5,10 +5,10 @@
 #include <QDebug>
 
 //设备类型
-enum DEV {
+enum DEV_ID {
     DEV_AD, //4通道AD数据
 };
-Q_DECLARE_METATYPE(DEV)
+Q_DECLARE_METATYPE(DEV_ID)
 
 enum PROT_FIELD {
     HEAD, //协议头
