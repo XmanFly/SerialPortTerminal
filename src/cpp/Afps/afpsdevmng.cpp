@@ -17,6 +17,8 @@ void AfpsDevMng::addFinish()
     for(int i=0; i<devList.size(); i++) {
         connect(this, &AfpsDevMng::sig_rcvProt,
                     devList.at(i), &AfpsDevBasic::slot_rcvProt);
+        connect(devList.at(i), &AfpsDevBasic::sig_sendCmd,
+                    this, &AfpsDevMng::sig_sendProt);
     }
 }
 

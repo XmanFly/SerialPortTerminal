@@ -20,6 +20,7 @@ private:
 
 signals:
     void sig_rcvProt(AfpsFormat prot); //内部转发数据
+    void sig_sendProt(QByteArray data); //转发协议数据至外部
 
 public slots:
 
