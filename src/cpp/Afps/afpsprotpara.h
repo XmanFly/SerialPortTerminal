@@ -1,5 +1,5 @@
-#ifndef PROTPARA_H
-#define PROTPARA_H
+#ifndef AFPSPROTPARA_H
+#define AFPSPROTPARA_H
 
 #include <QByteArray>
 #include <QDebug>
@@ -20,16 +20,19 @@ enum PROT_FIELD {
 Q_DECLARE_METATYPE(PROT_FIELD)
 
 
-
 /* 协议各个字段 */
-class ProtPara
+class AfpsProtPara
 {
 public:
     /* 协议头 */
-    static const uchar CMD_HEAD = 0xAA;
+    static const char CMD_HEAD = 0xAA;
     /* 寄存器 */
-    static const uchar RGST_AD = 0x51;
-
+    static const char RGST_AD = 0x51;
+    /* 各个字段长度 */
+    static const char HEAD_LEN = 1;
+    static const char LENGTH_LEN = 1;
+    static const char REGIST_LEN = 1;
+    static const char CHECKSUM_LEN = 1;
 };
 
-#endif // PROTPARA_H
+#endif // AFPSPROTPARA_H

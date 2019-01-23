@@ -209,7 +209,7 @@ void Interface::afpsInit() //初始化
 #if AFPS_TEST == true
     mAfpsDummyData = new AfpsDummyData(70);
     connect(mAfpsDummyData, &AfpsDummyData::sig_data,
-            mAfpsModule->mAfpsParseModule, &ParseModule::slot_receiveData);
+            mAfpsModule->mAfpsParseModule, &AfpsParseModule::slot_receiveData);
     connect(mAfpsDummyData, &AfpsDummyData::sig_data,
             this, &Interface::slot_serialReceive);
     connect(mAfpsDummyData, &AfpsDummyData::sig_cnt,

@@ -1,16 +1,16 @@
-#include "parsemodule.h"
+#include "afpsparsemodule.h"
 
-ParseModule::ParseModule(QObject *parent) : QObject(parent)
+AfpsParseModule::AfpsParseModule(QObject *parent) : QObject(parent)
 {
     msgCnt = 0;
 }
 
-void ParseModule::setParseIf(ParseBasic<QByteArray,  AfpsFormat> *mParseIf)
+void AfpsParseModule::setParseIf(ParseBasic<QByteArray,  AfpsFormat> *mParseIf)
 {
     this->mParseIf = mParseIf;
 }
 
-void ParseModule::slot_receiveData(QByteArray data)
+void AfpsParseModule::slot_receiveData(QByteArray data)
 {
     //添加数据
     buffer.append(data);

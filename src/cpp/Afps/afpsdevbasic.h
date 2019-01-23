@@ -3,10 +3,11 @@
 
 #include <QObject>
 #include "afpsformat.h"
-#include "../ProtBasic/basicdev.h"
-#include "../ProtBasic/protpara.h"
+#include "afpsprotpara.h"
+#include "afpsprotgen.h"
+#include "../ProtBasic/devbasic.h"
 
-class AfpsDevBasic : public QObject, public BasicDev<DEV_ID, AfpsFormat>
+class AfpsDevBasic : public QObject, public DevBasic<DEV_ID, AfpsFormat, AfpsProtGen>
 {
     Q_OBJECT
 public:
@@ -15,9 +16,10 @@ public:
     bool rcvProt(AfpsFormat prot);
 
 signals:
+    void sig_sendCmd(QByteArray cmd); //发送命令
 
 public slots:
-    virtual void slot_rcvProt(AfpsFormat prot) = 0; //收到新协议
+    virtual void slot_rcvProt(AfpsFormat prot); //收到新协议
 };
 
 #endif // AFPSDEVBASIC_H

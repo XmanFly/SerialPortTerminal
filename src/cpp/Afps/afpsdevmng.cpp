@@ -20,12 +20,3 @@ void AfpsDevMng::addFinish()
     }
 }
 
-////收到数据
-//void AfpsDevMng::slot_rcvProt(AfpsFormat prot)
-//{
-//    qDebug() << "AfpsDevMng::slot_rcvProt ";
-////    for(int i=0; i<devList.size(); i++) {
-////        devList.at(i)->rcvProt(prot);
-////    }
-
-//}

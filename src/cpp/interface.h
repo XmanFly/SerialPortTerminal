@@ -16,7 +16,7 @@
 #include "periodsend.h"
 #include "datacntmodule.h"
 #include "formatmodule.h"
-#include "ProtBasic/parsemodule.h"
+#include "Afps/afpsparsemodule.h"
 #include "Afps/afpsdbgswitch.h"
 #include "Afps/afpsparse.h"
 #include "Afps/afpsmodule.h"

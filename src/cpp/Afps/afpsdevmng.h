@@ -4,8 +4,6 @@
 #include <QObject>
 #include "afpsformat.h"
 #include "afpsdevbasic.h"
-#include "../ProtBasic/basicdev.h"
-#include "../ProtBasic/protpara.h"
 
 /* 设备管理 */
 class AfpsDevMng : public QObject
@@ -24,7 +22,6 @@ signals:
     void sig_rcvProt(AfpsFormat prot); //内部转发数据
 
 public slots:
-//    void slot_rcvProt(AfpsFormat prot); //收到数据
 
 };
 

@@ -3,16 +3,15 @@
 
 #include <QObject>
 #include <QByteArray>
-#include "parsebasic.h"
-#include "protpara.h"
 #include "../Afps/afpsformat.h"
+#include "../ProtBasic/parsebasic.h"
 
 /* 协议解析模块 */
-class ParseModule : public QObject
+class AfpsParseModule : public QObject
 {
     Q_OBJECT
 public:
-    explicit ParseModule(QObject *parent = nullptr);
+    explicit AfpsParseModule(QObject *parent = nullptr);
 
     void setParseIf(ParseBasic<QByteArray,  AfpsFormat > *mParseIf); //设置协议解析方法
 

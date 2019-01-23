@@ -4,7 +4,7 @@ AfpsModule::AfpsModule(QObject *parent) : QObject(parent)
 {
     qRegisterMetaType<AfpsFormat>("AfpsFormat");
     //解析模块
-    mAfpsParseModule = new ParseModule();
+    mAfpsParseModule = new AfpsParseModule();
     AfpsParse *mParseIf =
             new AfpsParse();
     mAfpsParseModule->setParseIf(
@@ -18,7 +18,7 @@ AfpsModule::AfpsModule(QObject *parent) : QObject(parent)
     mAdChannelDev = new AdChannelDev(DEV_ID::DEV_AD);
     mAfpsDevMng->addDev(mAdChannelDev);
     mAfpsDevMng->addFinish();
-    connect(mAfpsParseModule, &ParseModule::sig_result,
+    connect(mAfpsParseModule, &AfpsParseModule::sig_result,
             mAfpsDevMng, &AfpsDevMng::sig_rcvProt);
 //    connect(mAfpsParseModule, &ParseModule::sig_result,
 //            mAfpsDevMng, &AfpsDevMng::slot_rcvProt);

@@ -12,12 +12,11 @@ class AdChannelDev : public AfpsDevBasic
 public:
     explicit AdChannelDev(DEV_ID dev, QObject *parent = nullptr);
 
-    bool rcvProt(AfpsFormat prot);
+    void parse(); //解析协议内容
 
 signals:
 
 public slots:
-    void slot_rcvProt(AfpsFormat prot); //收到新协议
 };
 
 #endif // ADCHANNELDEV_H

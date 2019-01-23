@@ -6,21 +6,11 @@ AdChannelDev::AdChannelDev(DEV_ID dev, QObject *parent) :
 
 }
 
-bool AdChannelDev::rcvProt(AfpsFormat prot)
+//解析协议内容
+void AdChannelDev::parse()
 {
-    qDebug() << "AdChannelDev::rcvProt ";
-    if(prot.getDevId() == DEV_ID::DEV_AD){
-        this->prot = prot;
-        qDebug() << "AdChannelDev::rcvProt ";
-        return true;
-    }
-    return false;
+    //获取控制字
+//    char ctrl = protRcv.getInfor(PROT_FIELD::CTRL).at(0);
+
 }
 
-void AdChannelDev::slot_rcvProt(AfpsFormat prot)
-{
-    //收到本设备协议
-    if(rcvProt(prot)){
-
-    }
-}

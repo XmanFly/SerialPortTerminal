@@ -11,7 +11,7 @@ void AfpsParse::parse(QByteArray &buf, AfpsFormat &mProtResult)
     mProtResult.setIsValid(false);
     //协议头
     QByteArray head;
-    head.append(static_cast<char>(ProtPara::CMD_HEAD));
+    head.append(static_cast<char>(AfpsProtPara::CMD_HEAD));
     //查找协议头
     int headIdx = buf.indexOf(head);
     if(headIdx == -1){

@@ -6,7 +6,8 @@
 #include <QDebug>
 #include "afpsdevmng.h"
 #include "adchanneldev.h"
-#include "../ProtBasic/parsemodule.h"
+#include "afpsprotpara.h"
+#include "../Afps/afpsparsemodule.h"
 #include "../Afps/afpsdbgswitch.h"
 #include "../Afps/afpsparse.h"
 #include "../DummyData/afpsdummydata.h"
@@ -17,7 +18,7 @@ class AfpsModule : public QObject
 public:
     explicit AfpsModule(QObject *parent = nullptr);
 
-    ParseModule *mAfpsParseModule; //协议解析模块
+    AfpsParseModule *mAfpsParseModule; //协议解析模块
     AfpsDevMng *mAfpsDevMng; //设备管理模块
 
     AdChannelDev *mAdChannelDev;
