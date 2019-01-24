@@ -4,15 +4,15 @@ AFPsForm {
     signal sig_start()
     signal sig_stop()
 
-    startBtn {
+    switchBtn {
         onClicked: {
-            sig_start()
-        }
-    }
-
-    stopBtn {
-        onClicked: {
-            sig_stop()
+            if(switchBtn.text === "开始") {
+                switchBtn.text = "停止"
+                sig_start()
+            } else {
+                switchBtn.text = "开始"
+                sig_stop()
+            }
         }
     }
 

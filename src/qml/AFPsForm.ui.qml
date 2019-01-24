@@ -7,8 +7,7 @@ Page {
     width: 1366
     height: 768
     property alias chartRpt: chartRpt
-    property alias stopBtn: stopBtn
-    property alias startBtn: startBtn
+    property alias switchBtn: switchBtn
 
     //控制区
     ColumnLayout {
@@ -21,13 +20,8 @@ Page {
         width: parent.width * 1 / 8
 
         RoundButton {
-            id: startBtn
+            id: switchBtn
             text: "开始"
-            Layout.preferredWidth: 100
-        }
-        RoundButton {
-            id: stopBtn
-            text: "停止"
             Layout.preferredWidth: 100
         }
     }
@@ -41,7 +35,7 @@ Page {
             top: parent.top
             bottom: parent.bottom
         }
-        Repeater{
+        Repeater {
             id: chartRpt
             model: 4
             AdChart {
@@ -50,25 +44,5 @@ Page {
                 Layout.preferredWidth: chartAera.width
             }
         }
-//        AdChart {
-//            id: channel1
-//            Layout.preferredHeight: chartAera.height / 4
-//            Layout.preferredWidth: chartAera.width
-//        }
-//        AdChart {
-//            id: channel2
-//            Layout.preferredHeight: chartAera.height / 4
-//            Layout.preferredWidth: chartAera.width
-//        }
-//        AdChart {
-//            id: channel3
-//            Layout.preferredHeight: chartAera.height / 4
-//            Layout.preferredWidth: chartAera.width
-//        }
-//        AdChart {
-//            id: channel4
-//            Layout.preferredHeight: chartAera.height / 4
-//            Layout.preferredWidth: chartAera.width
-//        }
     }
 }
