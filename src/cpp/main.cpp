@@ -15,6 +15,10 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
+    //中文支持
+    QTextCodec *codec = QTextCodec::codecForName("GB2312");
+    QTextCodec::setCodecForLocale(codec);
+
     qmlRegisterType<Interface>("SerialPortTerminal.Interface", 1, 0, "Interface");
     qmlRegisterType<SerialPortPara>("SerialPortTerminal.SerialPortPara", 1, 0, "SerialPortPara");
     qmlRegisterType<DataObject>("SerialPortTerminal.DataObject", 1, 0, "DataObject");

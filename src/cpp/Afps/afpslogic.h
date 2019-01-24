@@ -2,6 +2,8 @@
 #define AFPSLOGIC_H
 
 #include <QObject>
+#include <QTime>
+#include <QDateTime>
 
 enum AFPS_STATE {
     UNINIT, //未初始化
@@ -24,7 +26,7 @@ private:
     AFPS_STATE state;
 
 signals:
-    void sig_sampleCtrl(bool isStart); //采集控制
+    void sig_sampleCtrl(bool isStart, QString time); //采集控制
 
 
 public slots:

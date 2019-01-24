@@ -207,6 +207,7 @@ void Interface::afpsInit() //初始化
     mAfpsModule = new AfpsModule();
     mAfpsAdChartModel = new AdChartModel();
     mAfpsLogic = new AfpsLogic();
+    mAfpsDataStorage = new AfpsDataStorage();
 
 #if AFPS_TEST == true
     mAfpsDummyData = new AfpsDummyData(70);
@@ -226,6 +227,10 @@ void Interface::afpsInit() //初始化
             this, &Interface::sig_afpsUpdateChart);
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
             mAfpsAdChartModel, &AdChartModel::slot_ctrl);
+    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
+            mAfpsDataStorage, &AfpsDataStorage::on_addData);
+    connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
+            mAfpsDataStorage, &AfpsDataStorage::on_ctrl);
 }
 
 //荧光开始

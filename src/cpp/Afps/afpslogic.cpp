@@ -19,7 +19,7 @@ bool AfpsLogic::sampleCtrl(bool isStart)
 {
     Q_UNUSED(isStart)
     if(state == IDLE) {
-        emit sig_sampleCtrl(isStart);
+        emit sig_sampleCtrl(isStart, QDateTime::currentDateTime().toString("yy_MM_dd_hh_mm_ss"));
         return true;
     } else {
         return false;
