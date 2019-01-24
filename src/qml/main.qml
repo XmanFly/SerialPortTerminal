@@ -78,6 +78,14 @@ ApplicationWindow {
         }
     }
 
+    //荧光
+    Connections {
+        target: mInterface
+        onSig_afpsUpdateChart : {
+            mInterface.afpsUpdateChart(afps.channel1Chart.updateSeries(0), afps.channel2Chart.updateSeries(0),
+                                       afps.channel3Chart.updateSeries(0), afps.channel4Chart.updateSeries(0))
+        }
+    }
     Connections {
         target: afps
         onSig_start : {
@@ -85,6 +93,6 @@ ApplicationWindow {
         }
         onSig_stop : {
             mInterface.afpsStop()
-        }
+        }        
     }
 }

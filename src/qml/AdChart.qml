@@ -16,9 +16,9 @@ ChartView {
     }
 
     property int xmin : 0
-    property int xmax : 67500
+    property int xmax : 100
     property int ymin : 0
-    property int ymax : 2
+    property int ymax : 4968682
     property bool peakVisible: false //峰值标签使能
     property bool translationEnable: false //拖动使能
     property bool updateXEnable: true //X轴范围变更使能
@@ -108,7 +108,6 @@ ChartView {
                     var xMaxTmp = translationBeginAxisX[1] - (mouseX-translationBeginPos[0]) / translationScale[0]
                     axisX.min = xMinTmp;
                     axisX.max = xMaxTmp;
-                    refreshLabel();
                 }
                 break;
             }
@@ -130,7 +129,6 @@ ChartView {
                     var yMaxTmp = translationBeginAxisY[1] - (mouseY-translationBeginPos[1]) / translationScale[1]
                     axisY.min = yMinTmp;
                     axisY.max = yMaxTmp;
-                    refreshLabel();
                 }
                 break;
             }
@@ -165,7 +163,6 @@ ChartView {
                 if(peakVisible) {
                     axisRestore();
                     adjustAxisY(0);
-                    refreshLabel();
                 }
             }
         }

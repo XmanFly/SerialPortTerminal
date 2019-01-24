@@ -205,6 +205,7 @@ QByteArray Interface::convertSendData(QString data, FormatModel::DisplayFormat f
 void Interface::afpsInit() //初始化
 {
     mAfpsModule = new AfpsModule();
+    mAfpsAdChartModel = new AdChartModel();
 
 #if AFPS_TEST == true
     mAfpsDummyData = new AfpsDummyData(70);
@@ -213,8 +214,13 @@ void Interface::afpsInit() //初始化
     connect(mAfpsDummyData, &AfpsDummyData::sig_data,
             this, &Interface::slot_serialReceive);
     connect(mAfpsDummyData, &AfpsDummyData::sig_cnt,
-            mDataCntModule->getSendCnt(), &DataCntModel::slot_add);
+            mDataCntModule->getSendCnt(), &DataCntModel::slot_add);    
 #endif
+
+    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
+            mAfpsAdChartModel, &AdChartModel::slot_rcvData);
+    connect(mAfpsAdChartModel, &AdChartModel::sig_dataUpdate,
+            this, &Interface::sig_afpsUpdateChart);
 }
 
 //荧光开始
@@ -232,3 +238,22 @@ void Interface::afpsStop()
     mAfpsDummyData->stop();
 #endif
 }
+
+//荧光更新谱图
+void Interface::afpsUpdateChart(QAbstractSeries *adChannel1, QAbstractSeries *adChannel2,
+                                     QAbstractSeries *adChannel3, QAbstractSeries *adChannel4)
+{
+    afpsUpdateChart(adChannel1, *mAfpsAdChartModel->channel.at(0));
+    afpsUpdateChart(adChannel2, *mAfpsAdChartModel->channel.at(1));
+    afpsUpdateChart(adChannel3, *mAfpsAdChartModel->channel.at(2));
+    afpsUpdateChart(adChannel4, *mAfpsAdChartModel->channel.at(3));
+}
+
+void Interface::afpsUpdateChart(QAbstractSeries *series, QVector<QPointF> &points)
+{
+    QXYSeries *xySeries = static_cast<QXYSeries *>(series);
+    // Use replace instead of clear + append, it's optimized for performance
+    xySeries->replace(points);
+}
+
+

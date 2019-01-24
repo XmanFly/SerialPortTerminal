@@ -36,7 +36,9 @@ SOURCES += \
     src/cpp/Afps/afpsdevmng.cpp \
     src/cpp/Afps/afpsdevbasic.cpp \
     src/cpp/Afps/afpsprotgen.cpp \
-    src/cpp/Afps/afpsparsemodule.cpp
+    src/cpp/Afps/afpsparsemodule.cpp \
+    src/cpp/Afps/adchartmodel.cpp \
+    src/cpp/Afps/afpslogic.cpp
 
 RESOURCES += qml.qrc
 
@@ -80,4 +82,6 @@ HEADERS += \
     src/cpp/ProtBasic/protgenbasic.h \
     src/cpp/Afps/afpsprotgen.h \
     src/cpp/Afps/afpsprotpara.h \
-    src/cpp/Afps/afpsparsemodule.h
+    src/cpp/Afps/afpsparsemodule.h \
+    src/cpp/Afps/adchartmodel.h \
+    src/cpp/Afps/afpslogic.h

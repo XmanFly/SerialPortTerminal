@@ -7,6 +7,8 @@
 #include <QDebug>
 #include <QThread>
 #include <QTime>
+#include <QtCharts>
+#include <QPointF>
 #include "serialportcontrol.h"
 #include "serialportpara.h"
 #include "serialportparanonqobj.h"
@@ -20,6 +22,7 @@
 #include "Afps/afpsdbgswitch.h"
 #include "Afps/afpsparse.h"
 #include "Afps/afpsmodule.h"
+#include "Afps/adchartmodel.h"
 #include "DummyData/afpsdummydata.h"
 
 /* UI与设备接口层 */
@@ -32,6 +35,7 @@ public:
     Q_PROPERTY(bool serialState READ getSerialPortState NOTIFY sig_serialPortState)
     Q_PROPERTY(NOTIFY sig_message)
     Q_PROPERTY(NOTIFY sig_resetDataList)
+    Q_PROPERTY(NOTIFY sig_afpsUpdateChart)
 
     Q_INVOKABLE QList<QString> refreshDev(); //刷新串口设备
     Q_INVOKABLE void setSerialPortPara(SerialPortPara *mPara); //设置串口参数
@@ -43,8 +47,11 @@ public:
     Q_INVOKABLE QVariant getDataCntModel(); //获取收发数据个数
     Q_INVOKABLE QVariant getRcvFormatModel(); //获取接收数据显示格式
     Q_INVOKABLE QVariant getSendFormatModel(); //获取发送数据格式
+//荧光
     Q_INVOKABLE void afpsStart(); //荧光开始
     Q_INVOKABLE void afpsStop(); //荧光停止
+    Q_INVOKABLE void afpsUpdateChart(QAbstractSeries *adChannel1, QAbstractSeries *adChannel2,
+                                     QAbstractSeries *adChannel3, QAbstractSeries *adChannel4); //荧光更新谱图
 
     bool getSerialPortState(); //获取串口状态
 
@@ -70,8 +77,13 @@ private:
 //荧光
 private:
     AfpsModule *mAfpsModule;
+    AdChartModel *mAfpsAdChartModel;
     AfpsDummyData *mAfpsDummyData;    
     void afpsInit(); //初始化
+    void afpsUpdateChart(QAbstractSeries *series, QVector<QPointF> &points);
+
+signals:
+    void sig_afpsUpdateChart();
 
 //控制串口设备
 signals:
