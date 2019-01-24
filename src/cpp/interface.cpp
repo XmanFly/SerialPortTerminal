@@ -219,6 +219,8 @@ void Interface::afpsInit() //初始化
             mDataCntModule->getSendCnt(), &DataCntModel::slot_add);    
 #endif
 
+    connect(mSerialPortControl, &SerialPortControl::sig_receive,
+        mAfpsModule->mAfpsParseModule, &AfpsParseModule::slot_receiveData);
     connect(mSerialPortControl, &SerialPortControl::sig_state,
         mAfpsLogic, &AfpsLogic::slot_serialPortState);
     connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
