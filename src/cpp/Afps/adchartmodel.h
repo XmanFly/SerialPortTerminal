@@ -13,12 +13,16 @@ public:
     explicit AdChartModel(QObject *parent = nullptr);
 
     QVector<QVector<QPointF> *> channel;
+    void clear();
+
+private:
+    bool isWork;
 
 signals:
     void sig_dataUpdate();
 
-public slots:
-    void slot_clear();
+public slots:    
+    void slot_ctrl(bool isStart);
     void slot_rcvData(AD_CHANNEDL_DATA data);
 };
 

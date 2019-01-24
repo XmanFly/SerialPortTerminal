@@ -206,6 +206,7 @@ void Interface::afpsInit() //初始化
 {
     mAfpsModule = new AfpsModule();
     mAfpsAdChartModel = new AdChartModel();
+    mAfpsLogic = new AfpsLogic();
 
 #if AFPS_TEST == true
     mAfpsDummyData = new AfpsDummyData(70);
@@ -217,15 +218,23 @@ void Interface::afpsInit() //初始化
             mDataCntModule->getSendCnt(), &DataCntModel::slot_add);    
 #endif
 
+    connect(mSerialPortControl, &SerialPortControl::sig_state,
+        mAfpsLogic, &AfpsLogic::slot_serialPortState);
     connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
             mAfpsAdChartModel, &AdChartModel::slot_rcvData);
     connect(mAfpsAdChartModel, &AdChartModel::sig_dataUpdate,
             this, &Interface::sig_afpsUpdateChart);
+    connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
+            mAfpsAdChartModel, &AdChartModel::slot_ctrl);
 }
 
 //荧光开始
 void Interface::afpsStart()
 {
+    if(mAfpsLogic->sampleCtrl(true)){
+    } else {
+        emit sig_message("设备未打开 禁止操作 ");
+    }
 #if AFPS_TEST == true
     mAfpsDummyData->start();
 #endif
@@ -234,6 +243,10 @@ void Interface::afpsStart()
 //荧光停止
 void Interface::afpsStop()
 {
+    if(mAfpsLogic->sampleCtrl(false)){
+    } else {
+        emit sig_message("设备未打开 禁止操作 ");
+    }
 #if AFPS_TEST == true
     mAfpsDummyData->stop();
 #endif
@@ -249,6 +262,11 @@ void Interface::afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, Q
 {
     QXYSeries *xySeries = static_cast<QXYSeries *>(series);
     // Use replace instead of clear + append, it's optimized for performance
+    if(points.isEmpty()) {
+        xySeries->clear();
+        xAxis->setRange(0, 1);
+        return;
+    }
     xySeries->replace(points);
     xAxis->setMin(points.first().x());
     xAxis->setMax(points.last().x());

@@ -23,6 +23,7 @@
 #include "Afps/afpsparse.h"
 #include "Afps/afpsmodule.h"
 #include "Afps/adchartmodel.h"
+#include "Afps/afpslogic.h"
 #include "DummyData/afpsdummydata.h"
 
 /* UI与设备接口层 */
@@ -77,6 +78,7 @@ private:
 private:
     AfpsModule *mAfpsModule;
     AdChartModel *mAfpsAdChartModel;
+    AfpsLogic *mAfpsLogic;
     AfpsDummyData *mAfpsDummyData;    
     void afpsInit(); //初始化
     void afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, QVector<QPointF> &points);
