@@ -15,4 +15,9 @@ AFPsForm {
             sig_stop()
         }
     }
+
+    function getChart(id){
+        return chartRpt.itemAt(id)
+    }
+
 }

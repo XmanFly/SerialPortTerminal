@@ -240,20 +240,18 @@ void Interface::afpsStop()
 }
 
 //荧光更新谱图
-void Interface::afpsUpdateChart(QAbstractSeries *adChannel1, QAbstractSeries *adChannel2,
-                                     QAbstractSeries *adChannel3, QAbstractSeries *adChannel4)
+void Interface::afpsUpdateChannelChart(int channelId, QAbstractSeries *adChannel1, QAbstractAxis *xAxis)
 {
-    afpsUpdateChart(adChannel1, *mAfpsAdChartModel->channel.at(0));
-    afpsUpdateChart(adChannel2, *mAfpsAdChartModel->channel.at(1));
-    afpsUpdateChart(adChannel3, *mAfpsAdChartModel->channel.at(2));
-    afpsUpdateChart(adChannel4, *mAfpsAdChartModel->channel.at(3));
+    afpsUpdateChart(adChannel1, xAxis, *mAfpsAdChartModel->channel.at(channelId));
 }
 
-void Interface::afpsUpdateChart(QAbstractSeries *series, QVector<QPointF> &points)
+void Interface::afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, QVector<QPointF> &points)
 {
     QXYSeries *xySeries = static_cast<QXYSeries *>(series);
     // Use replace instead of clear + append, it's optimized for performance
     xySeries->replace(points);
+    xAxis->setMin(points.first().x());
+    xAxis->setMax(points.last().x());
 }
 
 

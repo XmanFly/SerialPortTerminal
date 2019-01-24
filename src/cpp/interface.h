@@ -50,8 +50,7 @@ public:
 //荧光
     Q_INVOKABLE void afpsStart(); //荧光开始
     Q_INVOKABLE void afpsStop(); //荧光停止
-    Q_INVOKABLE void afpsUpdateChart(QAbstractSeries *adChannel1, QAbstractSeries *adChannel2,
-                                     QAbstractSeries *adChannel3, QAbstractSeries *adChannel4); //荧光更新谱图
+    Q_INVOKABLE void afpsUpdateChannelChart(int channelId, QAbstractSeries *adChannel1, QAbstractAxis *xAxis); //荧光更新谱图
 
     bool getSerialPortState(); //获取串口状态
 
@@ -80,7 +79,7 @@ private:
     AdChartModel *mAfpsAdChartModel;
     AfpsDummyData *mAfpsDummyData;    
     void afpsInit(); //初始化
-    void afpsUpdateChart(QAbstractSeries *series, QVector<QPointF> &points);
+    void afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, QVector<QPointF> &points);
 
 signals:
     void sig_afpsUpdateChart();

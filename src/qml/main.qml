@@ -82,8 +82,14 @@ ApplicationWindow {
     Connections {
         target: mInterface
         onSig_afpsUpdateChart : {
-            mInterface.afpsUpdateChart(afps.channel1Chart.updateSeries(0), afps.channel2Chart.updateSeries(0),
-                                       afps.channel3Chart.updateSeries(0), afps.channel4Chart.updateSeries(0))
+            mInterface.afpsUpdateChannelChart(0, afps.getChart(0).updateSeries(0), afps.getChart(0).getXAxis())
+            afps.getChart(0).adjustAxisYFromChart(0)
+            mInterface.afpsUpdateChannelChart(1, afps.getChart(1).updateSeries(0), afps.getChart(1).getXAxis())
+            afps.getChart(1).adjustAxisYFromChart(0)
+            mInterface.afpsUpdateChannelChart(2, afps.getChart(2).updateSeries(0), afps.getChart(2).getXAxis())
+            afps.getChart(2).adjustAxisYFromChart(0)
+            mInterface.afpsUpdateChannelChart(3, afps.getChart(3).updateSeries(0), afps.getChart(3).getXAxis())
+            afps.getChart(3).adjustAxisYFromChart(0)
         }
     }
     Connections {
