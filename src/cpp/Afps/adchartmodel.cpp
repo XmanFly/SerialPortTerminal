@@ -8,6 +8,7 @@ AdChartModel::AdChartModel(QObject *parent) :
     channel.append(new QVector<QPointF>);
     channel.append(new QVector<QPointF>);
     channel.append(new QVector<QPointF>);
+    calcRange();
 }
 
 void AdChartModel::clear()
@@ -37,5 +38,24 @@ void AdChartModel::slot_rcvData(AD_CHANNEDL_DATA data)
     channel[1]->append(QPointF(channel[1]->size() + 1, data.channel2));
     channel[2]->append(QPointF(channel[2]->size() + 1, data.channel3));
     channel[3]->append(QPointF(channel[3]->size() + 1, data.channel4));
+    calcRange();
     emit sig_dataUpdate();
+}
+
+/* 计算每个通道数值范围 */
+void AdChartModel::calcRange()
+{
+    channelRange.clear();
+    for(int i=0; i<channel.size(); i++){
+        double min = 1e10;
+        double max = -1e10;
+        foreach(QPointF eachPoint, *channel.at(i)) {
+            min = eachPoint.y() < min ? eachPoint.y() : min;
+            max = eachPoint.y() > max ? eachPoint.y() : max;
+        }
+        QVector<double > range;
+        range.append(min);
+        range.append(max);
+        channelRange.append(range);
+    }
 }

@@ -53,6 +53,7 @@ public:
     Q_INVOKABLE void afpsStart(); //荧光开始
     Q_INVOKABLE void afpsStop(); //荧光停止
     Q_INVOKABLE void afpsUpdateChannelChart(int channelId, QAbstractSeries *adChannel1, QAbstractAxis *xAxis); //荧光更新谱图
+    Q_INVOKABLE QVector<qreal> afpsGetDataRange(int id);
 
     bool getSerialPortState(); //获取串口状态
 

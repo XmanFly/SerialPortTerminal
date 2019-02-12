@@ -12,11 +12,13 @@ class AdChartModel : public QObject
 public:
     explicit AdChartModel(QObject *parent = nullptr);
 
-    QVector<QVector<QPointF> *> channel;
+    QVector<QVector<QPointF> *> channel; //通道数值
+    QVector<QVector<double >> channelRange; //每个通道数值范围
     void clear();
 
 private:
     bool isWork;
+    void calcRange(); //计算每个通道数值范围
 
 signals:
     void sig_dataUpdate();

@@ -279,4 +279,11 @@ void Interface::afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, Q
     xAxis->setMax(points.last().x());
 }
 
+QVector<qreal > Interface::afpsGetDataRange(int id)
+{
+    QVector<qreal > ret;
+    ret.append(mAfpsAdChartModel->channelRange.at(id).at(0));
+    ret.append(mAfpsAdChartModel->channelRange.at(id).at(1));
+    return ret;
+}
 
