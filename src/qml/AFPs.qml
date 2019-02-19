@@ -16,7 +16,7 @@ AFPsForm {
                 switchBtn.text = "停止"
                 var para = new Array();
                 for(var i=0; i<3; i++){
-                    para.push(cfgParaRpt.itemAt(i).)
+                    para.push(cfgParaRpt.itemAt(i).currentText)
                 }
                 sig_start(para)
             } else {

@@ -50,7 +50,7 @@ public:
     Q_INVOKABLE QVariant getRcvFormatModel(); //获取接收数据显示格式
     Q_INVOKABLE QVariant getSendFormatModel(); //获取发送数据格式
 //荧光
-    Q_INVOKABLE void afpsStart(); //荧光开始
+    Q_INVOKABLE void afpsStart(QStringList para); //荧光开始
     Q_INVOKABLE void afpsStop(); //荧光停止
     Q_INVOKABLE void afpsUpdateChannelChart(int channelId, QAbstractSeries *adChannel1, QAbstractAxis *xAxis); //荧光更新谱图
     Q_INVOKABLE QVector<qreal> afpsGetDataRange(int id);

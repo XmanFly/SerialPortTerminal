@@ -92,7 +92,8 @@ ApplicationWindow {
     Connections {
         target: afps
         onSig_start : {
-            mInterface.afpsStart()
+            console.log("afps start " + para)
+            mInterface.afpsStart(para)
         }
         onSig_stop : {
             mInterface.afpsStop()

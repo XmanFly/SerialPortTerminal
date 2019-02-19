@@ -20,13 +20,14 @@ public:
     explicit AfpsLogic(QObject *parent = nullptr);
 
     bool setState(AFPS_STATE newSt);
-    bool sampleCtrl(bool isStart); //采集控制请求
+    bool sampleCtrl(bool isStart, QStringList para); //采集控制请求
+    QString genFileName(const QStringList& para);
 
 private:
     AFPS_STATE state;
 
 signals:
-    void sig_sampleCtrl(bool isStart, QString time); //采集控制
+    void sig_sampleCtrl(bool isStart, QString fileName); //采集控制
 
 
 public slots:

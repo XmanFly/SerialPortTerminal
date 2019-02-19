@@ -236,9 +236,10 @@ void Interface::afpsInit() //初始化
 }
 
 //荧光开始
-void Interface::afpsStart()
+void Interface::afpsStart(QStringList para)
 {
-    if(mAfpsLogic->sampleCtrl(true)){
+    qDebug() << "Interface::afpsStart " << para;
+    if(mAfpsLogic->sampleCtrl(true, para)){
     } else {
         emit sig_message("设备未打开 禁止操作 ");
     }
@@ -250,7 +251,7 @@ void Interface::afpsStart()
 //荧光停止
 void Interface::afpsStop()
 {
-    if(mAfpsLogic->sampleCtrl(false)){
+    if(mAfpsLogic->sampleCtrl(false, QStringList())){
     } else {
         emit sig_message("设备未打开 禁止操作 ");
     }

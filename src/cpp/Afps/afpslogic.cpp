@@ -15,15 +15,24 @@ bool AfpsLogic::setState(AFPS_STATE newSt)
 }
 
 //采集控制请求
-bool AfpsLogic::sampleCtrl(bool isStart)
+bool AfpsLogic::sampleCtrl(bool isStart, QStringList para)
 {
     Q_UNUSED(isStart)
     if(state == IDLE) {
-        emit sig_sampleCtrl(isStart, QDateTime::currentDateTime().toString("yy_MM_dd_hh_mm_ss"));
+        emit sig_sampleCtrl(isStart, genFileName(para));
         return true;
     } else {
         return false;
     }
+}
+
+QString AfpsLogic::genFileName(const QStringList& para)
+{
+    QString fileName;
+    foreach(QString each, para){
+        fileName += QString("[%1]").arg(each);
+    }
+    return fileName;
 }
 
 void AfpsLogic::slot_serialPortState(bool isOpen)
