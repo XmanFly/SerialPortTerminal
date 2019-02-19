@@ -71,10 +71,12 @@ ApplicationWindow {
         target: mInterface
         onSig_message : {
             //创建消息弹窗
-            var msgDlg = Qt.createQmlObject("import QtQuick 2.9; import QtQuick.Dialogs 1.1;"
-                                            + "MessageDialog {property alias msgDlg : msgDlg; id: msgDlg; onAccepted : {} Component.onCompleted: visible = true}", root)
+            var msgDlg = Qt.createQmlObject("import QtQuick 2.2; import QtQuick.Dialogs 1.3;"
+                                            + "MessageDialog {property alias msgDlg : msgDlg; id: msgDlg; text: \"400\"; height: 800; onAccepted : {} Component.onCompleted: visible = false}", root)
             msgDlg.msgDlg.text = msg
             msgDlg.msgDlg.icon = StandardIcon.Warning
+            msgDlg.msgDlg.visible = true
+            console.log("onSig_message " + msg)
         }
     }
 
