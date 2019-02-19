@@ -39,7 +39,9 @@ SOURCES += \
     src/cpp/Afps/afpsparsemodule.cpp \
     src/cpp/Afps/adchartmodel.cpp \
     src/cpp/Afps/afpslogic.cpp \
-    src/cpp/Afps/afpsdatastorage.cpp
+    src/cpp/Afps/afpsdatastorage.cpp \
+    src/cpp/Afps/comboboxmodel.cpp \
+    src/cpp/Afps/afpscfgparamodule.cpp
 
 RESOURCES += qml.qrc
 
@@ -86,4 +88,6 @@ HEADERS += \
     src/cpp/Afps/afpsparsemodule.h \
     src/cpp/Afps/adchartmodel.h \
     src/cpp/Afps/afpslogic.h \
-    src/cpp/Afps/afpsdatastorage.h
+    src/cpp/Afps/afpsdatastorage.h \
+    src/cpp/Afps/comboboxmodel.h \
+    src/cpp/Afps/afpscfgparamodule.h

@@ -8,6 +8,7 @@ Page {
     height: 768
     property alias chartRpt: chartRpt
     property alias switchBtn: switchBtn
+    property alias cfgParaRpt: cfgParaRpt
 
     //控制区
     ColumnLayout {
@@ -15,10 +16,21 @@ Page {
         anchors {
             left: parent.left
             top: parent.top
-            bottom: parent.bottom
+            //            bottom: parent.bottom
+            leftMargin: 10
         }
         width: parent.width * 1 / 8
 
+        //下拉列表
+        Repeater {
+            id: cfgParaRpt
+            model: 3
+            delegate: ComboBox {
+                id: eachItem
+                //                height: itemHeight
+                //                textRole: model.modelData.value:w
+            }
+        }
         RoundButton {
             id: switchBtn
             text: "开始"
@@ -46,3 +58,11 @@ Page {
         }
     }
 }
+
+
+
+
+/*##^## Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+ ##^##*/
