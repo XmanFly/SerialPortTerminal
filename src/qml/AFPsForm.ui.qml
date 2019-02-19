@@ -27,8 +27,28 @@ Page {
             model: 3
             delegate: ComboBox {
                 id: eachItem
-                //                height: itemHeight
-                //                textRole: model.modelData.value:w
+
+                popup: Popup {
+                    y: eachItem.height - 1
+                    width: eachItem.width
+                    implicitHeight: contentItem.implicitHeight
+                    padding: 1
+
+                    contentItem: ListView {
+                        clip: true
+                        implicitHeight: contentHeight
+                        model: eachItem.popup.visible ? eachItem.delegateModel : null
+                        currentIndex: eachItem.highlightedIndex
+                        ScrollBar.vertical: ScrollBar {
+                            policy: ScrollBar.AlwaysOn
+                        }
+                    }
+
+                    background: Rectangle {
+                        border.color: "#21be2b"
+                        radius: 2
+                    }
+                }
             }
         }
         RoundButton {
@@ -58,6 +78,10 @@ Page {
         }
     }
 }
+
+
+
+
 
 
 
