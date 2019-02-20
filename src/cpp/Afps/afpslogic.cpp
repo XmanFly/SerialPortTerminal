@@ -30,8 +30,9 @@ QString AfpsLogic::genFileName(const QStringList& para)
 {
     QString fileName;
     foreach(QString each, para){
-        fileName += QString("[%1]").arg(each);
+        fileName += QString("%1-").arg(each);
     }
+    fileName.remove(fileName.size()-1, 1);
     return fileName;
 }
 
