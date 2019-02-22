@@ -16,5 +16,6 @@
         <file>src/qml/AFPs.qml</file>
         <file>src/qml/AFPsForm.ui.qml</file>
         <file>src/qml/AdChart.qml</file>
+        <file>src/qml/Explorer.qml</file>
     </qresource>
 </RCC>

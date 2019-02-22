@@ -16,10 +16,9 @@ Page {
         anchors {
             left: parent.left
             top: parent.top
-            //            bottom: parent.bottom
             leftMargin: 10
         }
-        width: parent.width * 1 / 8
+        width: parent.width * 2 / 8
 
         //下拉列表
         Repeater {
@@ -58,6 +57,18 @@ Page {
         }
     }
 
+    //数据文件加载区
+    Explorer {
+        anchors {
+            top: ctrlPanel.bottom
+            left: ctrlPanel.left
+            right: ctrlPanel.right
+            bottom: parent.bottom
+            bottomMargin: 20
+        }
+//        folder: "Data"
+    }
+
     //绘图区
     ColumnLayout {
         id: chartAera
@@ -78,10 +89,6 @@ Page {
         }
     }
 }
-
-
-
-
 
 
 
