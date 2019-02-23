@@ -25,6 +25,7 @@
 #include "Afps/adchartmodel.h"
 #include "Afps/afpslogic.h"
 #include "Afps/afpsdatastorage.h"
+#include "Afps/loaddatafile.h"
 #include "DummyData/afpsdummydata.h"
 
 /* UI与设备接口层 */
@@ -54,6 +55,7 @@ public:
     Q_INVOKABLE void afpsStop(); //荧光停止
     Q_INVOKABLE void afpsUpdateChannelChart(int channelId, QAbstractSeries *adChannel1, QAbstractAxis *xAxis); //荧光更新谱图
     Q_INVOKABLE QVector<qreal> afpsGetDataRange(int id);
+    Q_INVOKABLE bool afpsLoadFile(QString name);
 
     bool getSerialPortState(); //获取串口状态
 
@@ -83,11 +85,14 @@ private:
     AfpsLogic *mAfpsLogic;
     AfpsDataStorage *mAfpsDataStorage;
     AfpsDummyData *mAfpsDummyData;    
+    LoadDataFile *mLoadDataFile;
+    QThread *mLoadDataFileTh;
     void afpsInit(); //初始化
     void afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, QVector<QPointF> &points);
 
 signals:
     void sig_afpsUpdateChart();
+    void sig_loadFile(QString name);
 
 //控制串口设备
 signals:

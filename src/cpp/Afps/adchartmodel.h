@@ -26,6 +26,7 @@ signals:
 public slots:    
     void slot_ctrl(bool isStart);
     void slot_rcvData(AD_CHANNEDL_DATA data);
+    void slot_rcvAllData(QVector<QVector<QPointF> > data); //收到单次采样所有数据
 };
 
 #endif // ADCHARTMODEL_H

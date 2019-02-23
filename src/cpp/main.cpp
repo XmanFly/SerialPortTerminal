@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<FormatModel>("SerialPortTerminal.FormatModel", 1, 0, "FormatModel");
     qmlRegisterType<AfpsCfgParaModule>("SerialPortTerminal.AfpsCfgParaModule", 1, 0, "AfpsCfgParaModule");
     qRegisterMetaType<SerialPortParaNonQobj>("SerialPortParaNonQobj");
+    qRegisterMetaType<QVector<QVector<QPointF>>>("QVector<QVector<QPointF>>");
 
 //    QQmlContext *context = engine.rootContext();
 //    Interface *mInterface = new Interface();

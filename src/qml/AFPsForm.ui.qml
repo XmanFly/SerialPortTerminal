@@ -9,6 +9,7 @@ Page {
     property alias chartRpt: chartRpt
     property alias switchBtn: switchBtn
     property alias cfgParaRpt: cfgParaRpt
+    property alias fileExp: fileExp
 
     //控制区
     ColumnLayout {
@@ -59,6 +60,7 @@ Page {
 
     //数据文件加载区
     Explorer {
+        id: fileExp
         anchors {
             top: ctrlPanel.bottom
             left: ctrlPanel.left
@@ -66,7 +68,7 @@ Page {
             bottom: parent.bottom
             bottomMargin: 20
         }
-//        folder: "Data"
+        //        folder: "Data"
     }
 
     //绘图区

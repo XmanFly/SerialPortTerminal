@@ -33,6 +33,7 @@ ApplicationWindow {
         AFPs {
             id: afps
 
+
 //            onSig_start : {
 //                mInterface.afpsStart()
 //            }
@@ -100,5 +101,8 @@ ApplicationWindow {
         onSig_stop : {
             mInterface.afpsStop()
         }        
+        onSig_loadFile: {
+            mInterface.afpsLoadFile(path)
+        }
     }
 }

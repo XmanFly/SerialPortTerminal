@@ -4,10 +4,17 @@ import SerialPortTerminal.AfpsCfgParaModule 1.0
 AFPsForm {
     signal sig_start(var para)
     signal sig_stop()
+    signal sig_loadFile(var path)
 
     AfpsCfgParaModule {
         id: cfgPara
         fileName: "config.ini"
+    }
+
+    fileExp {
+        onSig_loadFile: {
+            sig_loadFile(path)
+        }
     }
 
     switchBtn {

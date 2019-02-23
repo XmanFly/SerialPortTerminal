@@ -208,6 +208,16 @@ void Interface::afpsInit() //初始化
     mAfpsAdChartModel = new AdChartModel();
     mAfpsLogic = new AfpsLogic();
     mAfpsDataStorage = new AfpsDataStorage();
+    mLoadDataFile = new LoadDataFile();
+    mLoadDataFileTh = new QThread();
+    mLoadDataFile->moveToThread(mLoadDataFileTh);
+    mLoadDataFileTh->start();
+    connect(mLoadDataFile, &LoadDataFile::sig_sampleCtrl,
+            mAfpsAdChartModel, &AdChartModel::slot_ctrl);
+    connect(mLoadDataFile, &LoadDataFile::sig_data,
+            mAfpsAdChartModel, &AdChartModel::slot_rcvAllData);
+    connect(this, &Interface::sig_loadFile,
+            mLoadDataFile, &LoadDataFile::slot_loadFile);
 
 #if AFPS_TEST == true
     mAfpsDummyData = new AfpsDummyData(70);
@@ -286,5 +296,11 @@ QVector<qreal > Interface::afpsGetDataRange(int id)
     ret.append(mAfpsAdChartModel->channelRange.at(id).at(0));
     ret.append(mAfpsAdChartModel->channelRange.at(id).at(1));
     return ret;
+}
+
+bool Interface::afpsLoadFile(QString name)
+{
+    emit sig_loadFile(name);
+    return true;
 }
 

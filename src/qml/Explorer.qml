@@ -62,6 +62,7 @@ Rectangle {
           id: folderModel
           showDirs: false
           nameFilters: [ "*.csv"]
+          sortField: "Time"
         }
         Component {
           id: fileDelegate
@@ -87,6 +88,8 @@ Rectangle {
         delegate: fileDelegate
         highlight: highlight
         highlightFollowsCurrentItem: true
+        highlightMoveDuration: -1
+        highlightMoveVelocity: 20000
         clip: true
         focus: true
         ScrollBar.vertical: ScrollBar {
@@ -102,11 +105,11 @@ Rectangle {
           width: explorList.width
           implicitWidth: explorList.width
           Layout.preferredWidth: explorList.width
-          color: "lightsteelblue"; radius: 5
+          color: "lightsteelblue"; radius: 2
           y: explorList.y
           Behavior on y {
               SpringAnimation {
-                  spring: 1
+                  spring: 0.01
                   damping: 0.2
               }
           }

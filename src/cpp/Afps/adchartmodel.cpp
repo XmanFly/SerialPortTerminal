@@ -59,3 +59,15 @@ void AdChartModel::calcRange()
         channelRange.append(range);
     }
 }
+
+//收到单次采样所有数据
+void AdChartModel::slot_rcvAllData(QVector<QVector<QPointF> > data)
+{
+    for(int i=0; i<data.size(); i++){
+        for(int j=0; j<data[i].size(); j++){
+            channel[i]->append(data[i][j]);
+        }
+    }
+    calcRange();
+    emit sig_dataUpdate();
+}
