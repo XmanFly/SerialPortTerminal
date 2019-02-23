@@ -16,6 +16,11 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setOrganizationName("WeiMu");
+    QCoreApplication::setOrganizationDomain("weimu.com");
+    QCoreApplication::setApplicationName("AFPS");
+
     //中文支持
     QTextCodec *codec = QTextCodec::codecForName("GB2312");
     QTextCodec::setCodecForLocale(codec);
