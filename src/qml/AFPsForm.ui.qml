@@ -11,15 +11,29 @@ Page {
     property alias cfgParaRpt: cfgParaRpt
     property alias fileExp: fileExp
 
+    //数据文件加载区
+    Explorer {
+        id: fileExp
+        anchors {
+            top: parent.top
+            left: parent.left
+            bottom: ctrlPanel.top
+            bottomMargin: 20
+            leftMargin: 10
+        }
+        width: parent.width * 2 / 8
+        z: 6
+    }
+
     //控制区
     ColumnLayout {
         id: ctrlPanel
         anchors {
-            left: parent.left
-            top: parent.top
-            leftMargin: 10
+            left: fileExp.left
+            right: fileExp.right
+            bottom: parent.bottom
+            bottomMargin: 20
         }
-        width: parent.width * 2 / 8
 
         //下拉列表
         Repeater {
@@ -56,19 +70,6 @@ Page {
             text: "开始"
             Layout.preferredWidth: 100
         }
-    }
-
-    //数据文件加载区
-    Explorer {
-        id: fileExp
-        anchors {
-            top: ctrlPanel.bottom
-            left: ctrlPanel.left
-            right: ctrlPanel.right
-            bottom: parent.bottom
-            bottomMargin: 20
-        }
-        //        folder: "Data"
     }
 
     //绘图区

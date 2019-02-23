@@ -19,14 +19,22 @@ Rectangle {
         height: 50
         Button {
             id: explorBtn
-            text: "浏览"
+            text: "浏览"            
             onClicked: {
                 fds.open()
             }
         }
         Label {
             id: folderPath
-            text: "nani"
+            text: fds.fileUrl
+            font {
+                pixelSize: 25
+            }
+            color: "blue"
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+            }
         }
     }
 
