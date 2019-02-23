@@ -69,6 +69,7 @@ Rectangle {
         FolderListModel {
           id: folderModel
           showDirs: false
+//          folder: "file:./Data"
           nameFilters: [ "*.csv"]
           sortField: "Time"
         }
@@ -124,6 +125,12 @@ Rectangle {
       }
     }
 
+    function setCurPath(path) {
+        curPath = path
+        folderModel.folder = path
+        folderPath.text = path;
+        console.log("setCurPath " + path + folderModel.rootFolder)
+    }
     Component.onCompleted: {
     }
 }

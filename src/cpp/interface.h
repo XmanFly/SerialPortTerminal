@@ -39,6 +39,7 @@ public:
     Q_PROPERTY(NOTIFY sig_message)
     Q_PROPERTY(NOTIFY sig_resetDataList)
     Q_PROPERTY(NOTIFY sig_afpsUpdateChart)
+    Q_PROPERTY(QString curPath READ getCurPath CONSTANT)
 
     Q_INVOKABLE QList<QString> refreshDev(); //刷新串口设备
     Q_INVOKABLE void setSerialPortPara(SerialPortPara *mPara); //设置串口参数
@@ -58,6 +59,7 @@ public:
     Q_INVOKABLE bool afpsLoadFile(QString name);
 
     bool getSerialPortState(); //获取串口状态
+    QString getCurPath(); //当前路径
 
 private:
     QSerialPortInfo *mSerialPortInfo; //串口信息
@@ -73,6 +75,7 @@ private:
     DataCntModule *mDataCntModule; //数据个数模块
     FormatModule *mRcvFormatModule; //接收数据显示格式模块
     FormatModule *mSendFormatModule; //发送数据显示格式模块
+    QString curPath; //当前路径
 
     void periodSendInit(); //定时发送模块初始化
     void dataCntInit(); //收发数据个数初始化
@@ -98,7 +101,7 @@ signals:
 signals:
     void sig_openSerialPort(SerialPortParaNonQobj para); //打开串口
     void sig_closeSerialPort(); //关闭串口
-    void sig_sendData(QByteArray data); //发送数据
+    void sig_sendData(QByteArray data); //发送数据    
 
 //定时发送模块
 signals:

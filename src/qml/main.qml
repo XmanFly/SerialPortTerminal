@@ -65,7 +65,10 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        home.setInterface(mInterface)        
+        home.setInterface(mInterface)
+        //荧光默认数据文件目录
+        var afpsDataPath = "file:///" + mInterface.curPath + "/Data"
+        afps.setPath(afpsDataPath)
     }
 
     Connections {

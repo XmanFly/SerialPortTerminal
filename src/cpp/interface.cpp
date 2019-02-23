@@ -145,6 +145,12 @@ bool Interface::getSerialPortState()
     return  serialState;
 }
 
+//当前路径
+QString Interface::getCurPath()
+{
+    return QDir::currentPath();
+}
+
 //获取数据Model
 QVariant Interface::getDataModel()
 {

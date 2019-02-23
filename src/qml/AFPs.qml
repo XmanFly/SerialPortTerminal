@@ -6,6 +6,7 @@ AFPsForm {
     signal sig_stop()
     signal sig_loadFile(var path)
 
+
     AfpsCfgParaModule {
         id: cfgPara
         fileName: "config.ini"
@@ -14,7 +15,7 @@ AFPsForm {
     fileExp {
         onSig_loadFile: {
             sig_loadFile(path)
-        }
+        }                
     }
 
     switchBtn {
@@ -35,6 +36,10 @@ AFPsForm {
 
     function getChart(id){
         return chartRpt.itemAt(id)
+    }
+
+    function setPath(path){
+        fileExp.setCurPath(path)
     }
 
     Component.onCompleted: {
