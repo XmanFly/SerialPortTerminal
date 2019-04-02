@@ -1,4 +1,4 @@
-import QtQuick 2.9
+﻿import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtCharts 2.3
@@ -30,10 +30,11 @@ Page {
         id: ctrlPanel
         anchors {
             left: fileExp.left
-            right: fileExp.right
+            //            right: fileExp.right
             bottom: parent.bottom
             bottomMargin: 20
         }
+        width: fileExp.width * 1 / 2
 
         //下拉列表
         Repeater {
@@ -72,11 +73,29 @@ Page {
         }
     }
 
+    //算法区
+    ColumnLayout {
+        id: algorithm
+        anchors {
+            left: ctrlPanel.right
+            right: fileExp.right
+            top: ctrlPanel.top
+            bottom: parent.bottom
+            bottomMargin: 20
+        }
+        //检测结果
+        Text {
+            id: resultTxt
+            font.pixelSize: 20
+            text: AfpsAlgorithmViewModel.result
+        }
+    }
+
     //绘图区
     ColumnLayout {
         id: chartAera
         anchors {
-            left: ctrlPanel.right
+            left: algorithm.right
             right: parent.right
             top: parent.top
             bottom: parent.bottom

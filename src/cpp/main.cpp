@@ -1,4 +1,4 @@
-#include <QApplication>
+﻿#include <QApplication>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -9,6 +9,7 @@
 #include "formatmodel.h"
 #include "serialportparanonqobj.h"
 #include "./Afps/afpscfgparamodule.h"
+#include "./Afps/Algorithm/algorithmviewmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -39,8 +40,16 @@ int main(int argc, char *argv[])
 //    Interface *mInterface = new Interface();
 //    context->setContextProperty("Interface",mInterface);
 
+
     QQmlApplicationEngine engine;
+    QQmlContext *context = engine.rootContext();
+    Interface *mInterface = new Interface();
+    context->setContextProperty("mInterface",mInterface);
+    context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
+
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
+
+
 
 
 

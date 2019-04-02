@@ -1,4 +1,4 @@
-#include "interface.h"
+﻿#include "interface.h"
 
 Interface::Interface(QObject *parent) :
     QObject(parent),
@@ -218,6 +218,14 @@ void Interface::afpsInit() //初始化
     mLoadDataFileTh = new QThread();
     mLoadDataFile->moveToThread(mLoadDataFileTh);
     mLoadDataFileTh->start();
+    mAfpsAlgorithmViewModel = new AfpsAlgorithmViewModel();
+    mBaseline = new Baseline(Baseline::Para(1, 51, 700));
+    mDetection = new Detection(Detection::Para(31, 131, 0, 0.045));
+    mAfpsAlgorithmTh = new QThread();
+    mAlgorithm = new Algorithm(mBaseline, mDetection);
+    mAlgorithm->moveToThread(mAfpsAlgorithmTh);
+    mAfpsAlgorithmTh->start();
+
     connect(mLoadDataFile, &LoadDataFile::sig_sampleCtrl,
             mAfpsAdChartModel, &AdChartModel::slot_ctrl);
     connect(mLoadDataFile, &LoadDataFile::sig_data,
@@ -249,6 +257,10 @@ void Interface::afpsInit() //初始化
             mAfpsDataStorage, &AfpsDataStorage::on_addData);
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
             mAfpsDataStorage, &AfpsDataStorage::on_ctrl);
+    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
+            mAlgorithm, &Algorithm::slot_receiveData);
+    connect(mAlgorithm, &Algorithm::sig_result,
+            mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateResult);
 }
 
 //荧光开始
@@ -256,7 +268,10 @@ void Interface::afpsStart(QStringList para)
 {
     qDebug() << "Interface::afpsStart " << para;
     if(mAfpsLogic->sampleCtrl(true, para)){
+        mAlgorithm->setEnable(true);
+        mAlgorithm->init();
     } else {
+        mAlgorithm->setEnable(false);
         emit sig_message("设备未打开 禁止操作 ");
     }
 #if AFPS_TEST == true

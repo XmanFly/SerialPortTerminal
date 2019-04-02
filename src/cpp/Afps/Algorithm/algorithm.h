@@ -1,0 +1,42 @@
+﻿#ifndef ALGORITHM_H
+#define ALGORITHM_H
+
+#include <QObject>
+#include "../adchanneldev.h"
+#include "baseline.h"
+#include "detection.h"
+
+class Algorithm : public QObject
+{
+    Q_OBJECT
+public:
+    explicit Algorithm(Baseline *mBaseline, Detection *mDetection, QObject *parent = nullptr);
+
+    enum STATE {
+        WAITE_BASELINE_STABLE, //等待背景稳定
+        BASELINE_UPDATE, //基线更新
+        DETECTION, //物质判定
+        DETECTED, //检出
+        TIMEOUT, //超时
+    };
+
+    void init();
+    void setEnable(bool isEnable);
+
+    Baseline *mBaseline;
+    Detection *mDetection;
+    STATE mState;
+
+private:
+    void process(double data); //处理一个数据
+
+    bool isEnable;
+
+signals:
+    void sig_result(QString res); //本次检出结果
+
+public slots:
+    void slot_receiveData(AD_CHANNEDL_DATA data);
+};
+
+#endif // ALGORITHM_H

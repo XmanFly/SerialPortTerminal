@@ -1,4 +1,4 @@
-#ifndef INTERFACE_H
+﻿#ifndef INTERFACE_H
 #define INTERFACE_H
 
 #include <QObject>
@@ -27,6 +27,8 @@
 #include "Afps/afpsdatastorage.h"
 #include "Afps/loaddatafile.h"
 #include "DummyData/afpsdummydata.h"
+#include "./Afps/Algorithm/algorithmviewmodel.h"
+#include "./Afps/Algorithm/algorithm.h"
 
 /* UI与设备接口层 */
 class Interface : public QObject
@@ -60,6 +62,11 @@ public:
 
     bool getSerialPortState(); //获取串口状态
     QString getCurPath(); //当前路径
+    //算法
+    AfpsAlgorithmViewModel* mAfpsAlgorithmViewModel;
+    Algorithm* mAlgorithm;
+    Baseline* mBaseline;
+    Detection* mDetection;
 
 private:
     QSerialPortInfo *mSerialPortInfo; //串口信息
@@ -90,6 +97,7 @@ private:
     AfpsDummyData *mAfpsDummyData;    
     LoadDataFile *mLoadDataFile;
     QThread *mLoadDataFileTh;
+    QThread *mAfpsAlgorithmTh;
     void afpsInit(); //初始化
     void afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, QVector<QPointF> &points);
 

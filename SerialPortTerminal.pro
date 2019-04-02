@@ -42,7 +42,11 @@ SOURCES += \
     src/cpp/Afps/afpsdatastorage.cpp \
     src/cpp/Afps/comboboxmodel.cpp \
     src/cpp/Afps/afpscfgparamodule.cpp \
-    src/cpp/Afps/loaddatafile.cpp
+    src/cpp/Afps/loaddatafile.cpp \
+    src/cpp/Afps/Algorithm/algorithmviewmodel.cpp \
+    src/cpp/Afps/Algorithm/alogorithm.cpp \
+    src/cpp/Afps/Algorithm/baseline.cpp \
+    src/cpp/Afps/Algorithm/detection.cpp
 
 RESOURCES += qml.qrc
 
@@ -92,4 +96,9 @@ HEADERS += \
     src/cpp/Afps/afpsdatastorage.h \
     src/cpp/Afps/comboboxmodel.h \
     src/cpp/Afps/afpscfgparamodule.h \
-    src/cpp/Afps/loaddatafile.h
+    src/cpp/Afps/loaddatafile.h \
+    src/cpp/Afps/Algorithm/algorithmviewmodel.h \
+    src/cpp/Afps/Algorithm/algorithm.h \
+    src/cpp/Afps/Algorithm/baseline.h \
+    src/cpp/Afps/Algorithm/detection.h \
+    src/cpp/Afps/Algorithm/leastsquare.h
