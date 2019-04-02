@@ -12,13 +12,16 @@ Algorithm::Algorithm(Baseline *mBaseline, Detection *mDetection, QObject *parent
 
 void Algorithm::init()
 {
+    mState = WAITE_BASELINE_STABLE;
     mBaseline->init();
     mDetection->init();
+    emit sig_result("");
 }
 
 void Algorithm::setEnable(bool isEnable)
 {
     this->isEnable = isEnable;
+    qDebug() << "Algorithm::setEnable " << isEnable;
 }
 
 //处理一个数据
@@ -29,12 +32,17 @@ void Algorithm::process(double data)
         mBaseline->stableJudge(data);
         if(mBaseline->isStable){
             mState = BASELINE_UPDATE;
+            qDebug() << "Algorithm::process"
+                     << "move to BASELINE_UPDATE";
         }
         break;
     case BASELINE_UPDATE:
         mBaseline->update(data);
         if(mBaseline->isUpdateOk) {
             mState = DETECTION;
+            mDetection->mPara.standard = mBaseline->standard;
+            qDebug() << "Algorithm::process"
+                     << "move to DETECTION";
         }
         break;
     case DETECTION:
@@ -42,10 +50,14 @@ void Algorithm::process(double data)
         //检出物质
         if(mDetection->isDectected){
             mState = DETECTED;
+            qDebug() << "Algorithm::process"
+                     << "move to DETECTED";
         }
         //超时
         if(mDetection->isTimeout){
             mState = TIMEOUT;
+            qDebug() << "Algorithm::process"
+                     << "move to TIMEOUT";
         }
         break;
     case DETECTED:
@@ -58,11 +70,28 @@ void Algorithm::process(double data)
 void Algorithm::slot_receiveData(AD_CHANNEDL_DATA data)
 {
     if(!isEnable) return;
-    double dataInUse = data.channel1;
-    process(dataInUse);
+    slot_receiveData(data.channel1);
+}
+
+void Algorithm::slot_receiveData(double data)
+{
+    if(!isEnable) return;
+    process(data);
     if(mState == DETECTED){
         emit sig_result("DETECTED");
     } else if(mState == TIMEOUT) {
         emit sig_result("TIMEOUT");
     }
+}
+
+void Algorithm::slot_receiveData(QVector<QVector<QPointF> > data)
+{
+    qDebug() << "Algorithm::slot_receiveData " << "from file " << data[1].size();
+    init();
+    setEnable(true);
+    QVector<QPointF > src = data[0];
+    foreach(QPointF each , src){
+        slot_receiveData(each.y());
+    }
+    qDebug() << "Algorithm::slot_receiveData " << "from file " << "process finished";
 }

@@ -258,9 +258,12 @@ void Interface::afpsInit() //初始化
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
             mAfpsDataStorage, &AfpsDataStorage::on_ctrl);
     connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-            mAlgorithm, &Algorithm::slot_receiveData);
+            mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
     connect(mAlgorithm, &Algorithm::sig_result,
             mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateResult);
+    connect(mLoadDataFile, &LoadDataFile::sig_data,
+            mAlgorithm, static_cast<void(Algorithm::*)(QVector<QVector<QPointF> > )>(&Algorithm::slot_receiveData),
+            Qt::QueuedConnection);
 }
 
 //荧光开始

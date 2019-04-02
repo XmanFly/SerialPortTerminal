@@ -1,9 +1,8 @@
-#include "adchanneldev.h"
+﻿#include "adchanneldev.h"
 
 AdChannelDev::AdChannelDev(DEV_ID dev, QObject *parent) :
     AfpsDevBasic(dev, parent)
 {
-
 }
 
 //解析协议内容

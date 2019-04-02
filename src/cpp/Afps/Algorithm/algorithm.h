@@ -2,6 +2,9 @@
 #define ALGORITHM_H
 
 #include <QObject>
+#include <QDebug>
+#include <QPointF>
+#include <QVector>
 #include "../adchanneldev.h"
 #include "baseline.h"
 #include "detection.h"
@@ -37,6 +40,8 @@ signals:
 
 public slots:
     void slot_receiveData(AD_CHANNEDL_DATA data);
+    void slot_receiveData(double data);
+    void slot_receiveData(QVector<QVector<QPointF> > data); //收到一组数据
 };
 
 #endif // ALGORITHM_H

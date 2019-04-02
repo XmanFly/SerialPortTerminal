@@ -21,12 +21,13 @@ void Detection::init()
 void Detection::process(double data)
 {
     points++;
-    if(points > mPara.windowLen) {
+    if(data < mPara.standard) {
         //下降比例
-        double fallRate = (data - mPara.standard) / mPara.standard;
+        double fallRate = (mPara.standard - data) / mPara.standard;
         if(fallRate > mPara.throld){
             isDectected = true;
         }
+        qDebug() << "Detection::process " << fallRate;
     }
     //超时检测
     if(points >= mPara.timeout){

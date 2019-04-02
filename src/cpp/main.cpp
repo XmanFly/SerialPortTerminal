@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<AfpsCfgParaModule>("SerialPortTerminal.AfpsCfgParaModule", 1, 0, "AfpsCfgParaModule");
     qRegisterMetaType<SerialPortParaNonQobj>("SerialPortParaNonQobj");
     qRegisterMetaType<QVector<QVector<QPointF>>>("QVector<QVector<QPointF>>");
+    qRegisterMetaType<AD_CHANNEDL_DATA>("AD_CHANNEDL_DATA");
 
 //    QQmlContext *context = engine.rootContext();
 //    Interface *mInterface = new Interface();

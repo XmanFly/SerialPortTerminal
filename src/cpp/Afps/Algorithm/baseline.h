@@ -2,7 +2,9 @@
 #define BASELINE_H
 
 #include <QObject>
+#include <QDebug>
 #include <QVector>
+#include <QPointF>
 #include <QtMath>
 #include "leastsquare.h"
 
@@ -31,7 +33,9 @@ public:
     double standard; //基准值
     double offset; //偏差
     Para mPara;
-    QVector<double >* src; //数据
+    QVector<double >* src; //源数据
+    QVector<QPointF >* fit; //拟合后数据
+    LeastSquare mLS;
 
     void init();
     void stableJudge(double data); //稳定判断
