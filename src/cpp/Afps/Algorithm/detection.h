@@ -21,6 +21,12 @@ public:
             this->standard = standard;
             this->throld = throld;
         }
+        Para(){
+            this->windowLen = 31;
+            this->timeout = 131;
+            this->standard = 1;
+            this->throld = 0.045;
+        }
     };
 
     explicit Detection(Para mPara, QObject *parent = nullptr);
@@ -32,6 +38,7 @@ public:
 
     void init();
     void process(double data); //物质判定
+    void updatePara(Para mPara); //更新参数
 
 };
 

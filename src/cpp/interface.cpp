@@ -229,6 +229,11 @@ void Interface::afpsInit() //初始化
     mAlgorithm = new Algorithm(mBaseline, mDetection);
     mAlgorithm->moveToThread(mAfpsAlgorithmTh);
     mAfpsAlgorithmTh->start();
+    //数据仓库
+//    Baseline::Para mBaselinePara = Baseline::Para(1, 51, 700);
+//    Detection::Para mDetectionPara = Detection::Para(31, 131, 0, 700);
+    mAlgorithmRespository = new AlgorithmRespository(mBaseline, mDetection);
+    mAfpsAlgorithmViewModel->setRespository(mAlgorithmRespository);
 
     connect(mLoadDataFile, &LoadDataFile::sig_sampleCtrl,
             mAfpsAdChartModel, &AdChartModel::slot_ctrl);

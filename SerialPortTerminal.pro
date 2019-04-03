@@ -46,7 +46,8 @@ SOURCES += \
     src/cpp/Afps/Algorithm/algorithmviewmodel.cpp \
     src/cpp/Afps/Algorithm/alogorithm.cpp \
     src/cpp/Afps/Algorithm/baseline.cpp \
-    src/cpp/Afps/Algorithm/detection.cpp
+    src/cpp/Afps/Algorithm/detection.cpp \
+    src/cpp/Afps/Algorithm/algorithmrespository.cpp
 
 RESOURCES += qml.qrc
 
@@ -101,4 +102,5 @@ HEADERS += \
     src/cpp/Afps/Algorithm/algorithm.h \
     src/cpp/Afps/Algorithm/baseline.h \
     src/cpp/Afps/Algorithm/detection.h \
-    src/cpp/Afps/Algorithm/leastsquare.h
+    src/cpp/Afps/Algorithm/leastsquare.h \
+    src/cpp/Afps/Algorithm/algorithmrespository.h

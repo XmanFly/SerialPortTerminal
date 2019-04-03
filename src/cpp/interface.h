@@ -29,6 +29,7 @@
 #include "DummyData/afpsdummydata.h"
 #include "./Afps/Algorithm/algorithmviewmodel.h"
 #include "./Afps/Algorithm/algorithm.h"
+#include "./Afps/Algorithm/algorithmrespository.h"
 
 /* UI与设备接口层 */
 class Interface : public QObject
@@ -99,6 +100,7 @@ private:
     LoadDataFile *mLoadDataFile;
     QThread *mLoadDataFileTh;
     QThread *mAfpsAlgorithmTh;
+    AlgorithmRespository *mAlgorithmRespository;
     void afpsInit(); //初始化
     void afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, QVector<QPointF> &points);
 

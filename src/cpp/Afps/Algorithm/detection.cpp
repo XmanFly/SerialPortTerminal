@@ -27,11 +27,20 @@ void Detection::process(double data)
         if(fallRate > mPara.throld){
             isDectected = true;
         }
-        qDebug() << "Detection::process " << fallRate;
+//        qDebug() << "Detection::process " << fallRate;
     }
     //超时检测
     if(points >= mPara.timeout){
         isTimeout = true;
     }
 }
+
+
+//更新参数
+void Detection::updatePara(Para mPara)
+{
+    this->mPara = mPara;
+}
+
+
 

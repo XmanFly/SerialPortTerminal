@@ -24,6 +24,11 @@ public:
             this->windowLen = windowLen;
             this->stableThrold = stableThrold;
         }
+        Para(){
+            this->startPos = 1;
+            this->windowLen = 51;
+            this->stableThrold = 700;
+        }
     };
 
     explicit Baseline(Baseline::Para mPara, QObject *parent = nullptr);
@@ -41,6 +46,7 @@ public:
     void stableJudge(double data); //稳定判断
     void update(double data); //基线更新
     void calc();
+    void updatePara(Para mPara); //更新参数
 
 private:
     LeastSquare *mLeastSquare; //最小二乘拟合

@@ -40,7 +40,7 @@ void Baseline::calc()
         sum += pow((y[i] - mLS.getY(x[i])), 2);
     }
     offset = sqrt(sum/x.size());
-    qDebug() << "Baseline::calc " << offset;
+//    qDebug() << "Baseline::calc " << offset;
 }
 
 void Baseline::stableJudge(double data)
@@ -83,3 +83,12 @@ void Baseline::update(double data)
 //        qDebug() << "Baseline::update last " << standardBk << src->size();
     }
 }
+
+
+//更新参数
+void Baseline::updatePara(Para mPara)
+{
+    qDebug() << "Baseline::updatePara " << mPara.stableThrold;
+    this->mPara = mPara;
+}
+

@@ -8,6 +8,9 @@ GroupBox {
     height: 800
     title: qsTr("算法参数")
 
+    property alias baselineWin: baselineWin
+    property alias baselineThrold: baselineThrold
+
     /* 基线配置 */
     GroupBox {
         id: baselineCfg
@@ -27,14 +30,16 @@ GroupBox {
                 text: qsTr("窗口")
             }
             TextInput {
-                text: qsTr("51")
+                id: baselineWin
+                text: AfpsAlgorithmViewModel.baselineWin
                 horizontalAlignment: Text.AlignRight
             }
             Text {
                 text: qsTr("稳定阈值")
             }
             TextInput {
-                text: qsTr("700")
+                id: baselineThrold
+                text: AfpsAlgorithmViewModel.baselineThrold
             }
         }
     }
