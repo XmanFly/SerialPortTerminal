@@ -94,6 +94,7 @@ private:
     AdChartModel *mAfpsAdChartModel;
     AfpsLogic *mAfpsLogic;
     AfpsDataStorage *mAfpsDataStorage;
+    QThread *mAfpsDataStorageTh;
     AfpsDummyData *mAfpsDummyData;    
     LoadDataFile *mLoadDataFile;
     QThread *mLoadDataFileTh;

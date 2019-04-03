@@ -1,8 +1,9 @@
-#ifndef PARSEMODULE_H
+﻿#ifndef PARSEMODULE_H
 #define PARSEMODULE_H
 
 #include <QObject>
 #include <QByteArray>
+#include <QThread>
 #include "../Afps/afpsformat.h"
 #include "../ProtBasic/parsebasic.h"
 

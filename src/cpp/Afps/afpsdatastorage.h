@@ -1,4 +1,4 @@
-#ifndef AFPSDATASTORAGE_H
+﻿#ifndef AFPSDATASTORAGE_H
 #define AFPSDATASTORAGE_H
 
 #include <QObject>
@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QPointF>
+#include <QThread>
 #include "adchanneldev.h"
 
 

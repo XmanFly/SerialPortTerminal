@@ -1,4 +1,4 @@
-#include "AfpsDataStorage.h"
+﻿#include "afpsdatastorage.h"
 #include <QTextCodec>
 
 AfpsDataStorage::AfpsDataStorage(QObject *parent) :
@@ -88,6 +88,7 @@ void AfpsDataStorage::on_addData(AD_CHANNEDL_DATA data)
 {
     if(filePtr != nullptr){
         addData(&filePtr, data);
+//        qDebug() << "AfpsDataStorage thread id " << QThread::currentThreadId();
     }
 }
 

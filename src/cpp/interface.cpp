@@ -4,6 +4,7 @@ Interface::Interface(QObject *parent) :
     QObject(parent),
     serialState(false)
 {
+    qDebug() << "Interface thread id " << QThread::currentThreadId();
     mSerialPortInfo = new QSerialPortInfo();
     mSerialPortControl = new SerialPortControl();
     mSerialPortThread = new QThread();
@@ -214,6 +215,9 @@ void Interface::afpsInit() //初始化
     mAfpsAdChartModel = new AdChartModel();
     mAfpsLogic = new AfpsLogic();
     mAfpsDataStorage = new AfpsDataStorage();
+    mAfpsDataStorageTh = new QThread();
+    mAfpsDataStorage->moveToThread(mAfpsDataStorageTh);
+    mAfpsDataStorageTh->start();
     mLoadDataFile = new LoadDataFile();
     mLoadDataFileTh = new QThread();
     mLoadDataFile->moveToThread(mLoadDataFileTh);
