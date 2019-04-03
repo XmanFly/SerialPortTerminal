@@ -16,6 +16,7 @@ public:
     Detection::Para getDetectionPara(); //识别参数
 
     void setBaselinePara(Baseline::Para para);
+    void setDetectionPara(Detection::Para para);
 
 private:
     Baseline *baseline;

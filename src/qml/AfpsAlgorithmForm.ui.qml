@@ -10,6 +10,8 @@ GroupBox {
 
     property alias baselineWin: baselineWin
     property alias baselineThrold: baselineThrold
+    property alias detectionTimeout: detectionTimeout
+    property alias detectionThrold: detectionThrold
 
     /* 基线配置 */
     GroupBox {
@@ -65,13 +67,15 @@ GroupBox {
                 text: qsTr("最大点数")
             }
             TextInput {
-                text: qsTr("131")
+                id: detectionTimeout
+                text: AfpsAlgorithmViewModel.detectionTimeout
             }
             Text {
                 text: qsTr("报警阈值")
             }
             TextInput {
-                text: qsTr("0.045")
+                id: detectionThrold
+                text: AfpsAlgorithmViewModel.detectionThrold
             }
         }
     }

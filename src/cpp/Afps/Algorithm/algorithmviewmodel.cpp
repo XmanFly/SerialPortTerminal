@@ -16,6 +16,8 @@ void AfpsAlgorithmViewModel::loadPara()
 {
     setBaselineWin(respository->getBaselinePara().windowLen);
     setBaselineThrold(respository->getBaselinePara().stableThrold);
+    setDetectionTimeout(respository->getDetectionPara().timeout);
+    setDetectionThrold(respository->getDetectionPara().throld);
 }
 
 QString AfpsAlgorithmViewModel::getResult()
@@ -76,4 +78,33 @@ void AfpsAlgorithmViewModel::slot_updateBaseThrold(int baselineThrold)
 {
     setBaselineThrold(baselineThrold);
 }
+
+int AfpsAlgorithmViewModel::getDetectionTimeout()
+{
+    return detectionTimeout;
+}
+
+void AfpsAlgorithmViewModel::setDetectionTimeout(int detectionTimeout)
+{
+    this->detectionTimeout = detectionTimeout;
+    Detection::Para para = respository->getDetectionPara();
+    para.timeout = detectionTimeout;
+    respository->setDetectionPara(para);
+    emit sig_detectionTimeout();
+}
+
+double AfpsAlgorithmViewModel::getDetectionThrold()
+{
+    return detectionThrold;
+}
+
+void AfpsAlgorithmViewModel::setDetectionThrold(double detectionThrold)
+{
+    this->detectionThrold = detectionThrold;
+    Detection::Para para = respository->getDetectionPara();
+    para.throld = detectionThrold;
+    respository->setDetectionPara(para);
+    emit sig_detectionThrold();
+}
+
 
