@@ -2,6 +2,7 @@
 #define ALGORITHMVIEWMODEL_H
 
 #include <QObject>
+#include <QtTextToSpeech/QTextToSpeech>
 
 class AfpsAlgorithmViewModel : public QObject
 {

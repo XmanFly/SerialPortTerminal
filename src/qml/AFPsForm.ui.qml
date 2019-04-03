@@ -21,7 +21,7 @@ Page {
             bottomMargin: 20
             leftMargin: 10
         }
-        width: parent.width * 2 / 8
+        width: parent.width * 2 / 10
         z: 6
     }
 
@@ -74,22 +74,34 @@ Page {
     }
 
     //算法区
-    ColumnLayout {
+    AfpsAlgorithm {
         id: algorithm
         anchors {
-            left: ctrlPanel.right
-            right: fileExp.right
-            top: ctrlPanel.top
+            left: fileExp.right
+            top: fileExp.top
             bottom: parent.bottom
             bottomMargin: 20
         }
-        //检测结果
-        Text {
-            id: resultTxt
-            font.pixelSize: 20
-            text: AfpsAlgorithmViewModel.result
-        }
+        width: parent.width * 2 / 8
     }
+
+    //    //算法区
+    //    ColumnLayout {
+    //        id: algorithm
+    //        anchors {
+    //            left: ctrlPanel.right
+    //            right: fileExp.right
+    //            top: ctrlPanel.top
+    //            bottom: parent.bottom
+    //            bottomMargin: 20
+    //        }
+    //        //检测结果
+    //        Text {
+    //            id: resultTxt
+    //            font.pixelSize: 20
+    //            text: AfpsAlgorithmViewModel.result
+    //        }
+    //    }
 
     //绘图区
     ColumnLayout {
@@ -111,6 +123,8 @@ Page {
         }
     }
 }
+
+
 
 
 

@@ -1,4 +1,4 @@
-import QtQuick 2.1
+﻿import QtQuick 2.1
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.folderlistmodel 2.12
@@ -19,7 +19,7 @@ Rectangle {
         height: 50
         Button {
             id: explorBtn
-            text: "浏览"            
+            text: "浏览"
             onClicked: {
                 fds.open()
             }
@@ -30,6 +30,7 @@ Rectangle {
             font {
                 pixelSize: 25
             }
+            visible: false
             color: "blue"
             MouseArea {
                 anchors.fill: parent
@@ -66,6 +67,7 @@ Rectangle {
             right: parent.right
             bottom: parent.bottom
         }
+        spacing: 4
         FolderListModel {
           id: folderModel
           showDirs: false
@@ -79,7 +81,7 @@ Rectangle {
               id: fileTxt
               text: fileName
               font {
-                  pixelSize: 25
+                  pixelSize: 20
               }
               MouseArea {
                 anchors.fill: parent
@@ -134,3 +136,16 @@ Rectangle {
     Component.onCompleted: {
     }
 }
+
+
+
+
+
+
+
+
+
+/*##^## Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+ ##^##*/
