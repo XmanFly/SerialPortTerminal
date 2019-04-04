@@ -20,8 +20,8 @@ Interface::Interface(QObject *parent) :
             this, &Interface::sig_message);
     connect(mSerialPortControl, &SerialPortControl::sig_state,
             this, &Interface::slot_serialState);
-//    connect(mSerialPortControl, &SerialPortControl::sig_receive,
-//            this, &Interface::slot_serialReceive);
+    connect(mSerialPortControl, &SerialPortControl::sig_receive,
+            this, &Interface::slot_serialReceive);
     mSerialPortControl->moveToThread(mSerialPortThread);
     mSerialPortThread->start();
     mSerialPortThread->setPriority(QThread::Priority::TimeCriticalPriority);
@@ -256,8 +256,8 @@ void Interface::afpsInit() //初始化
         mAfpsModule->mAfpsParseModule, &AfpsParseModule::slot_receiveData);
     connect(mSerialPortControl, &SerialPortControl::sig_state,
         mAfpsLogic, &AfpsLogic::slot_serialPortState);
-//    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-//            mAfpsAdChartModel, &AdChartModel::slot_rcvData);
+    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
+            mAfpsAdChartModel, &AdChartModel::slot_rcvData);
     connect(mAfpsAdChartModel, &AdChartModel::sig_dataUpdate,
             this, &Interface::sig_afpsUpdateChart);
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
