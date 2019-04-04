@@ -1,9 +1,10 @@
-#ifndef ADCHARTMODEL_H
+﻿#ifndef ADCHARTMODEL_H
 #define ADCHARTMODEL_H
 
 #include <QObject>
 #include <QDebug>
 #include <QPointF>
+#include <QThread>
 #include "adchanneldev.h"
 
 class AdChartModel : public QObject

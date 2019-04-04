@@ -1,4 +1,4 @@
-#include "afpsparse.h"
+﻿#include "afpsparse.h"
 
 AfpsParse::AfpsParse()
 {
@@ -18,10 +18,10 @@ void AfpsParse::parse(QByteArray &buf, AfpsFormat &mProtResult)
         return;
     }
     //是否包含长度字段
-    if(buf.size() < (headIdx+2)){
+    if(buf.size() < (headIdx+head.size()+1)){
         return;
     }
-    char len = buf.at(headIdx+1);
+    quint8 len = buf.at(headIdx+1);
     //查看协议是否完整
     if(buf.size() < (len+headIdx)){
         return;

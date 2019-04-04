@@ -213,6 +213,9 @@ void Interface::afpsInit() //初始化
 {
     mAfpsModule = new AfpsModule();
     mAfpsAdChartModel = new AdChartModel();
+    QThread *mAfpsAdChartModelTh = new QThread();
+    mAfpsAdChartModel->moveToThread(mAfpsAdChartModelTh);
+    mAfpsAdChartModelTh->start();
     mAfpsLogic = new AfpsLogic();
     mAfpsDataStorage = new AfpsDataStorage();
     mAfpsDataStorageTh = new QThread();
@@ -236,9 +239,9 @@ void Interface::afpsInit() //初始化
     mAfpsAlgorithmViewModel->setRespository(mAlgorithmRespository);
 
     connect(mLoadDataFile, &LoadDataFile::sig_sampleCtrl,
-            mAfpsAdChartModel, &AdChartModel::slot_ctrl);
+            mAfpsAdChartModel, &AdChartModel::slot_ctrl,Qt::QueuedConnection);
     connect(mLoadDataFile, &LoadDataFile::sig_data,
-            mAfpsAdChartModel, &AdChartModel::slot_rcvAllData);
+            mAfpsAdChartModel, &AdChartModel::slot_rcvAllData,Qt::QueuedConnection);
     connect(this, &Interface::sig_loadFile,
             mLoadDataFile, &LoadDataFile::slot_loadFile);
 
@@ -257,7 +260,7 @@ void Interface::afpsInit() //初始化
     connect(mSerialPortControl, &SerialPortControl::sig_state,
         mAfpsLogic, &AfpsLogic::slot_serialPortState);
     connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-            mAfpsAdChartModel, &AdChartModel::slot_rcvData);
+            mAfpsAdChartModel, &AdChartModel::slot_rcvData, Qt::QueuedConnection);
     connect(mAfpsAdChartModel, &AdChartModel::sig_dataUpdate,
             this, &Interface::sig_afpsUpdateChart);
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
