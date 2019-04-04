@@ -1,7 +1,8 @@
-#ifndef AFPSDEVBASIC_H
+﻿#ifndef AFPSDEVBASIC_H
 #define AFPSDEVBASIC_H
 
 #include <QObject>
+#include <QThread>
 #include "afpsformat.h"
 #include "afpsprotpara.h"
 #include "afpsprotgen.h"

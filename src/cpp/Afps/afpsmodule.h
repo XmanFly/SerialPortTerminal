@@ -1,4 +1,4 @@
-#ifndef AFPSMODULE_H
+﻿#ifndef AFPSMODULE_H
 #define AFPSMODULE_H
 
 #include <QObject>
@@ -18,7 +18,7 @@ class AfpsModule : public QObject
 public:
     explicit AfpsModule(QObject *parent = nullptr);
 
-    AfpsParseModule *mAfpsParseModule; //协议解析模块
+    AfpsParseModule *mAfpsParseModule; //协议解析模块    
     AfpsDevMng *mAfpsDevMng; //设备管理模块
 
     AdChannelDev *mAdChannelDev;

@@ -1,4 +1,4 @@
-#include "afpsdevbasic.h"
+﻿#include "afpsdevbasic.h"
 
 AfpsDevBasic::AfpsDevBasic(DEV_ID dev, QObject *parent) :
     QObject(parent),
@@ -24,6 +24,7 @@ bool AfpsDevBasic::rcvProt(AfpsFormat prot)
 
 void AfpsDevBasic::slot_rcvProt(AfpsFormat prot)
 {
+    qDebug() << "AfpsDevBasic thread id " << QThread::currentThreadId();
     //收到本设备协议
     if(rcvProt(prot)){
         qDebug() << "AfpsDevBasic::slot_rcvProt " << "dev id " << devId;

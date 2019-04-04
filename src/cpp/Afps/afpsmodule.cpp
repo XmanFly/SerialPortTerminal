@@ -1,4 +1,4 @@
-#include "afpsmodule.h"
+﻿#include "afpsmodule.h"
 
 AfpsModule::AfpsModule(QObject *parent) : QObject(parent)
 {
@@ -16,10 +16,16 @@ AfpsModule::AfpsModule(QObject *parent) : QObject(parent)
     //设备管理模块
     mAfpsDevMng = new AfpsDevMng();
     mAdChannelDev = new AdChannelDev(DEV_ID::DEV_AD);
+    QThread *mAdChannelDevTh = new QThread();
+    mAdChannelDev->moveToThread(mAdChannelDevTh);
+    mAdChannelDevTh->start();
     mAfpsDevMng->addDev(mAdChannelDev);
     mAfpsDevMng->addFinish();
     connect(mAfpsParseModule, &AfpsParseModule::sig_result,
             mAfpsDevMng, &AfpsDevMng::sig_rcvProt);
 //    connect(mAfpsParseModule, &ParseModule::sig_result,
 //            mAfpsDevMng, &AfpsDevMng::slot_rcvProt);
+    QThread *mAfpsDevMngTh = new QThread();
+    mAfpsDevMng->moveToThread(mAfpsDevMngTh);
+    mAfpsDevMngTh->start();
 }

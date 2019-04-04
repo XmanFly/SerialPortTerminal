@@ -1,4 +1,4 @@
-#include "afpsdevmng.h"
+﻿#include "afpsdevmng.h"
 
 AfpsDevMng::AfpsDevMng(QObject *parent) : QObject(parent)
 {
@@ -16,9 +16,9 @@ void AfpsDevMng::addFinish()
     qDebug() << "AfpsDevMng::addFinish " << devList.size();
     for(int i=0; i<devList.size(); i++) {
         connect(this, &AfpsDevMng::sig_rcvProt,
-                    devList.at(i), &AfpsDevBasic::slot_rcvProt);
+                    devList.at(i), &AfpsDevBasic::slot_rcvProt, Qt::QueuedConnection);
         connect(devList.at(i), &AfpsDevBasic::sig_sendCmd,
-                    this, &AfpsDevMng::sig_sendProt);
+                    this, &AfpsDevMng::sig_sendProt, Qt::QueuedConnection);
     }
 }
 

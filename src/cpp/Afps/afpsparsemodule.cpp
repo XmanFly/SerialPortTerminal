@@ -12,7 +12,7 @@ void AfpsParseModule::setParseIf(ParseBasic<QByteArray,  AfpsFormat> *mParseIf)
 
 void AfpsParseModule::slot_receiveData(QByteArray data)
 {
-//    qDebug() << "AfpsParseModule thread id " << QThread::currentThreadId();
+    qDebug() << "AfpsParseModule thread id " << QThread::currentThreadId();
     //添加数据
     buffer.append(data);
     //进行解析

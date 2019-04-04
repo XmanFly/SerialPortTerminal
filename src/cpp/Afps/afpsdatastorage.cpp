@@ -53,10 +53,27 @@ void AfpsDataStorage::addData(QFile** fp, AD_CHANNEDL_DATA data)
     out.flush();
 }
 
+void AfpsDataStorage::addData(QFile** fp, QVector<DataStr> &data)
+{
+    if(filePtr == nullptr){
+        return;
+    }
+    QString writeStr;
+    foreach(DataStr each, data){
+        writeStr += (each.getString() + "\r\n");
+    }
+    buf.clear();
+    QTextStream out(*fp);
+    out.setCodec(QTextCodec::codecForName("GB2312")); //中文支持
+    out << writeStr;
+}
+
 //关闭文件
 void AfpsDataStorage::closeFile(QFile** fp)
 {
     if((*fp) != nullptr){
+        addData(&filePtr, buf);
+        (*fp)->flush();
         (*fp)->close();
         (*fp) = nullptr;
     }
@@ -87,8 +104,10 @@ void AfpsDataStorage::saveDirInit(QString folderName)
 void AfpsDataStorage::on_addData(AD_CHANNEDL_DATA data)
 {
     if(filePtr != nullptr){
-        addData(&filePtr, data);
-//        qDebug() << "AfpsDataStorage thread id " << QThread::currentThreadId();
+        buf.append(DataStr(QDateTime::currentDateTime().toString("yy.MM.dd.hh:mm:ss.zzz"), data));
+        if(buf.size() > 20) {
+            addData(&filePtr, buf);
+        }
+        qDebug() << "AfpsDataStorage thread id " << QThread::currentThreadId();
     }
 }
-
