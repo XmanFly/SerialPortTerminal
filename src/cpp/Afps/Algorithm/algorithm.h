@@ -37,6 +37,7 @@ private:
 
 signals:
     void sig_result(QString res); //本次检出结果
+    void sig_state(QString state); //状态
 
 public slots:
     void slot_receiveData(AD_CHANNEDL_DATA data);

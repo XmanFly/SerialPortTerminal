@@ -8,6 +8,11 @@ AlgorithmRespository::AlgorithmRespository(Baseline *baseline, Detection *detect
 
 }
 
+Baseline *AlgorithmRespository::getBaseline()
+{
+    return baseline;
+}
+
 Baseline::Para AlgorithmRespository::getBaselinePara()
 {
     return baseline->mPara;
@@ -16,6 +21,11 @@ Baseline::Para AlgorithmRespository::getBaselinePara()
 Detection::Para AlgorithmRespository::getDetectionPara()
 {
     return detection->mPara;
+}
+
+Detection *AlgorithmRespository::getDetection()
+{
+    return detection;
 }
 
 void AlgorithmRespository::setBaselinePara(Baseline::Para para)

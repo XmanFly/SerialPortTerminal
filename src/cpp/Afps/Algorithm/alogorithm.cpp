@@ -16,6 +16,7 @@ void Algorithm::init()
     mBaseline->init();
     mDetection->init();
     emit sig_result("");
+    emit sig_state("基线稳定中");
 }
 
 void Algorithm::setEnable(bool isEnable)
@@ -32,6 +33,7 @@ void Algorithm::process(double data)
         mBaseline->stableJudge(data);
         if(mBaseline->isStable){
             mState = BASELINE_UPDATE;
+            emit sig_state("请放物质");
             qDebug() << "Algorithm::process"
                      << "move to BASELINE_UPDATE";
         }
@@ -41,6 +43,7 @@ void Algorithm::process(double data)
         if(mBaseline->isUpdateOk) {
             mState = DETECTION;
             mDetection->mPara.standard = mBaseline->standard;
+            emit sig_state("检测物质中");
             qDebug() << "Algorithm::process"
                      << "move to DETECTION";
         }
@@ -50,12 +53,14 @@ void Algorithm::process(double data)
         //检出物质
         if(mDetection->isDectected){
             mState = DETECTED;
+            emit sig_state("检出可疑物");
             qDebug() << "Algorithm::process"
                      << "move to DETECTED";
         }
         //超时
         if(mDetection->isTimeout){
             mState = TIMEOUT;
+            emit sig_state("超时");
             qDebug() << "Algorithm::process"
                      << "move to TIMEOUT";
         }
@@ -79,8 +84,6 @@ void Algorithm::slot_receiveData(double data)
     process(data);
     if(mState == DETECTED){
         emit sig_result("DETECTED");
-    } else if(mState == TIMEOUT) {
-        emit sig_result("TIMEOUT");
     }
 }
 

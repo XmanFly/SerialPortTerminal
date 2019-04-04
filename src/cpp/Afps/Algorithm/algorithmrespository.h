@@ -13,7 +13,9 @@ public:
     explicit AlgorithmRespository(Baseline* baseline, Detection* detection, QObject *parent = nullptr);
 
     Baseline::Para getBaselinePara();
+    Baseline *getBaseline();
     Detection::Para getDetectionPara(); //识别参数
+    Detection *getDetection();
 
     void setBaselinePara(Baseline::Para para);
     void setDetectionPara(Detection::Para para);

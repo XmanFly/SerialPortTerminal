@@ -71,7 +71,7 @@ GroupBox {
                 text: AfpsAlgorithmViewModel.detectionTimeout
             }
             Text {
-                text: qsTr("报警阈值")
+                text: qsTr("报警阈值(%)")
             }
             TextInput {
                 id: detectionThrold
@@ -101,31 +101,32 @@ GroupBox {
                 text: qsTr("状态")
             }
             Text {
-                text: qsTr("")
+                text: AfpsAlgorithmViewModel.state
             }
             Text {
                 text: qsTr("检测结果")
             }
             Text {
-                text: qsTr("")
+                color: "red"
+                text: AfpsAlgorithmViewModel.result
             }
             Text {
                 text: qsTr("基准值")
             }
             Text {
-                text: qsTr("")
+                text: AfpsAlgorithmViewModel.baselineStandard
             }
             Text {
                 text: qsTr("差值")
             }
             Text {
-                text: qsTr("")
+                text: AfpsAlgorithmViewModel.detectionDiff
             }
             Text {
-                text: qsTr("差值比例")
+                text: qsTr("差值比例(%)")
             }
             Text {
-                text: qsTr("")
+                text: AfpsAlgorithmViewModel.detectionFallRate
             }
         }
     }

@@ -9,12 +9,14 @@ Baseline::Baseline(Para mPara, QObject *parent) :
     src = new QVector<double>();
     fit = new QVector<QPointF>();
     mLeastSquare = new LeastSquare();
+    setStandard(1);
 }
 
 void Baseline::init()
 {
     isStable = false;
     isUpdateOk = false;
+    setStandard(1);
     src->clear();
 }
 
@@ -54,7 +56,7 @@ void Baseline::stableJudge(double data)
     //计算阈值
     if (offset <= mPara.stableThrold){
         isStable = true;
-        standard = data; //更新基准值
+        setStandard(data); //更新基准值
 //        qDebug() << "Baseline::stableJudge " << standard;
     }
 }
@@ -75,10 +77,12 @@ void Baseline::update(double data)
             double y = (*src)[src->size()-mPara.windowLen+i];
             (*fit)[i] = QPointF(x, mLS.getY(x));
         }
-        standard = fit->last().y(); //更新基准值
+        setStandard(fit->last().y()); //更新基准值
+//        standard = fit->last().y(); //更新基准值
 //        qDebug() << "Baseline::update update " << standard << src->size();
     } else {
-        standard = standardBk;
+        setStandard(standardBk); //更新基准值
+//        standard = standardBk;
         isUpdateOk = true;
 //        qDebug() << "Baseline::update last " << standardBk << src->size();
     }
@@ -90,5 +94,11 @@ void Baseline::updatePara(Para mPara)
 {
     qDebug() << "Baseline::updatePara " << mPara.stableThrold;
     this->mPara = mPara;
+}
+
+void Baseline::setStandard(double standard)
+{
+    this->standard = standard;
+    emit sig_updateStandard();
 }
 

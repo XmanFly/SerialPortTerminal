@@ -266,13 +266,21 @@ void Interface::afpsInit() //初始化
             mAfpsDataStorage, &AfpsDataStorage::on_addData);
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
             mAfpsDataStorage, &AfpsDataStorage::on_ctrl);
-    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-            mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
+//    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
+//            mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
     connect(mAlgorithm, &Algorithm::sig_result,
             mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateResult);
+    connect(mAlgorithm, &Algorithm::sig_state,
+            mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateState);
     connect(mLoadDataFile, &LoadDataFile::sig_data,
             mAlgorithm, static_cast<void(Algorithm::*)(QVector<QVector<QPointF> > )>(&Algorithm::slot_receiveData),
             Qt::QueuedConnection);
+    connect(mAlgorithm->mBaseline, &Baseline::sig_updateStandard,
+            mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateStandard);
+    connect(mAlgorithm->mDetection, &Detection::sig_updateDiff,
+            mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateDetectionDiff);
+    connect(mAlgorithm->mDetection, &Detection::sig_updateFallRate,
+            mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateDetectionFallRate);
 }
 
 //荧光开始
@@ -280,9 +288,14 @@ void Interface::afpsStart(QStringList para)
 {
     qDebug() << "Interface::afpsStart " << para;
     if(mAfpsLogic->sampleCtrl(true, para)){
+        connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
+                mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
         mAlgorithm->setEnable(true);
         mAlgorithm->init();
+
     } else {
+        disconnect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
+                mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
         mAlgorithm->setEnable(false);
         emit sig_message("设备未打开 禁止操作 ");
     }

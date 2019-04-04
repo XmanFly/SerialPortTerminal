@@ -50,6 +50,10 @@ public:
 
 private:
     LeastSquare *mLeastSquare; //最小二乘拟合
+    void setStandard(double standard);
+
+signals:
+    void sig_updateStandard();
 
 };
 

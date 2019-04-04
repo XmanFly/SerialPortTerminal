@@ -34,11 +34,21 @@ public:
     int points; //累计点数
     bool isDectected; //检出标志
     bool isTimeout;
-    Para mPara; //参数
+    double fallRate;
+    double diff;
+    Para mPara; //参数    
 
     void init();
     void process(double data); //物质判定
     void updatePara(Para mPara); //更新参数
+
+private:
+    void setDiff(double diff);
+    void setFallRate(double fallRate);
+
+signals:
+    void sig_updateDiff();
+    void sig_updateFallRate();
 
 };
 
