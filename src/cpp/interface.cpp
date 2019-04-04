@@ -20,8 +20,8 @@ Interface::Interface(QObject *parent) :
             this, &Interface::sig_message);
     connect(mSerialPortControl, &SerialPortControl::sig_state,
             this, &Interface::slot_serialState);
-    connect(mSerialPortControl, &SerialPortControl::sig_receive,
-            this, &Interface::slot_serialReceive);
+//    connect(mSerialPortControl, &SerialPortControl::sig_receive,
+//            this, &Interface::slot_serialReceive);
     mSerialPortControl->moveToThread(mSerialPortThread);
     mSerialPortThread->start();
     mSerialPortThread->setPriority(QThread::Priority::TimeCriticalPriority);
@@ -297,9 +297,6 @@ void Interface::afpsStart(QStringList para)
         mAlgorithm->init();
 
     } else {
-        disconnect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-                mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
-        mAlgorithm->setEnable(false);
         emit sig_message("设备未打开 禁止操作 ");
     }
 #if AFPS_TEST == true
@@ -311,6 +308,9 @@ void Interface::afpsStart(QStringList para)
 void Interface::afpsStop()
 {
     if(mAfpsLogic->sampleCtrl(false, QStringList())){
+        disconnect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
+                mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
+        mAlgorithm->setEnable(false);
     } else {
         emit sig_message("设备未打开 禁止操作 ");
     }
