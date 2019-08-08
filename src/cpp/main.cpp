@@ -10,9 +10,16 @@
 #include "serialportparanonqobj.h"
 #include "./Afps/afpscfgparamodule.h"
 #include "./Afps/Algorithm/algorithmviewmodel.h"
+#include "crashhandler.h"
+
+
 
 int main(int argc, char *argv[])
 {
+    qDebug() << "main thread id " << QThread::currentThread();
+    //注冊异常捕获函数
+    SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)ApplicationCrashHandler);
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QApplication app(argc, argv);
