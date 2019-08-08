@@ -20,8 +20,8 @@ Interface::Interface(QObject *parent) :
             this, &Interface::sig_message);
     connect(mSerialPortControl, &SerialPortControl::sig_state,
             this, &Interface::slot_serialState);
-//    connect(mSerialPortControl, &SerialPortControl::sig_receive,
-//            this, &Interface::slot_serialReceive);
+    connect(mSerialPortControl, &SerialPortControl::sig_receive,
+            this, &Interface::slot_serialReceive);
     mSerialPortControl->moveToThread(mSerialPortThread);
     mSerialPortThread->start();
     mSerialPortThread->setPriority(QThread::Priority::TimeCriticalPriority);
@@ -137,6 +137,12 @@ void Interface::sendData(QString data)
         QByteArray sendData = convertSendData(data, mSendFormatModule->getFormat());
         emit sig_sendData(sendData);
     }
+}
+
+//获取串口控制
+SerialPortControl* Interface::getSerialPortControl()
+{
+    return mSerialPortControl;
 }
 
 //获取串口状态

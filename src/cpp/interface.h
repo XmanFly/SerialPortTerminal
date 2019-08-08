@@ -61,6 +61,7 @@ public:
     Q_INVOKABLE QVector<qreal> afpsGetDataRange(int id);
     Q_INVOKABLE bool afpsLoadFile(QString name);
 
+    SerialPortControl *getSerialPortControl(); //获取串口控制
     bool getSerialPortState(); //获取串口状态
     QString getCurPath(); //当前路径
     //算法

@@ -1,4 +1,5 @@
-#include "serialportcontrol.h"
+﻿#include "serialportcontrol.h"
+#include <QThread>
 
 SerialPortControl::SerialPortControl(QObject *parent) : QObject(parent)
 {
@@ -45,7 +46,7 @@ void SerialPortControl::slot_open(SerialPortParaNonQobj para)
     }
     emit sig_state(isOpen); //串口状态变更
     qDebug() << "SerialPortControl::slot_open "
-             << "result " << isOpen;
+             << "result " << isOpen << " thread id " << QThread::currentThread();
 }
 
 void SerialPortControl::slot_close()

@@ -39,7 +39,6 @@ HomeForm {
 
     function setInterface(mInf){
         mInterface = mInf
-        receiveAera.setModel(mInf.getDataModel())
         receiveAera.setFormatModel(mInf.getRcvFormatModel())
         sendAera.setFormatModel(mInf.getSendFormatModel())
         dataInforPanel.setDataModel(mInf.getDataCntModel())
@@ -61,13 +60,6 @@ HomeForm {
         target: sendAera
         property: "sendEnable"
         value: mInterface.serialState
-    }
-
-    Connections {
-        target: mInterface
-        onSig_resetDataList : {
-            receiveAera.setModel(mInterface.getDataModel())
-        }
     }
 
     Component.onCompleted: {

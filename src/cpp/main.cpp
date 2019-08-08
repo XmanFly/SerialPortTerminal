@@ -11,6 +11,7 @@
 #include "./Afps/afpscfgparamodule.h"
 #include "./Afps/Algorithm/algorithmviewmodel.h"
 #include "crashhandler.h"
+#include "rawlog.h"
 
 
 
@@ -51,9 +52,15 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();
+
     Interface *mInterface = new Interface();
+    RawLog* rawLog = new RawLog();
+    QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
+            rawLog, &RawLog::slot_receive);
+
     context->setContextProperty("mInterface",mInterface);
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
+    context->setContextProperty("RawLog", rawLog);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
 

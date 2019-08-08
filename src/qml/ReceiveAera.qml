@@ -1,4 +1,4 @@
-import QtQuick 2.9
+﻿import QtQuick 2.9
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 import SerialPortTerminal.SerialPortPara 1.0
@@ -50,32 +50,35 @@ GroupBox {
                 delegate:
                     RowLayout {
                         TextEdit {
-                            text: model.modelData.time
+                            text: Time
                             font {
                                 pointSize: 12
                             }
                             width: parent.width
                             color: "blue"
                             selectByMouse: true
-    //                onClicked: console.log("clicked:", modelData)
-                    }
-                    TextEdit {
-                        text: "  "
-                    }
-                    TextInput {
-                        text: model.modelData.value
-                        width: parent.width
-                        font {
-                            pointSize: 12
                         }
-                        selectByMouse: true
-    //                onClicked: console.log("clicked:", modelData)
-                    }
+                        TextEdit {
+                            text: Type
+                            font {
+                                pointSize: 12
+                            }
+                            color: "gold"
+                        }
+                        TextInput {
+                            text: Data
+                            width: parent.width
+                            font {
+                                pointSize: 12
+                            }
+                            selectByMouse: true
+                        }
                 }
                 onCurrentItemChanged: {
                 }
                 onCountChanged: {
-                    rcvAeraAjustTimer.restart() //开启调整显示区定时器
+//                    dataFlick.moveToEnd()
+//                    rcvAeraAjustTimer.restart() //开启调整显示区定时器
                 }
                 onContentYChanged: {
                 }
@@ -166,7 +169,9 @@ GroupBox {
 
     function setModel(mModel){
         dataListView.model = mModel
-        dataFlick.moveToEnd()
+//        mModel.columnsInserted.connect(function(){dataFlick.moveToEnd()})
+//        dataFlick.moveToEnd()
+        console.log("receive aera set model " + mModel)
     }
 
     //设置显示格式model

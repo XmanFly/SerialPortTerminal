@@ -1,8 +1,8 @@
-#include <QDebug>
+﻿#include <QDebug>
 #include "dataobject.h"
 
-DataObject::DataObject(const QString &m_time, const QByteArray &m_raw, FormatModel::DisplayFormat format, QObject *parent)
-    : QObject(parent), time(m_time), raw(m_raw)
+DataObject::DataObject(const QString &m_time, const QByteArray &m_raw, FormatModel::DisplayFormat format, Type type, QObject *parent)
+    : QObject(parent), time(m_time), raw(m_raw), type(type)
 {
     setValue(convertValue(m_raw, format));
 }
@@ -31,6 +31,20 @@ void DataObject::setValue(const QString &value)
         this->value = value;
         emit valueChanged();
     }
+}
+
+QString DataObject::typeStr() const
+{
+    QString ret;
+    switch (type) {
+    case Receive:
+        ret = QString("接收");
+        break;
+    case Send:
+        ret = QString("发送");
+        break;
+    }
+    return ret;
 }
 
 QString DataObject::convertValue(const QByteArray &value, FormatModel::DisplayFormat format)

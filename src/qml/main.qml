@@ -26,9 +26,8 @@ ApplicationWindow {
 
         Home {
             id: home
+
         }
-//        Page1Form{
-//        }
 
         AFPs {
             id: afps
@@ -64,12 +63,6 @@ ApplicationWindow {
         }
     }
 
-    Component.onCompleted: {
-        home.setInterface(mInterface)
-        //荧光默认数据文件目录
-        var afpsDataPath = "file:///" + mInterface.curPath + "/Data"
-        afps.setPath(afpsDataPath)
-    }
 
     Connections {
         target: mInterface
@@ -107,5 +100,13 @@ ApplicationWindow {
         onSig_loadFile: {
             mInterface.afpsLoadFile(path)
         }
+    }
+
+    Component.onCompleted: {
+        home.setInterface(mInterface)
+        home.receiveAera.setModel(RawLog)
+        //荧光默认数据文件目录
+        var afpsDataPath = "file:///" + mInterface.curPath + "/Data"
+        afps.setPath(afpsDataPath)
     }
 }
