@@ -3,4 +3,5 @@
 *.autosave
 *.pro.user
 *.user
+*.user.*
 Deploy*/
