@@ -102,9 +102,16 @@ ApplicationWindow {
         }
     }
 
+    Connections {
+        target: RawLogTxt
+        onSig_add : {
+            home.receiveAera.add(data, type)
+//            home.receiveAera.setTxt(data)
+        }
+    }
+
     Component.onCompleted: {
         home.setInterface(mInterface)
-        home.receiveAera.setModel(RawLog)
         //荧光默认数据文件目录
         var afpsDataPath = "file:///" + mInterface.curPath + "/Data"
         afps.setPath(afpsDataPath)

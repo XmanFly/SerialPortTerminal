@@ -18,6 +18,7 @@ SOURCES += \
         ./src/cpp/main.cpp \
     src/cpp/crashhandler.cpp \
     src/cpp/rawlog.cpp \
+    src/cpp/rawlogtxt.cpp \
     src/cpp/serialportcontrol.cpp \
     src/cpp/interface.cpp \
     src/cpp/serialportpara.cpp \
@@ -69,6 +70,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     src/cpp/crashhandler.h \
     src/cpp/rawlog.h \
+    src/cpp/rawlogtxt.h \
     src/cpp/serialportcontrol.h \
     src/cpp/interface.h \
     src/cpp/serialportpara.h \

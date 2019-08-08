@@ -9,133 +9,42 @@ import SerialPortTerminal.FormatModel 1.0
 /* 接收区域 */
 GroupBox {
     id: root
+    width: 480
+    height: 800
+    clip: true
     title: qsTr("接收区")
-    contentHeight: 100 //指定内容高度 防止循环绑定
-    implicitWidth: 100 //指定宽度 防止循环绑定
-
-    property bool sendEnable: false //发送使能
-
-    signal sendData(string data) //发送数据
 
     ColumnLayout {
-
         anchors {
             fill: parent
         }
         spacing: 10
 
-        Flickable {
-            property int initHeight: parent.height * 8 / 10
-            property int initWidth: parent.width
-            property int listViewRealHeight : initHeight  //listview实时高度
-            property int listViewRealWidth : initWidth //listview实时宽度
-
-            id: dataFlick
-            Layout.fillWidth: true
-            Layout.preferredHeight: parent.height * 8 / 10
-            clip: true
-            boundsBehavior: Flickable.StopAtBounds
-            contentWidth: listViewRealWidth
-            contentHeight: listViewRealHeight
-            contentY : contentHeight-height //定位至最后一行
-
-            ListView {
-                id: dataListView
-                interactive: true
-                anchors {
-                    fill: parent
-                }
-                cacheBuffer: 4000000
-
-                delegate:
-                    RowLayout {
-                        TextEdit {
-                            text: Time
-                            font {
-                                pointSize: 12
-                            }
-                            width: parent.width
-                            color: "blue"
-                            selectByMouse: true
-                        }
-                        TextEdit {
-                            text: Type
-                            font {
-                                pointSize: 12
-                            }
-                            color: "gold"
-                        }
-                        TextInput {
-                            text: Data
-                            width: parent.width
-                            font {
-                                pointSize: 12
-                            }
-                            selectByMouse: true
-                        }
-                }
-                onCurrentItemChanged: {
-                }
-                onCountChanged: {
-//                    dataFlick.moveToEnd()
-//                    rcvAeraAjustTimer.restart() //开启调整显示区定时器
-                }
-                onContentYChanged: {
-                }
-
-                //调整显示区
-                function rcvAeraAjust(){
-                    var curHeight = 0
-                    var curWidth = 0
-                    for(var child in dataListView.contentItem.children) {
-                        if(dataListView.contentItem.children[child].width > curWidth){
-                            curWidth = dataListView.contentItem.children[child].width
-                        }
-                    }
-                    if(curWidth > dataFlick.initWidth){
-                        dataFlick.listViewRealWidth = curWidth
-                    }
-                    console.log("rcvAeraAjust "
-                                + "length " + dataListView.contentItem.children.length + " "
-                                + dataFlick.listViewRealHeight + " "
-                                + dataFlick.initHeight + " "
-                                + dataFlick.listViewRealWidth + " "
-                                + dataFlick.initWidth + " "
-                                + curWidth + " "
-                                + dataFlick.width + " ")
-                }
-
-                ScrollBar.vertical: ScrollBar {
-                    id: listVerticalScrBar
-                    interactive: true
-                    width: 20
-                    minimumSize: 0.2
-                }
-            }
-
+        ScrollView {
+            Layout.preferredWidth: parent.width
+            Layout.fillHeight: true
             ScrollBar.horizontal: ScrollBar {
-                height: 20
-                minimumSize: 0.3
-            }
-
-
-            //调整显示区定时器
-            Timer {
-                id: rcvAeraAjustTimer;
-                interval: 500;
-                running: false;
-                repeat: false;
-                triggeredOnStart: false;
-                onTriggered:{
-                    dataListView.rcvAeraAjust()
-                    console.log("rcvAeraAjustTimer trigger ")
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
                 }
+                height: 20
+                minimumSize: 0.1
             }
-
-            //定位至最后
-            function moveToEnd(){
-//                dataFlick.contentY = dataFlick.contentHeight-dataFlick.height //定位至最后一行
-                dataListView.positionViewAtEnd()
+            ScrollBar.vertical: ScrollBar {
+                policy: ScrollBar.AlwaysOn
+                anchors {
+                    top:  parent.top
+                    bottom: parent.bottom
+                    right: parent.right
+                }
+                width: 20
+                minimumSize: 0.1
+            }
+            TextArea {
+                id: displayTxt
+                anchors.fill: parent
             }
         }
 
@@ -151,11 +60,6 @@ GroupBox {
                     radius: 2
                     text: qsTr("清空")
                     onClicked: {
-                        mInterface.clearDataModel()
-                        dataFlick.listViewRealHeight = dataFlick.initHeight
-                        dataFlick.listViewRealWidth = dataFlick.initWidth
-                         console.log("refresh "
-                                    + "length " + dataListView.contentItem.children.length )
                     }
                 }
                 ToolSeparator {}
@@ -167,11 +71,12 @@ GroupBox {
         }
     }
 
-    function setModel(mModel){
-        dataListView.model = mModel
-//        mModel.columnsInserted.connect(function(){dataFlick.moveToEnd()})
-//        dataFlick.moveToEnd()
-        console.log("receive aera set model " + mModel)
+    function add(data, mType){
+        displayTxt.append(data)
+    }
+
+    function setTxt(data){
+        displayTxt.text = data
     }
 
     //设置显示格式model

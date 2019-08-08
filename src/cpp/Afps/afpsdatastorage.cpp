@@ -108,6 +108,6 @@ void AfpsDataStorage::on_addData(AD_CHANNEDL_DATA data)
         if(buf.size() > 20) {
             addData(&filePtr, buf);
         }
-        qDebug() << "AfpsDataStorage thread id " << QThread::currentThreadId();
+        qDebug() << "AfpsDataStorage thread id " << QThread::currentThread();
     }
 }

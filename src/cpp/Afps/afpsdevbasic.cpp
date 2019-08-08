@@ -24,7 +24,7 @@ bool AfpsDevBasic::rcvProt(AfpsFormat prot)
 
 void AfpsDevBasic::slot_rcvProt(AfpsFormat prot)
 {
-    qDebug() << "AfpsDevBasic thread id " << QThread::currentThreadId();
+    qDebug() << "AfpsDevBasic thread id " << QThread::currentThread();
     //收到本设备协议
     if(rcvProt(prot)){
         qDebug() << "AfpsDevBasic::slot_rcvProt " << "dev id " << devId;

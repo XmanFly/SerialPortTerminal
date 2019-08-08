@@ -40,7 +40,7 @@ void AdChartModel::slot_rcvData(AD_CHANNEDL_DATA data)
     channel[3]->append(QPointF(channel[3]->size() + 1, data.channel4));
     calcRange();
     emit sig_dataUpdate();
-    qDebug() << "AdChartModel thread id " << QThread::currentThreadId();
+    qDebug() << "AdChartModel thread id " << QThread::currentThread();
 }
 
 /* 计算每个通道数值范围 */

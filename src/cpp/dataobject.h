@@ -31,7 +31,7 @@ public:
 
     QString typeStr() const;
 
-    QString convertValue(const QByteArray &value, FormatModel::DisplayFormat format);
+    static QString convertValue(const QByteArray &value, FormatModel::DisplayFormat format);
 
 signals:
     void timeChanged();
