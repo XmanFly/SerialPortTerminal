@@ -104,3 +104,16 @@ HEADERS += \
     src/cpp/Afps/Algorithm/detection.h \
     src/cpp/Afps/Algorithm/leastsquare.h \
     src/cpp/Afps/Algorithm/algorithmrespository.h
+
+win32-msvc* {
+   QMAKE_CXXFLAGS += /MP
+   QMAKE_CXXFLAGS_RELEASE += /Zi
+}
+
+#设置编码统一使用utf8
+QMAKE_CXXFLAGS += -utf-8
+#生成pdb文件
+QMAKE_LFLAGS_RELEASE += /MAP
+QMAKE_CFLAGS_RELEASE += /Zi
+QMAKE_LFLAGS_RELEASE += /debug /opt:ref
+
