@@ -50,7 +50,7 @@ ApplicationWindow {
 
         TabButton {
             implicitHeight: parent.height
-            text: qsTr("主页")
+            text: qsTr("端口")
             background: Rectangle{
                 color: tabBar.currentIndex === 0 ? "lightblue" : "gray"
             }

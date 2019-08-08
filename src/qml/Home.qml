@@ -1,4 +1,4 @@
-import QtQuick 2.4
+﻿import QtQuick 2.4
 import SerialPortTerminal.Interface 1.0
 import SerialPortTerminal.SerialPortPara 1.0
 
@@ -24,9 +24,6 @@ HomeForm {
         }
     }
 
-    //数据个数统计区
-    dataInforPanel {
-    }
 
     //发送区域
     sendAera {

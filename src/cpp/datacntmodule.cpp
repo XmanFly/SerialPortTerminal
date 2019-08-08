@@ -1,9 +1,9 @@
-#include "datacntmodule.h"
+﻿#include "datacntmodule.h"
 
 DataCntModule::DataCntModule(QObject *parent) : QObject(parent)
 {
-    mRcvCnt = new DataCntModel(0, "接收", 0); //接收数据个数
-    mSendCnt = new DataCntModel(1, "发送", 0); //发送数据个数
+    mRcvCnt = new DataCntModel(0, QString("接收"), 0); //接收数据个数
+    mSendCnt = new DataCntModel(1, QString("发送"), 0); //发送数据个数
 
     dataCnt.append(mRcvCnt);
     dataCnt.append(mSendCnt);

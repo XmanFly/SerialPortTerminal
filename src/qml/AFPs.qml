@@ -1,4 +1,4 @@
-import QtQuick 2.4
+﻿import QtQuick 2.9
 import SerialPortTerminal.AfpsCfgParaModule 1.0
 
 AFPsForm {
@@ -20,8 +20,8 @@ AFPsForm {
 
     switchBtn {
         onClicked: {
-            if(switchBtn.text === "开始") {
-                switchBtn.text = "停止"
+            if(switchBtn.text === qsTr("开始")) {
+                switchBtn.text = qsTr("停止")
                 var para = new Array();
                 for(var i=0; i<3; i++){
                     para.push(cfgParaRpt.itemAt(i).currentText)
