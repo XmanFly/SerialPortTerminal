@@ -6,10 +6,10 @@ import SerialPortTerminal.DataObject 1.0
 import SerialPortTerminal.TableModel 1.0
 import SerialPortTerminal.FormatModel 1.0
 
-/* 接收区域 */
+/* LOG区域 */
 GroupBox {
     id: root
-    title: qsTr("接收区")
+    title: qsTr("数据显示区")
     width: 480
     height: 800
 
@@ -19,67 +19,61 @@ GroupBox {
         }
         spacing: 10
 
-        ScrollView {
+        ListView {
+            id: dataListView
             Layout.fillWidth: true
             Layout.fillHeight: true
-            ListView {
-                id: dataListView
-                interactive: true
-                anchors {
-                    fill: parent
-                }
-//                cacheBuffer: 400000
-                delegate:
-                    RowLayout {
-                        TextEdit {
-                            text: Time
-                            font {
-                                pointSize: 12
-                            }
-                            width: parent.width
-                            color: "blue"
-                            selectByMouse: true
+            interactive: true
+            clip: true
+            delegate:
+                RowLayout {
+                    TextEdit {
+                        text: Time
+                        font {
+                            pointSize: 12
                         }
-                        TextEdit {
-                            text: Type
-                            font {
-                                pointSize: 12
-                            }
-                            color: Type === qsTr("发送") ? "darkorange" : "fuchsia"
-                        }
-                        TextInput {
-                            text: Data
-                            width: parent.width
-                            font {
-                                pointSize: 12
-                            }
-                            selectByMouse: true
-                        }
-                        ListView.onAdd: {
-                            dataListView.positionViewAtEnd()
-                        }
+                        width: parent.width
+                        color: "teal"
+                        selectByMouse: true
                     }
-                onCurrentItemChanged: {
-                }
-                onCountChanged: {
-                }
-                onContentYChanged: {
+                    TextEdit {
+                        text: Type
+                        font {
+                            pointSize: 12
+                        }
+                        color: Type === qsTr("发送") ? "darkorange" : "fuchsia"
+                    }
+                    TextInput {
+                        text: Data
+                        width: parent.width
+                        font {
+                            pointSize: 12
+                        }
+                        selectByMouse: true
+                    }
+                    ListView.onAdd: {
+                        dataListView.positionViewAtEnd()
+                    }
                 }
 
-                ScrollBar.vertical: ScrollBar {
-                    id: listVerticalScrBar
-                    interactive: true
-                    policy: ScrollBar.AlwaysOn
-                    width: 20
-                    minimumSize: 0.2
-                }
+            ScrollBar.vertical: ScrollBar {
+                id: listVerticalScrBar
+                interactive: true
+                policy: ScrollBar.AlwaysOn
+                width: 20
+                minimumSize: 0.2
             }
-
             ScrollBar.horizontal: ScrollBar {
                 height: 20
                 minimumSize: 0.3
             }
 
+            onCurrentItemChanged: {
+            }
+            onCountChanged: {
+            }
+            onContentYChanged: {
+            }
         }
 
         RowLayout {

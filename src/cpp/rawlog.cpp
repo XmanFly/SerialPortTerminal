@@ -62,7 +62,7 @@ void RawLog::addData(DataObject::Type type, QByteArray data)
         dataList.removeFirst();
         endRemoveRows();
     }
-    QString curTime = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss.zzz");
+    QString curTime = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     dataList.append(new DataObject(curTime, data, FormatModel::HEX, type)); //TBD
     endInsertRows();
