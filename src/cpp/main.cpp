@@ -45,16 +45,13 @@ int main(int argc, char *argv[])
     qRegisterMetaType<QVector<QVector<QPointF>>>("QVector<QVector<QPointF>>");
     qRegisterMetaType<AD_CHANNEDL_DATA>("AD_CHANNEDL_DATA");
 
-//    QQmlContext *context = engine.rootContext();
-//    Interface *mInterface = new Interface();
-//    context->setContextProperty("Interface",mInterface);
-
-
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();
 
     Interface *mInterface = new Interface();
-    RawLog* rawLog = new RawLog();
+    QQmlEngine::setObjectOwnership(mInterface, QQmlEngine::CppOwnership);
+    RawLog* rawLog = new RawLog(100);
+    QQmlEngine::setObjectOwnership(rawLog, QQmlEngine::CppOwnership);
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
             rawLog, &RawLog::slot_receive);
 

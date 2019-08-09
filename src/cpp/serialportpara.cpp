@@ -1,4 +1,4 @@
-#include "serialportpara.h"
+﻿#include "serialportpara.h"
 
 SerialPortPara::SerialPortPara(QObject *parent) : QObject(parent)
 {

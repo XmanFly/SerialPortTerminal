@@ -1,5 +1,5 @@
-﻿import QtQuick 2.9
-import QtQuick.Controls 2.3
+﻿import QtQuick 2.13
+import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
 import SerialPortTerminal.SerialPortPara 1.0
 import SerialPortTerminal.DataObject 1.0
@@ -10,43 +10,25 @@ import SerialPortTerminal.FormatModel 1.0
 GroupBox {
     id: root
     title: qsTr("接收区")
-    contentHeight: 100 //指定内容高度 防止循环绑定
-    implicitWidth: 100 //指定宽度 防止循环绑定
-
-    property bool sendEnable: false //发送使能
-
-    signal sendData(string data) //发送数据
+    width: 480
+    height: 800
 
     ColumnLayout {
-
         anchors {
             fill: parent
         }
         spacing: 10
 
-        Flickable {
-            property int initHeight: parent.height * 8 / 10
-            property int initWidth: parent.width
-            property int listViewRealHeight : initHeight  //listview实时高度
-            property int listViewRealWidth : initWidth //listview实时宽度
-
-            id: dataFlick
+        ScrollView {
             Layout.fillWidth: true
-            Layout.preferredHeight: parent.height * 8 / 10
-            clip: true
-            boundsBehavior: Flickable.StopAtBounds
-            contentWidth: listViewRealWidth
-            contentHeight: listViewRealHeight
-            contentY : contentHeight-height //定位至最后一行
-
+            Layout.fillHeight: true
             ListView {
                 id: dataListView
                 interactive: true
                 anchors {
                     fill: parent
                 }
-                cacheBuffer: 4000000
-
+//                cacheBuffer: 400000
                 delegate:
                     RowLayout {
                         TextEdit {
@@ -73,41 +55,21 @@ GroupBox {
                             }
                             selectByMouse: true
                         }
-                }
+                        ListView.onAdd: {
+                            dataListView.positionViewAtEnd()
+                        }
+                    }
                 onCurrentItemChanged: {
                 }
                 onCountChanged: {
-//                    dataFlick.moveToEnd()
-//                    rcvAeraAjustTimer.restart() //开启调整显示区定时器
                 }
                 onContentYChanged: {
-                }
-
-                //调整显示区
-                function rcvAeraAjust(){
-                    var curHeight = 0
-                    var curWidth = 0
-                    for(var child in dataListView.contentItem.children) {
-                        if(dataListView.contentItem.children[child].width > curWidth){
-                            curWidth = dataListView.contentItem.children[child].width
-                        }
-                    }
-                    if(curWidth > dataFlick.initWidth){
-                        dataFlick.listViewRealWidth = curWidth
-                    }
-                    console.log("rcvAeraAjust "
-                                + "length " + dataListView.contentItem.children.length + " "
-                                + dataFlick.listViewRealHeight + " "
-                                + dataFlick.initHeight + " "
-                                + dataFlick.listViewRealWidth + " "
-                                + dataFlick.initWidth + " "
-                                + curWidth + " "
-                                + dataFlick.width + " ")
                 }
 
                 ScrollBar.vertical: ScrollBar {
                     id: listVerticalScrBar
                     interactive: true
+                    policy: ScrollBar.AlwaysOn
                     width: 20
                     minimumSize: 0.2
                 }
@@ -118,25 +80,6 @@ GroupBox {
                 minimumSize: 0.3
             }
 
-
-            //调整显示区定时器
-            Timer {
-                id: rcvAeraAjustTimer;
-                interval: 500;
-                running: false;
-                repeat: false;
-                triggeredOnStart: false;
-                onTriggered:{
-                    dataListView.rcvAeraAjust()
-                    console.log("rcvAeraAjustTimer trigger ")
-                }
-            }
-
-            //定位至最后
-            function moveToEnd(){
-//                dataFlick.contentY = dataFlick.contentHeight-dataFlick.height //定位至最后一行
-                dataListView.positionViewAtEnd()
-            }
         }
 
         RowLayout {
@@ -169,7 +112,9 @@ GroupBox {
 
     function setModel(mModel){
         dataListView.model = mModel
-//        mModel.columnsInserted.connect(function(){dataFlick.moveToEnd()})
+//        dataListView.positionViewAtEnd()
+//        mModel.columnsInserted.connect(function(){ dataListView.positionViewAtEnd() })
+//        dataListView.Add.connect(function(){ dataListView.positionViewAtEnd() })
 //        dataFlick.moveToEnd()
         console.log("receive aera set model " + mModel)
     }

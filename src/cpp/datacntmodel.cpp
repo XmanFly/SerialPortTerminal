@@ -1,4 +1,6 @@
-#include "datacntmodel.h"
+﻿#include "datacntmodel.h"
+#include <QThread>
+#include <QDebug>
 
 DataCntModel::DataCntModel(qint32 m_id, const QString &m_name, const int m_cnt, QObject *parent)
     : QObject(parent),
@@ -38,5 +40,7 @@ QString DataCntModel::getName()
 
 void DataCntModel::slot_add(qint32 cnt)
 {
+    qDebug() << TAG << "add thread id " << QThread::currentThread()
+             << " " << QThread::currentThreadId();
     addCnt(cnt);
 }

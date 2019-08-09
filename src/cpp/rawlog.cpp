@@ -18,8 +18,8 @@ int RawLog::rowCount(const QModelIndex & parent) const
 
 QVariant RawLog::data(const QModelIndex & index, int role) const
 {
-    qDebug() << TAG << "data "
-             << QString("row %1 column %2 role %3").arg(index.row()).arg(index.column()).arg(role);
+//    qDebug() << TAG << "data "
+//             << QString("row %1 column %2 role %3").arg(index.row()).arg(index.column()).arg(role);
     if (index.row() < 0 || index.row() >= dataList.count())
         return QVariant();
 
@@ -46,7 +46,7 @@ QHash<int, QByteArray> RawLog::roleNames() const
 
 void RawLog::slot_receive(QByteArray data)
 {
-    qDebug() << TAG << "receive ";
+//    qDebug() << TAG << "receive ";
     addData(DataObject::Receive, data);
 }
 

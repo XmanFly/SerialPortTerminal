@@ -1,4 +1,4 @@
-#ifndef DATACNTMODEL_H
+﻿#ifndef DATACNTMODEL_H
 #define DATACNTMODEL_H
 
 #include <QObject>
@@ -21,6 +21,7 @@ public:
     QString	getName();
 
 private:
+    const QString TAG = "DataCntModel";
     qint32 id; //编号
     QString name; //名称
     qint32 cnt; //数据个数
