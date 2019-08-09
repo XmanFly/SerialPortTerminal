@@ -45,7 +45,7 @@ GroupBox {
                             font {
                                 pointSize: 12
                             }
-                            color: "gold"
+                            color: Type === qsTr("发送") ? "darkorange" : "fuchsia"
                         }
                         TextInput {
                             text: Data

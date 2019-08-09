@@ -54,6 +54,8 @@ int main(int argc, char *argv[])
     QQmlEngine::setObjectOwnership(rawLog, QQmlEngine::CppOwnership);
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
             rawLog, &RawLog::slot_receive);
+    QObject::connect(mInterface, &Interface::sig_sendData,
+            rawLog, &RawLog::slot_send);
 
     context->setContextProperty("mInterface",mInterface);
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
