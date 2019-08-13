@@ -10,6 +10,8 @@
 #include <QEventLoop>
 #include "protcontent.h"
 
+class RequestQueue;
+
 namespace RequestNameSpace {
     Q_NAMESPACE
     enum STATE{
@@ -33,7 +35,7 @@ namespace RequestNameSpace {
         };
 
     public:
-        Request(Request::METHOD mMethod=POLL_REAL, uchar rgstAddr=0x01, QByteArray value=nullptr, QObject *parent = nullptr);
+        Request(Request::METHOD mMethod, uchar rgstAddr, QByteArray value=nullptr, QObject *parent = nullptr);
         ~Request();
 
         void setTimeStamp(uchar timeStamp);
@@ -42,9 +44,13 @@ namespace RequestNameSpace {
         STATE getState();
         int getRetryCnt();
         ERR_TYPE getErrType(); //错误类型
+        QByteArray getRValue(); //raw
+
+        void setRequestQueue(RequestQueue *value);
 
     protected:
-        ProtContent content; //协议内容
+        ProtContent sendContent; //发送协议内容
+        ProtContent receiveContent; //接收协议内容
         STATE state; //响应
         int timeoutThrold; //超时时间 单位:ms
         QTimer* timer; //超时定时器
@@ -56,6 +62,9 @@ namespace RequestNameSpace {
         CMD_TYPE method2CmdType(Request::METHOD);
         void sendSingle(); //发送一条消息
         virtual bool parseRgstValue(ProtContent response) = 0; //解析寄存器值
+
+    private:
+        RequestQueue* requestQueue;
 
     signals:
         void sig_send(QByteArray data);

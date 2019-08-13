@@ -37,7 +37,8 @@ Request *RequestQueue::addRequest(Request* req)
     connect(parseTh, &ParseTh::sig_response,
             req, &Request::slot_receiveResponse);
     requestQueue->append(req);
-//    req->start();
+    req->setRequestQueue(this);
+    req->start();
     return req;
 }
 

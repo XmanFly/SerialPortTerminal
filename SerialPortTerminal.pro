@@ -16,6 +16,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         ./src/cpp/main.cpp \
+    src/cpp/Afps/Model/regfloatreadvm.cpp \
+    src/cpp/Afps/Model/regfloatvm.cpp \
+    src/cpp/Afps/Model/regfloatwritevm.cpp \
+    src/cpp/Afps/Model/regreadwritemodel.cpp \
+    src/cpp/Afps/Protocol/datarequest.cpp \
+    src/cpp/Afps/Protocol/floatrequest.cpp \
     src/cpp/Afps/Protocol/parsefsm.cpp \
     src/cpp/Afps/Protocol/parseth.cpp \
     src/cpp/Afps/Protocol/protutils.cpp \
@@ -73,6 +79,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    src/cpp/Afps/Model/regfloatreadvm.h \
+    src/cpp/Afps/Model/regfloatvm.h \
+    src/cpp/Afps/Model/regfloatwritevm.h \
+    src/cpp/Afps/Model/regreadwritemodel.h \
+    src/cpp/Afps/Protocol/datarequest.h \
+    src/cpp/Afps/Protocol/floatrequest.h \
     src/cpp/Afps/Protocol/parsefsm.h \
     src/cpp/Afps/Protocol/parseth.h \
     src/cpp/Afps/Protocol/protcontent.h \

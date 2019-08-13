@@ -1,4 +1,5 @@
 ﻿#include "request.h"
+#include "requestqueue.h"
 #include "protutils.h"
 
 using namespace RequestNameSpace;
@@ -7,9 +8,9 @@ Request::Request(Request::METHOD mMethod, uchar rgstAddr, QByteArray value, QObj
     QObject(parent)
 {
     /* 协议内容填充 */
-    content.cmdType = method2CmdType(mMethod);
-    content.addr = rgstAddr;
-    content.value = value;
+    sendContent.cmdType = method2CmdType(mMethod);
+    sendContent.addr = rgstAddr;
+    sendContent.value = value;
     /* 超时定时器 */
     timer = new QTimer();
     timer->setTimerType(Qt::TimerType::PreciseTimer);
@@ -27,7 +28,7 @@ Request::~Request()
 
 void Request::setTimeStamp(uchar timeStamp)
 {
-    content.timeStamp = timeStamp;
+    sendContent.timeStamp = timeStamp;
 }
 
 void Request::setState(STATE state)
@@ -92,8 +93,13 @@ CMD_TYPE Request::method2CmdType(Request::METHOD method)
 void Request::sendSingle()
 {
     QByteArray raw;
-    ProtUtils::contentToRaw(content, raw);
+    ProtUtils::contentToRaw(sendContent, raw);
     emit sig_send(raw);
+}
+
+void Request::setRequestQueue(RequestQueue *value)
+{
+    requestQueue = value;
 }
 
 void Request::slot_timeout()
@@ -105,10 +111,22 @@ void Request::slot_timeout()
     } else {
         timer->stop();
         setState(TIMEOUT);
+        requestQueue->removeRequest(this);
     }
 }
 
 void Request::slot_receiveResponse(ProtContent response)
 {
-    parseRgstValue(response);
+    //时间戳与寄存器地址保持一致
+    if(sendContent.timeStamp == response.timeStamp ||
+            sendContent.addr == response.addr){
+        receiveContent = response;
+        if(!parseRgstValue(response)){
+            setState(ERROR_ST);
+        } else {
+            setState(RESPONSED);
+        }
+        requestQueue->removeRequest(this);
+        deleteLater();
+    }
 }

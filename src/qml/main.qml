@@ -11,10 +11,6 @@ ApplicationWindow {
     height: 768
     title: qsTr("Tabs")
 
-//    Interface {
-//        id: mInterface
-//    }
-
     SwipeView {
         id: swipeView
         anchors {
@@ -28,18 +24,13 @@ ApplicationWindow {
             id: home
 
         }
-
         AFPs {
             id: afps
-
-
-//            onSig_start : {
-//                mInterface.afpsStart()
-//            }
-//            onSig_stop : {
-//                mInterface.afpsStop()
-//            }
         }
+        AfpsRegister {
+            id: afpsRegister
+        }
+
     }
 
     header: TabBar {
@@ -56,13 +47,19 @@ ApplicationWindow {
         }
         TabButton {
             implicitHeight: parent.height
-            text: qsTr("荧光")
+            text: qsTr("谱图")
             background: Rectangle{
                 color: tabBar.currentIndex === 1 ? "lightblue" : "gray"
             }
         }
+        TabButton {
+            implicitHeight: parent.height
+            text: qsTr("寄存器")
+            background: Rectangle{
+                color: tabBar.currentIndex === 2 ? "lightblue" : "gray"
+            }
+        }
     }
-
 
     Connections {
         target: mInterface

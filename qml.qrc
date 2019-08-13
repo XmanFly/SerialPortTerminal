@@ -19,5 +19,7 @@
         <file>src/qml/Explorer.qml</file>
         <file>src/qml/AfpsAlgorithm.qml</file>
         <file>src/qml/AfpsAlgorithmForm.ui.qml</file>
+        <file>src/qml/AfpsRegister.qml</file>
+        <file>src/qml/AfpsRegisterForm.ui.qml</file>
     </qresource>
 </RCC>

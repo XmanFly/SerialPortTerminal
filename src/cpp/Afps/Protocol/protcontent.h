@@ -19,6 +19,13 @@ public:
         this->addr = src.addr;
         this->value = src.value;
     }
+    ProtContent& operator = (const ProtContent &src) {
+        this->timeStamp = src.timeStamp;
+        this->cmdType = src.cmdType;
+        this->addr = src.addr;
+        this->value = src.value;
+        return *this;
+    }
 
     uchar timeStamp; //时间戳
     CMD_TYPE cmdType; //命令类型
