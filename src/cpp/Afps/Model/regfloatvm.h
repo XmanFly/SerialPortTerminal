@@ -8,18 +8,18 @@
 class RegFloatVM : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(STATE state READ getState NOTIFY sig_stateChanged)
+    Q_PROPERTY(RequestStyle::STATE state READ getState NOTIFY sig_stateChanged)
     Q_PROPERTY(QString dbgMsg READ getDbgMsg NOTIFY sig_dbgMsgChanged)
 public:
     explicit RegFloatVM(Request::METHOD method, uchar addr, QObject *parent = nullptr);
-    STATE getState() const;
+    RequestStyle::STATE getState() const;
     QString getDbgMsg() const;
 
 protected:
     FloatRequest* request;
     Request::METHOD method;
     uchar addr;
-    STATE state;
+    RequestStyle::STATE state;
     QString dbgMsg;
 
 signals:

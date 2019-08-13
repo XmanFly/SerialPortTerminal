@@ -1,4 +1,5 @@
 ﻿#include "regfloatvm.h"
+#include <QDebug>
 
 RegFloatVM::RegFloatVM(Request::METHOD method, uchar addr, QObject *parent) :
     QObject (parent),
@@ -8,10 +9,10 @@ RegFloatVM::RegFloatVM(Request::METHOD method, uchar addr, QObject *parent) :
 {
 }
 
-STATE RegFloatVM::getState() const
+RequestStyle::STATE RegFloatVM::getState() const
 {
     if(request == nullptr){
-        return READY;
+        return RequestStyle::READY;
     }
     return request->getState();
 }
@@ -23,19 +24,19 @@ QString RegFloatVM::getDbgMsg() const
         return "";
     }
     switch (request->getState()) {
-    case READY:
+    case RequestStyle::READY:
         ret = QString("就绪");
         break;
-    case IN_PROCESS:
+    case RequestStyle::IN_PROCESS:
         ret = QString("第%1次请求").arg(request->getRetryCnt());
         break;
-    case RESPONSED:
+    case RequestStyle::RESPONSED:
         ret = QString("成功");
         break;
-    case TIMEOUT:
+    case RequestStyle::TIMEOUT:
         ret = QString("超时");
         break;
-    case ERROR_ST:
+    case RequestStyle::ERROR_ST:
         ret = QString("错误: ");
         switch (request->getErrType()) {
         case DEV_ADDR_ERR:
@@ -53,13 +54,14 @@ QString RegFloatVM::getDbgMsg() const
         }
         break;
     }
+    qDebug() << "RegFloatVM::getDbgMsg" << ret;
     return ret;
 }
 
 void RegFloatVM::slot_stateChanged()
 {
     //任务完成 取消信号连接
-    if(request->getState() > IN_PROCESS){
+    if(request->getState() > RequestStyle::IN_PROCESS){
         disconnect(request, &Request::sig_stateChanged,
                 this, &RegFloatVM::slot_stateChanged);
     }

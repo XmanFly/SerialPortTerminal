@@ -4,7 +4,6 @@
 #include <QObject>
 #include "request.h"
 
-using namespace RequestNameSpace;
 
 /* 数据类型请求 */
 class DataRequest : public Request

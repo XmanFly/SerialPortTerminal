@@ -5,5 +5,4 @@ import QtQuick.Layouts 1.3
 Page {
     width: 1366
     height: 768
-
 }

@@ -42,7 +42,7 @@ Request *RequestQueue::addRequest(Request* req)
     return req;
 }
 
-void RequestQueue::removeRequest(Request* req)
+void RequestQueue::removeRequest(Request *req)
 {
     QMutexLocker lock(mutex);
     requestQueue->removeOne(req);

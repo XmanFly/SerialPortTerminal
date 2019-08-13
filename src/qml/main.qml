@@ -27,7 +27,7 @@ ApplicationWindow {
         AFPs {
             id: afps
         }
-        AfpsRegister {
+        Test {
             id: afpsRegister
         }
 

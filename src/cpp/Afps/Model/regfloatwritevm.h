@@ -11,6 +11,9 @@ public:
     explicit RegFloatWriteVM(Request::METHOD method, uchar addr, QObject *parent = nullptr);
     Q_INVOKABLE bool writeSync(float value); //同步设置
 
+private:
+    const QString TAG = "RegFloatWriteVM";
+
 signals:
 
 public slots:

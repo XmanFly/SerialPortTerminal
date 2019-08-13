@@ -1,4 +1,5 @@
 ﻿#include "regfloatwritevm.h"
+#include <QDebug>
 
 RegFloatWriteVM::RegFloatWriteVM(Request::METHOD method, uchar addr, QObject *parent) :
     RegFloatVM (method, addr, parent)
@@ -7,19 +8,23 @@ RegFloatWriteVM::RegFloatWriteVM(Request::METHOD method, uchar addr, QObject *pa
 
 bool RegFloatWriteVM::writeSync(float value)
 {
+    bool ret = false;
     if(request != nullptr){
         disconnect(request, &Request::sig_stateChanged,
                 this, &RegFloatWriteVM::slot_stateChanged);
         WmVolley::instance()->getRequestQueue()->removeRequest(request);
     }
     request = new FloatRequest(method, addr, value);
-    WmVolley::instance()->getRequestQueue()->addRequest(request);
     connect(request, &Request::sig_stateChanged,
             this, &RegFloatWriteVM::slot_stateChanged);
-    STATE st = request->getResponse();
-    if(st == RESPONSED){
-        return true;
+    WmVolley::instance()->getRequestQueue()->addRequest(request);
+    RequestStyle::STATE st = request->getResponse();
+    if(st == RequestStyle::RESPONSED){
+        ret = true;
     }
-    return false;
+    WmVolley::instance()->getRequestQueue()->removeRequest(request);
+    request = nullptr;
+    qDebug() << TAG << "write sync " << request;
+    return ret;
 }
 

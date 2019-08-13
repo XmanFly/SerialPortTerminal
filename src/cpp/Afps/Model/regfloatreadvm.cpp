@@ -17,8 +17,8 @@ bool RegFloatReadVM::readSync()
     WmVolley::instance()->getRequestQueue()->addRequest(request);
     connect(request, &Request::sig_stateChanged,
             this, &RegFloatReadVM::slot_stateChanged);
-    STATE st = request->getResponse();
-    if(st == RESPONSED){
+    RequestStyle::STATE st = request->getResponse();
+    if(st == RequestStyle::RESPONSED){
         setValue(request->getReadValue());
         return true;
     }

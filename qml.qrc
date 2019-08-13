@@ -21,5 +21,8 @@
         <file>src/qml/AfpsAlgorithmForm.ui.qml</file>
         <file>src/qml/AfpsRegister.qml</file>
         <file>src/qml/AfpsRegisterForm.ui.qml</file>
+        <file>src/qml/RegSetFloatItem.qml</file>
+        <file>src/qml/RegSetFloatItemForm.ui.qml</file>
+        <file>src/qml/Test.qml</file>
     </qresource>
 </RCC>

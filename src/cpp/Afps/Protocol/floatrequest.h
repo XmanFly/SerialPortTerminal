@@ -4,8 +4,6 @@
 #include <QObject>
 #include "request.h"
 
-using namespace RequestNameSpace;
-
 
 class FloatRequest : public Request
 {

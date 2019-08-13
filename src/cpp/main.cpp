@@ -13,6 +13,7 @@
 #include "crashhandler.h"
 #include "rawlog.h"
 #include "./Afps/Protocol/wmvolley.h"
+#include "./Afps/Model/regfloatwritevm.h"
 
 
 int main(int argc, char *argv[])
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<SerialPortParaNonQobj>("SerialPortParaNonQobj");
     qRegisterMetaType<QVector<QVector<QPointF>>>("QVector<QVector<QPointF>>");
     qRegisterMetaType<AD_CHANNEDL_DATA>("AD_CHANNEDL_DATA");
+    RequestStyle::registType();
 
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();
@@ -56,6 +58,8 @@ int main(int argc, char *argv[])
     QQmlEngine::setObjectOwnership(rawLog, QQmlEngine::CppOwnership);
     //荧光协议
     WmVolley::instance()->getRequestQueue()->setSerial(mInterface->getSerialPortControl());
+    //荧光寄存器
+    RegFloatWriteVM* pump = new RegFloatWriteVM(Request::METHOD::SET, 0x01);
 
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
             rawLog, &RawLog::slot_receive);
@@ -65,6 +69,7 @@ int main(int argc, char *argv[])
     context->setContextProperty("mInterface",mInterface);
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
     context->setContextProperty("RawLog", rawLog);
+    context->setContextProperty("Pump", pump);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
 

@@ -11,8 +11,6 @@
 #include "parseth.h"
 #include "../../serialportcontrol.h"
 
-using namespace RequestNameSpace;
-
 /* 消息队列 */
 class RequestQueue : public QObject
 {

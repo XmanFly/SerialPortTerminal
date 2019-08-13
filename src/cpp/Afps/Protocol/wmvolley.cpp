@@ -8,7 +8,6 @@ WmVolley* WmVolley::instance()
 {
     QMutexLocker lock(&mutex);
     if(pInstance == nullptr){
-        qmlRegisterUncreatableMetaObject(RequestNameSpace::staticMetaObject, "wm", 1, 0, "RequestNamespace", "Access to enums only");
         pInstance = new WmVolley();
     }
     return pInstance;

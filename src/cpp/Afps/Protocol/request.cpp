@@ -1,8 +1,8 @@
 ﻿#include "request.h"
 #include "requestqueue.h"
 #include "protutils.h"
+#include <QtQml>
 
-using namespace RequestNameSpace;
 
 Request::Request(Request::METHOD mMethod, uchar rgstAddr, QByteArray value, QObject *parent) :
     QObject(parent)
@@ -17,8 +17,10 @@ Request::Request(Request::METHOD mMethod, uchar rgstAddr, QByteArray value, QObj
     connect(timer, &QTimer::timeout,
             this, &Request::slot_timeout);
     /* 进入就绪状态 */
-    setState(STATE::READY);
+    setState(RequestStyle::STATE::READY);
     retryCnt = 1;
+    RETRY_MAX = 3;
+    timeoutThrold = 500;
 }
 
 Request::~Request()
@@ -31,9 +33,9 @@ void Request::setTimeStamp(uchar timeStamp)
     sendContent.timeStamp = timeStamp;
 }
 
-void Request::setState(STATE state)
+void Request::setState(RequestStyle::STATE state)
 {
-    if(this->state != state || state == IN_PROCESS){
+    if(this->state != state || state == RequestStyle::IN_PROCESS){
         this->state = state;
         emit sig_stateChanged();
     }
@@ -43,22 +45,21 @@ void Request::start()
 {
     sendSingle(); //发送一条消息
     timer->start(timeoutThrold);
-    setState(STATE::IN_PROCESS);
+    setState(RequestStyle::STATE::IN_PROCESS);
 }
 
-STATE Request::getResponse()
+RequestStyle::STATE Request::getResponse()
 {
 //    qDebug() << "Request::getResponse()"
 //             << "thread id " << QThread::currentThread();
-    while(state <= IN_PROCESS){
+    while(state <= RequestStyle::IN_PROCESS){
         QCoreApplication::processEvents();
 //        qDebug() << "Request::wait response" << state;
     }
-
     return state;
 }
 
-STATE Request::getState()
+RequestStyle::STATE Request::getState()
 {
     return state;
 }
@@ -107,11 +108,10 @@ void Request::slot_timeout()
     if(retryCnt < RETRY_MAX){
         sendSingle(); //发送一条消息
         retryCnt++;
-        setState(IN_PROCESS);
+        setState(RequestStyle::IN_PROCESS);
     } else {
         timer->stop();
-        setState(TIMEOUT);
-        requestQueue->removeRequest(this);
+        setState(RequestStyle::TIMEOUT);
     }
 }
 
@@ -122,11 +122,9 @@ void Request::slot_receiveResponse(ProtContent response)
             sendContent.addr == response.addr){
         receiveContent = response;
         if(!parseRgstValue(response)){
-            setState(ERROR_ST);
+            setState(RequestStyle::ERROR_ST);
         } else {
-            setState(RESPONSED);
+            setState(RequestStyle::RESPONSED);
         }
-        requestQueue->removeRequest(this);
-        deleteLater();
     }
 }
