@@ -16,6 +16,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         ./src/cpp/main.cpp \
+    src/cpp/Afps/Protocol/parsefsm.cpp \
+    src/cpp/Afps/Protocol/parseth.cpp \
+    src/cpp/Afps/Protocol/protutils.cpp \
+    src/cpp/Afps/Protocol/request.cpp \
+    src/cpp/Afps/Protocol/requestqueue.cpp \
+    src/cpp/Afps/Protocol/wmvolley.cpp \
     src/cpp/crashhandler.cpp \
     src/cpp/rawlog.cpp \
     src/cpp/serialportcontrol.cpp \
@@ -67,6 +73,14 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    src/cpp/Afps/Protocol/parsefsm.h \
+    src/cpp/Afps/Protocol/parseth.h \
+    src/cpp/Afps/Protocol/protcontent.h \
+    src/cpp/Afps/Protocol/protpara.h \
+    src/cpp/Afps/Protocol/protutils.h \
+    src/cpp/Afps/Protocol/request.h \
+    src/cpp/Afps/Protocol/requestqueue.h \
+    src/cpp/Afps/Protocol/wmvolley.h \
     src/cpp/crashhandler.h \
     src/cpp/rawlog.h \
     src/cpp/serialportcontrol.h \

@@ -12,7 +12,7 @@
 #include "./Afps/Algorithm/algorithmviewmodel.h"
 #include "crashhandler.h"
 #include "rawlog.h"
-
+#include "./Afps/Protocol/wmvolley.h"
 
 
 int main(int argc, char *argv[])
@@ -48,10 +48,15 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();
 
+    //接口模块
     Interface *mInterface = new Interface();
     QQmlEngine::setObjectOwnership(mInterface, QQmlEngine::CppOwnership);
-    RawLog* rawLog = new RawLog(100);
+    //通讯历史数据
+    RawLog* rawLog = new RawLog(10000);
     QQmlEngine::setObjectOwnership(rawLog, QQmlEngine::CppOwnership);
+    //荧光协议
+    WmVolley::instance()->getRequestQueue()->setSerial(mInterface->getSerialPortControl());
+
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
             rawLog, &RawLog::slot_receive);
     QObject::connect(mInterface, &Interface::sig_sendData,
