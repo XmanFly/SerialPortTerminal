@@ -32,7 +32,7 @@ public:
     /* 命令类型 */
     static const uchar MASTER_SET = 0x01;
     static const uchar MASTER_POLL_REAL = 0x00;
-    static const uchar MASTER_POLL_SET = 0x00;
+    static const uchar MASTER_POLL_SET = 0x08;
     static const uchar MASTER_RESPONSE = 0x05;
     static const uchar HOST_UPLOAD = 0x40;
     static const uchar HOST_ERR = 0x04;
