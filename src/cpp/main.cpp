@@ -15,7 +15,7 @@
 #include "./Afps/Protocol/wmvolley.h"
 #include "./Afps/Model/regfloatwritevm.h"
 #include "./Afps/Model/regfloatreadvm.h"
-
+#include "./Afps/Model/regmodulevm.h"
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<AD_CHANNEDL_DATA>("AD_CHANNEDL_DATA");
     RequestStyle::registType();
     ProtContent::regist();
+    RegReadWriteModel::regist();
 
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();
@@ -64,6 +65,7 @@ int main(int argc, char *argv[])
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
                      WmVolley::instance()->getParseTh(), &ParseTh::slot_receiveData);
     //荧光寄存器
+    RegModuleVM* regModule = new RegModuleVM();
     RegFloatWriteVM* pump = new RegFloatWriteVM(Request::METHOD::SET, 0x01);
     RegFloatReadVM* pumpReadSet = new RegFloatReadVM(Request::METHOD::POLL_SET, 0x01);
     RegFloatReadVM* pumpReadReal = new RegFloatReadVM(Request::METHOD::POLL_REAL, 0x01);
@@ -79,6 +81,7 @@ int main(int argc, char *argv[])
     context->setContextProperty("Pump", pump);
     context->setContextProperty("PumpReadSet", pumpReadSet);
     context->setContextProperty("PumpReadReal", pumpReadReal);
+    context->setContextProperty("RegModule", regModule);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
 

@@ -26,5 +26,11 @@
         <file>src/qml/Test.qml</file>
         <file>src/qml/RegReadFloatItem.qml</file>
         <file>src/qml/RegReadFloatItemForm.ui.qml</file>
+        <file>src/qml/RegSetBoolItem.qml</file>
+        <file>src/qml/RegSetBoolItemForm.ui.qml</file>
+        <file>src/qml/RegReadBoolItem.qml</file>
+        <file>src/qml/RegReadBoolItemForm.ui.qml</file>
+        <file>src/qml/RegisterList.qml</file>
+        <file>src/qml/RWRegItem.qml</file>
     </qresource>
 </RCC>

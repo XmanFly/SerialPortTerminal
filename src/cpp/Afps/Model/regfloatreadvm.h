@@ -2,9 +2,10 @@
 #define REGFLOATREADVM_H
 
 #include <QObject>
-#include "regfloatvm.h"
+#include "regrequestvm.h"
+#include "../Protocol/floatrequest.h"
 
-class RegFloatReadVM : public RegFloatVM
+class RegFloatReadVM : public RegRequestVM
 {
     Q_OBJECT
     Q_PROPERTY(float value READ getValue NOTIFY sig_valueChanged)
@@ -16,6 +17,7 @@ public:
 
 private:
     const QString TAG = "RegFloatReadVM";
+    FloatRequest* request;
     float value;
 
 signals:

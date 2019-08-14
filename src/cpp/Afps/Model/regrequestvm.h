@@ -3,20 +3,20 @@
 
 #include <QObject>
 #include "../Protocol/wmvolley.h"
-#include "../Protocol/floatrequest.h"
+#include "../Protocol/request.h"
 
-class RegFloatVM : public QObject
+class RegRequestVM : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(RequestStyle::STATE state READ getState NOTIFY sig_stateChanged)
     Q_PROPERTY(QString dbgMsg READ getDbgMsg NOTIFY sig_dbgMsgChanged)
 public:
-    explicit RegFloatVM(Request::METHOD method, uchar addr, QObject *parent = nullptr);
+    explicit RegRequestVM(Request::METHOD method, uchar addr, QObject *parent = nullptr);
     RequestStyle::STATE getState() const;
     QString getDbgMsg() const;
 
 protected:
-    FloatRequest* request;
+    Request* requestBase;
     Request::METHOD method;
     uchar addr;
     RequestStyle::STATE state;

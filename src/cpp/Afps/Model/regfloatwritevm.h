@@ -2,9 +2,10 @@
 #define REGWRITEVM_H
 
 #include <QObject>
-#include "regfloatvm.h"
+#include "regrequestvm.h"
+#include "../Protocol/floatrequest.h"
 
-class RegFloatWriteVM : public RegFloatVM
+class RegFloatWriteVM : public RegRequestVM
 {
     Q_OBJECT
 public:
@@ -13,6 +14,7 @@ public:
 
 private:
     const QString TAG = "RegFloatWriteVM";
+    FloatRequest* request;
 
 signals:
 

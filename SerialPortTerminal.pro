@@ -17,9 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         ./src/cpp/main.cpp \
     src/cpp/Afps/Model/regfloatreadvm.cpp \
-    src/cpp/Afps/Model/regfloatvm.cpp \
     src/cpp/Afps/Model/regfloatwritevm.cpp \
+    src/cpp/Afps/Model/regmodulevm.cpp \
     src/cpp/Afps/Model/regreadwritemodel.cpp \
+    src/cpp/Afps/Model/regrequestvm.cpp \
+    src/cpp/Afps/Model/regrwlistvm.cpp \
+    src/cpp/Afps/Model/regu8readvm.cpp \
+    src/cpp/Afps/Model/regu8writevm.cpp \
     src/cpp/Afps/Protocol/datarequest.cpp \
     src/cpp/Afps/Protocol/floatrequest.cpp \
     src/cpp/Afps/Protocol/parsefsm.cpp \
@@ -81,9 +85,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/cpp/Afps/Model/regfloatreadvm.h \
-    src/cpp/Afps/Model/regfloatvm.h \
     src/cpp/Afps/Model/regfloatwritevm.h \
+    src/cpp/Afps/Model/regmodulevm.h \
     src/cpp/Afps/Model/regreadwritemodel.h \
+    src/cpp/Afps/Model/regrequestvm.h \
+    src/cpp/Afps/Model/regrwlistvm.h \
+    src/cpp/Afps/Model/regu8readvm.h \
+    src/cpp/Afps/Model/regu8writevm.h \
     src/cpp/Afps/Protocol/datarequest.h \
     src/cpp/Afps/Protocol/floatrequest.h \
     src/cpp/Afps/Protocol/parsefsm.h \

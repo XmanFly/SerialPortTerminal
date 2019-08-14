@@ -1,34 +1,34 @@
-﻿#include "regfloatvm.h"
+﻿#include "regrequestvm.h"
 #include <QDebug>
 
-RegFloatVM::RegFloatVM(Request::METHOD method, uchar addr, QObject *parent) :
+RegRequestVM::RegRequestVM(Request::METHOD method, uchar addr, QObject *parent) :
     QObject (parent),
-    request(nullptr),
+    requestBase(nullptr),
     method(method),
     addr(addr)
 {
 }
 
-RequestStyle::STATE RegFloatVM::getState() const
+RequestStyle::STATE RegRequestVM::getState() const
 {
-    if(request == nullptr){
+    if(requestBase == nullptr){
         return RequestStyle::READY;
     }
-    return request->getState();
+    return requestBase->getState();
 }
 
-QString RegFloatVM::getDbgMsg() const
+QString RegRequestVM::getDbgMsg() const
 {
     QString ret;
-    if(request == nullptr){
+    if(requestBase == nullptr){
         return "";
     }
-    switch (request->getState()) {
+    switch (requestBase->getState()) {
     case RequestStyle::READY:
         ret = QString("就绪");
         break;
     case RequestStyle::IN_PROCESS:
-        ret = QString("第%1次请求").arg(request->getRetryCnt());
+        ret = QString("第%1次请求").arg(requestBase->getRetryCnt());
         break;
     case RequestStyle::RESPONSED:
         ret = QString("成功");
@@ -38,7 +38,7 @@ QString RegFloatVM::getDbgMsg() const
         break;
     case RequestStyle::ERROR_ST:
         ret = QString("错误: ");
-        switch (request->getErrType()) {
+        switch (requestBase->getErrType()) {
         case DEV_ADDR_ERR:
             ret += QString("设备地址");
             break;
@@ -58,12 +58,12 @@ QString RegFloatVM::getDbgMsg() const
     return ret;
 }
 
-void RegFloatVM::slot_stateChanged()
+void RegRequestVM::slot_stateChanged()
 {
     //任务完成 取消信号连接
-    if(request->getState() > RequestStyle::IN_PROCESS){
-        disconnect(request, &Request::sig_stateChanged,
-                this, &RegFloatVM::slot_stateChanged);
+    if(requestBase->getState() > RequestStyle::IN_PROCESS){
+        disconnect(requestBase, &Request::sig_stateChanged,
+                this, &RegRequestVM::slot_stateChanged);
     }
     emit sig_stateChanged();
     emit sig_dbgMsgChanged();

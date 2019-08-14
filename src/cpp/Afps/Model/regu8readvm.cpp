@@ -1,6 +1,6 @@
-﻿#include "regfloatreadvm.h"
+﻿#include "regu8readvm.h"
 
-RegFloatReadVM::RegFloatReadVM(Request::METHOD method, uchar addr, QObject *parent) :
+RegU8ReadVM::RegU8ReadVM(Request::METHOD method, uchar addr, QObject *parent) :
     RegRequestVM (method, addr, parent),
     request(nullptr),
     value(0)
@@ -8,18 +8,18 @@ RegFloatReadVM::RegFloatReadVM(Request::METHOD method, uchar addr, QObject *pare
 
 }
 
-bool RegFloatReadVM::readSync()
+bool RegU8ReadVM::readSync()
 {
     bool ret = false;
     if(request != nullptr){
         disconnect(request, &Request::sig_stateChanged,
-                this, &RegFloatReadVM::slot_stateChanged);
+                this, &RegU8ReadVM::slot_stateChanged);
         WmVolley::instance()->getRequestQueue()->removeRequest(request);
     }
-    request = new FloatRequest(method, addr);
+    request = new U8Request(method, addr);
     requestBase = request;
     connect(request, &Request::sig_stateChanged,
-            this, &RegFloatReadVM::slot_stateChanged);
+            this, &RegU8ReadVM::slot_stateChanged);
     WmVolley::instance()->getRequestQueue()->addRequest(request);
     RequestStyle::STATE st = request->getResponse();
     if(st == RequestStyle::RESPONSED){
@@ -32,15 +32,13 @@ bool RegFloatReadVM::readSync()
     return ret;
 }
 
-float RegFloatReadVM::getValue()
+quint8 RegU8ReadVM::getValue()
 {
     return value;
 }
 
-void RegFloatReadVM::setValue(float value)
+void RegU8ReadVM::setValue(quint8 value)
 {
     this->value = value;
     emit sig_valueChanged();
 }
-
-

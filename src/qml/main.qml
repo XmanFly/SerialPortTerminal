@@ -27,10 +27,11 @@ ApplicationWindow {
         AFPs {
             id: afps
         }
-        Test {
+        RegisterList {
             id: afpsRegister
+            name: qsTr("寄存器")
+            regModel: RegModule.RWList.readWriteList
         }
-
     }
 
     header: TabBar {

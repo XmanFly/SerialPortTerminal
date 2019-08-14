@@ -2,7 +2,8 @@
 #include <QDebug>
 
 RegFloatWriteVM::RegFloatWriteVM(Request::METHOD method, uchar addr, QObject *parent) :
-    RegFloatVM (method, addr, parent)
+    RegRequestVM (method, addr, parent),
+    request(nullptr)
 {
 }
 
@@ -15,6 +16,7 @@ bool RegFloatWriteVM::writeSync(float value)
         WmVolley::instance()->getRequestQueue()->removeRequest(request);
     }
     request = new FloatRequest(method, addr, value);
+    requestBase = request;
     connect(request, &Request::sig_stateChanged,
             this, &RegFloatWriteVM::slot_stateChanged);
     WmVolley::instance()->getRequestQueue()->addRequest(request);
