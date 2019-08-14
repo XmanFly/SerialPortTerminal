@@ -119,7 +119,7 @@ void Request::slot_receiveResponse(ProtContent response)
 {
     qDebug() << "Request " << "receiveResponse ";
     //时间戳与寄存器地址保持一致
-    if(sendContent.timeStamp == response.timeStamp ||
+    if(sendContent.timeStamp == response.timeStamp &&
             sendContent.addr == response.addr){
         receiveContent = response;
         if(!parseRgstValue(response)){

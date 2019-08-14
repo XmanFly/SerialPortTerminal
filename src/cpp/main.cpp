@@ -14,6 +14,7 @@
 #include "rawlog.h"
 #include "./Afps/Protocol/wmvolley.h"
 #include "./Afps/Model/regfloatwritevm.h"
+#include "./Afps/Model/regfloatreadvm.h"
 
 
 int main(int argc, char *argv[])
@@ -64,6 +65,8 @@ int main(int argc, char *argv[])
                      WmVolley::instance()->getParseTh(), &ParseTh::slot_receiveData);
     //荧光寄存器
     RegFloatWriteVM* pump = new RegFloatWriteVM(Request::METHOD::SET, 0x01);
+    RegFloatReadVM* pumpReadSet = new RegFloatReadVM(Request::METHOD::POLL_SET, 0x01);
+    RegFloatReadVM* pumpReadReal = new RegFloatReadVM(Request::METHOD::POLL_REAL, 0x01);
 
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
             rawLog, &RawLog::slot_receive);
@@ -74,6 +77,8 @@ int main(int argc, char *argv[])
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
     context->setContextProperty("RawLog", rawLog);
     context->setContextProperty("Pump", pump);
+    context->setContextProperty("PumpReadSet", pumpReadSet);
+    context->setContextProperty("PumpReadReal", pumpReadReal);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
 

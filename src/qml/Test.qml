@@ -7,15 +7,35 @@ Page {
     width: 1366
     height: 768
 
-    RegSetFloatItem {
-        msgTxt  {
-            text: Pump.dbgMsg
-            color: getMsgColor(Pump.state)
+    RowLayout {
+        anchors.fill: parent
+
+        RegSetFloatItem {
+            msgTxt  {
+                text: Pump.dbgMsg
+                color: getMsgColor(Pump.state)
+            }
+            setBtn {
+                onClicked: {
+                    console.log("set float ")
+                    Pump.writeSync(parseFloat(input.text))
+                }
+            }
         }
-        setBtn {
-            onClicked: {
-                console.log("set float ")
-                Pump.writeSync(parseFloat(input.text))
+
+        RegReadFloatItem {
+            value {
+                text: PumpReadSet.value.toFixed(2)
+            }
+            msgTxt  {
+                text: PumpReadSet.dbgMsg
+                color: getMsgColor(PumpReadSet.state)
+            }
+            readBtn {
+                onClicked: {
+                    console.log("read float ")
+                    PumpReadSet.readSync()
+                }
             }
         }
     }

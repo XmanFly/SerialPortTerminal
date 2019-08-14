@@ -15,6 +15,7 @@ public:
     void setValue(float value);
 
 private:
+    const QString TAG = "RegFloatReadVM";
     float value;
 
 signals:

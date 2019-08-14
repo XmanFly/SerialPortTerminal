@@ -24,5 +24,7 @@
         <file>src/qml/RegSetFloatItem.qml</file>
         <file>src/qml/RegSetFloatItemForm.ui.qml</file>
         <file>src/qml/Test.qml</file>
+        <file>src/qml/RegReadFloatItem.qml</file>
+        <file>src/qml/RegReadFloatItemForm.ui.qml</file>
     </qresource>
 </RCC>
