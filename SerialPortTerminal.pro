@@ -27,6 +27,7 @@ SOURCES += \
     src/cpp/Afps/Protocol/protutils.cpp \
     src/cpp/Afps/Protocol/request.cpp \
     src/cpp/Afps/Protocol/requestqueue.cpp \
+    src/cpp/Afps/Protocol/u8request.cpp \
     src/cpp/Afps/Protocol/wmvolley.cpp \
     src/cpp/crashhandler.cpp \
     src/cpp/rawlog.cpp \
@@ -92,6 +93,7 @@ HEADERS += \
     src/cpp/Afps/Protocol/protutils.h \
     src/cpp/Afps/Protocol/request.h \
     src/cpp/Afps/Protocol/requestqueue.h \
+    src/cpp/Afps/Protocol/u8request.h \
     src/cpp/Afps/Protocol/wmvolley.h \
     src/cpp/crashhandler.h \
     src/cpp/rawlog.h \
