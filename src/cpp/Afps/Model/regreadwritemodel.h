@@ -7,6 +7,7 @@
 #include "regu8writevm.h"
 #include "regu8readvm.h"
 
+
 /* 寄存器读写model */
 class RegReadWriteModel : public QObject
 {
@@ -28,8 +29,16 @@ public:
         HEX
     };
     Q_ENUM(ValueType)
+    //读写标志
+    enum RWFlag {
+        Set = 0x0001, //设定值
+        Read_Set = 0x0002, //读取设定值
+        Read_Real = 0x0004, //读取实时值
+    };
+    Q_DECLARE_FLAGS(RW, RWFlag)
 
-    explicit RegReadWriteModel(QString name = "", uchar addr = 0x01, ValueType valueType = FLOAT , QObject *parent = nullptr);
+    explicit RegReadWriteModel(QString name = "", uchar addr = 0x01, RW flag=nullptr, ValueType valueType = FLOAT, QObject *parent = nullptr);
+    void addContent();
 
     RegFloatWriteVM *getFloatW() const;
     void addFloatW();
@@ -55,6 +64,7 @@ private:
     const QString TAG = "RegReadWriteModel";
     QString name;
     uchar addr;
+    RW flag;
     ValueType valueType;
     RegFloatWriteVM* floatW;
     RegFloatReadVM* floatRSet;
@@ -67,5 +77,7 @@ signals:
 
 public slots:
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(RegReadWriteModel::RW)
 
 #endif // REGREADWRITEMODEL_H

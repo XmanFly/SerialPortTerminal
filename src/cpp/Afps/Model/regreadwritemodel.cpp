@@ -1,9 +1,10 @@
 ﻿#include "regreadwritemodel.h"
 
-RegReadWriteModel::RegReadWriteModel(QString name, uchar addr, ValueType valueType, QObject *parent) :
+RegReadWriteModel::RegReadWriteModel(QString name, uchar addr, RW flag, ValueType valueType, QObject *parent) :
     QObject(parent),
     name(name),
     addr(addr),
+    flag(flag),
     valueType(valueType)
 {
     floatW = nullptr;
@@ -12,6 +13,39 @@ RegReadWriteModel::RegReadWriteModel(QString name, uchar addr, ValueType valueTy
     u8W = nullptr;
     u8RSet = nullptr;
     u8RReal = nullptr;
+    addContent();
+}
+
+void RegReadWriteModel::addContent()
+{
+    switch (valueType) {
+    case FLOAT:
+        if(flag & Set){
+            addFloatW();
+        }
+        if(flag & Read_Set){
+            addFloatRSet();
+        }
+        if(flag & Read_Real){
+            addFloatRReal();
+        }
+        break;
+    case U8:
+    case BOOL:
+        if(flag & Set){
+            addU8W();
+        }
+        if(flag & Read_Set){
+            addU8RSet();
+        }
+        if(flag & Read_Real){
+            addU8RReal();
+        }
+        break;
+    case HEX:
+        break;
+    }
+
 }
 
 RegFloatWriteVM *RegReadWriteModel::getFloatW() const

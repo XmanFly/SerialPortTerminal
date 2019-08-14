@@ -20,18 +20,16 @@ Item {
     }
 
     Component.onCompleted: {        
-        /* Float型数据 */
         //创建设置值控件
-        createFloatSetControl()
+        createSetControl()
         //创建读取设置值控件
-        createFloatReadSetControl()
+        createReadSetControl()
         //创建读取实时值控件
-        createFloatReadRealControl()
-        /* U8型数据 */
+        createReadRealControl()
     }
 
     //创建float设置值控件
-    function createFloatSetControl(){
+    function createSetControl(){
         if(floatW !== null){
             //float型
             if(valueType === RegReadWriteModel.FLOAT) {
@@ -66,7 +64,7 @@ Item {
     }
 
     //创建读取设置值控件
-    function createFloatReadSetControl(){
+    function createReadSetControl(){
          if(floatRSet !== null){
             //float型
             if(valueType === RegReadWriteModel.FLOAT) {
@@ -104,7 +102,7 @@ Item {
     }
 
     //创建读取实时值控件
-    function createFloatReadRealControl(){
+    function createReadRealControl(){
          if(floatRReal !== null){
             //float型
             if(valueType === RegReadWriteModel.FLOAT) {
