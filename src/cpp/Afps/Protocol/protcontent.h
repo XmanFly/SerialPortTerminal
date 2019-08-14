@@ -26,6 +26,9 @@ public:
         this->value = src.value;
         return *this;
     }
+    static void regist(){
+        qRegisterMetaType<ProtContent>("ProtContent");
+    }
 
     uchar timeStamp; //时间戳
     CMD_TYPE cmdType; //命令类型

@@ -44,5 +44,5 @@ void ParseTh::slot_receiveData(QByteArray data)
         }
     } while(isOk);
     qDebug() << TAG << "slot_receiveData "
-             << "buffer size " << buffer.size();
+             << "buffer size parse left " << buffer.size();
 }

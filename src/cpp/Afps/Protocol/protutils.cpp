@@ -44,6 +44,11 @@ void ProtUtils::parseValue(QByteArray &src, int len, QByteArray& value)
     src.remove(0, len);
 }
 
+void ProtUtils::parseCrc(QByteArray &src, bool& ok)
+{
+    src.remove(0, ProtPara::CRC_LEN);
+}
+
 void ProtUtils::cmdTypeToRaw(CMD_TYPE type, QByteArray& raw)
 {
     raw.clear();

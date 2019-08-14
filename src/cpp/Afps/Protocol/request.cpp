@@ -19,7 +19,7 @@ Request::Request(Request::METHOD mMethod, uchar rgstAddr, QByteArray value, QObj
     /* 进入就绪状态 */
     setState(RequestStyle::STATE::READY);
     retryCnt = 1;
-    RETRY_MAX = 3;
+    RETRY_MAX = 5;
     timeoutThrold = 500;
 }
 
@@ -117,6 +117,7 @@ void Request::slot_timeout()
 
 void Request::slot_receiveResponse(ProtContent response)
 {
+    qDebug() << "Request " << "receiveResponse ";
     //时间戳与寄存器地址保持一致
     if(sendContent.timeStamp == response.timeStamp ||
             sendContent.addr == response.addr){

@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<QVector<QVector<QPointF>>>("QVector<QVector<QPointF>>");
     qRegisterMetaType<AD_CHANNEDL_DATA>("AD_CHANNEDL_DATA");
     RequestStyle::registType();
+    ProtContent::regist();
 
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();
@@ -59,6 +60,8 @@ int main(int argc, char *argv[])
     //荧光协议
     WmVolley::instance()->getRequestQueue()->setSerial(mInterface->getSerialPortControl());
     WmVolley::instance()->getRequestQueue()->setRawLog(rawLog);
+    QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
+                     WmVolley::instance()->getParseTh(), &ParseTh::slot_receiveData);
     //荧光寄存器
     RegFloatWriteVM* pump = new RegFloatWriteVM(Request::METHOD::SET, 0x01);
 

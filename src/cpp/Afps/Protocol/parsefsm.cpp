@@ -35,6 +35,7 @@ bool ParseFsm::parse(QByteArray &buf)
         qDebug() << TAG << "parse len not enough";
         return false;
     }
+    /* TBD CRC校验 */
     /* 解析各个字段 */
     bool ok;
     buf.remove(0, headIdx + ProtPara::HEAD_LEN); //移除协议头
@@ -47,6 +48,7 @@ bool ParseFsm::parse(QByteArray &buf)
     }
     ProtUtils::parseRgstAddr(buf, result.addr);
     ProtUtils::parseValue(buf, len - ProtPara::CMD_TYPE_LEN - ProtPara::ADDR_LEN, result.value);
+    ProtUtils::parseCrc(buf, ok);
     return true;
 }
 

@@ -14,6 +14,7 @@ public:
     static WmVolley* instance();
     ~WmVolley();
     RequestQueue* getRequestQueue();
+    ParseTh *getParseTh() const;
 
 private:
     WmVolley();

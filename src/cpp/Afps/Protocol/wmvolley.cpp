@@ -26,6 +26,11 @@ WmVolley::WmVolley()
     requestQueue = new RequestQueue(parseTh);
 }
 
+ParseTh *WmVolley::getParseTh() const
+{
+    return parseTh;
+}
+
 RequestQueue* WmVolley::getRequestQueue()
 {
     return requestQueue;
