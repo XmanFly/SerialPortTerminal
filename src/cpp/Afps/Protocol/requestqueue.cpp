@@ -34,6 +34,8 @@ Request *RequestQueue::addRequest(Request* req)
                 static_cast<uchar>(timeStampCreater->fetchAndAddAcquire(1)%256));
     connect(req, &Request::sig_send,
             serial, &SerialPortControl::slot_send);
+    connect(req, &Request::sig_send,
+            rawLog, &RawLog::slot_send);
     connect(parseTh, &ParseTh::sig_response,
             req, &Request::slot_receiveResponse);
     requestQueue->append(req);
@@ -49,4 +51,9 @@ void RequestQueue::removeRequest(Request *req)
     delete req;
     req = nullptr;
     qDebug() << "RequestQueue::removeRequest left size " << requestQueue->size();
+}
+
+void RequestQueue::setRawLog(RawLog *value)
+{
+    rawLog = value;
 }

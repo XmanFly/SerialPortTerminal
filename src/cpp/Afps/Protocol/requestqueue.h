@@ -9,6 +9,7 @@
 #include <QAtomicInt>
 #include "request.h"
 #include "parseth.h"
+#include "../../rawlog.h"
 #include "../../serialportcontrol.h"
 
 /* 消息队列 */
@@ -21,6 +22,7 @@ public:
     ~RequestQueue();
 
     void setSerial(SerialPortControl* serial);
+    void setRawLog(RawLog *value);
     Request* addRequest(Request* req);
     void removeRequest(Request* );
 
@@ -35,6 +37,7 @@ private:
     QMutex* mutex;
     SerialPortControl* serial; //串口
     ParseTh* parseTh; //解析模块
+    RawLog* rawLog;
 };
 
 

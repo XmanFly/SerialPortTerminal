@@ -58,6 +58,7 @@ int main(int argc, char *argv[])
     QQmlEngine::setObjectOwnership(rawLog, QQmlEngine::CppOwnership);
     //荧光协议
     WmVolley::instance()->getRequestQueue()->setSerial(mInterface->getSerialPortControl());
+    WmVolley::instance()->getRequestQueue()->setRawLog(rawLog);
     //荧光寄存器
     RegFloatWriteVM* pump = new RegFloatWriteVM(Request::METHOD::SET, 0x01);
 
