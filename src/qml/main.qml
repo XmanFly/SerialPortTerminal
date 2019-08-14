@@ -7,8 +7,8 @@ import SerialPortTerminal.SerialPortPara 1.0
 ApplicationWindow {
     id: root
     visible: true
-    width: 1366
-    height: 768
+    width: 1920
+    height: 1080
     title: qsTr("Tabs")
 
     SwipeView {

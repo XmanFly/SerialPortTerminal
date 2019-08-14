@@ -88,11 +88,8 @@ GroupBox {
                     radius: 2
                     text: qsTr("清空")
                     onClicked: {
-                        mInterface.clearDataModel()
-                        dataFlick.listViewRealHeight = dataFlick.initHeight
-                        dataFlick.listViewRealWidth = dataFlick.initWidth
-                         console.log("refresh "
-                                    + "length " + dataListView.contentItem.children.length )
+                        dataListView.model.clear()
+                        console.log("refresh " + "length " + dataListView.contentItem.children.length)
                     }
                 }
                 ToolSeparator {}
@@ -106,10 +103,6 @@ GroupBox {
 
     function setModel(mModel){
         dataListView.model = mModel
-//        dataListView.positionViewAtEnd()
-//        mModel.columnsInserted.connect(function(){ dataListView.positionViewAtEnd() })
-//        dataListView.Add.connect(function(){ dataListView.positionViewAtEnd() })
-//        dataFlick.moveToEnd()
         console.log("receive aera set model " + mModel)
     }
 

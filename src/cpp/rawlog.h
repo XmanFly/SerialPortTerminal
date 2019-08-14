@@ -19,6 +19,7 @@ public:
     explicit RawLog(int maxSize = 1000, QObject *parent = nullptr);
     Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const;
     Q_INVOKABLE QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+    Q_INVOKABLE void clear();
 
 protected:
     QHash<int, QByteArray> roleNames() const;

@@ -35,6 +35,16 @@ QVariant RawLog::data(const QModelIndex & index, int role) const
     return ret;
 }
 
+void RawLog::clear()
+{
+    if(dataList.size() == 0) {
+        return;
+    }
+    beginRemoveRows(QModelIndex(), 0, dataList.size()-1);
+    dataList.clear();
+    endRemoveRows();
+}
+
 QHash<int, QByteArray> RawLog::roleNames() const
 {
     QHash<int, QByteArray> roles = QAbstractItemModel::roleNames();
