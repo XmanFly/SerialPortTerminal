@@ -37,7 +37,7 @@ QString RegRequestVM::getDbgMsg() const
         ret = QString("超时");
         break;
     case RequestStyle::ERROR_ST:
-        ret = QString("错误: ");
+        ret = QString("错误");
         switch (requestBase->getErrType()) {
         case DEV_ADDR_ERR:
             ret += QString("设备地址");

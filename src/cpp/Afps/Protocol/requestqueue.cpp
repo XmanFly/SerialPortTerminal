@@ -38,6 +38,8 @@ Request *RequestQueue::addRequest(Request* req)
             rawLog, &RawLog::slot_send);
     connect(parseTh, &ParseTh::sig_response,
             req, &Request::slot_receiveResponse);
+    connect(parseTh, &ParseTh::sig_err,
+            req, &Request::slot_receiveErr);
     requestQueue->append(req);
     req->setRequestQueue(this);
     req->start();

@@ -121,11 +121,25 @@ void Request::slot_receiveResponse(ProtContent response)
     //时间戳与寄存器地址保持一致
     if(sendContent.timeStamp == response.timeStamp &&
             sendContent.addr == response.addr){
+        if(response.addr == ProtPara::HOST_ERR){
+            setState(RequestStyle::ERROR_ST);
+            return;
+        }
         receiveContent = response;
         if(!parseRgstValue(response)){
             setState(RequestStyle::ERROR_ST);
         } else {
             setState(RequestStyle::RESPONSED);
         }
+    }
+}
+
+void Request::slot_receiveErr(ProtContent response)
+{
+    qDebug() << "Request " << "receiveErr ";
+    //时间戳与寄存器地址保持一致
+    if(sendContent.timeStamp == response.timeStamp &&
+            sendContent.addr == response.addr){
+        setState(RequestStyle::ERROR_ST);
     }
 }

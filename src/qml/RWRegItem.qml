@@ -152,7 +152,7 @@ Item {
             color = "green"
             break;
         case RequestStyle.TIMEOUT:
-        case RequestStyle.ERROR:
+        case RequestStyle.ERROR_ST:
             color = "red"
             break;
         }
@@ -168,7 +168,7 @@ Item {
         case RequestStyle.READY :
         case RequestStyle.RESPONSED:
         case RequestStyle.TIMEOUT:
-        case RequestStyle.ERROR:
+        case RequestStyle.ERROR_ST:
             isEnable = true
             break;
         }

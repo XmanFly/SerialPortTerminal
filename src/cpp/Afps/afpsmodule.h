@@ -18,7 +18,7 @@ class AfpsModule : public QObject
 public:
     explicit AfpsModule(QObject *parent = nullptr);
 
-    AfpsParseModule *mAfpsParseModule; //协议解析模块    
+//    AfpsParseModule *mAfpsParseModule; //协议解析模块
     AfpsDevMng *mAfpsDevMng; //设备管理模块
 
     AdChannelDev *mAdChannelDev;

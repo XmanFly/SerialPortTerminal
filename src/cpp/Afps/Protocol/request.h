@@ -82,6 +82,7 @@ signals:
 public slots:
     void slot_timeout();
     void slot_receiveResponse(ProtContent response);
+    void slot_receiveErr(ProtContent response);
 
 };
 

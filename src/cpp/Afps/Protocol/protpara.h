@@ -27,7 +27,7 @@ class ProtPara
 public:
     /* 设备地址 */
     static const uchar MASTER_HEAD = 0x50;
-    static const uchar HOST_HEAD = 0x50;
+    static const uchar HOST_HEAD = 0x51;
 
     /* 命令类型 */
     static const uchar MASTER_SET = 0x01;
