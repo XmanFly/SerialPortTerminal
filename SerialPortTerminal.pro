@@ -32,6 +32,7 @@ SOURCES += \
     src/cpp/Afps/Protocol/requestqueue.cpp \
     src/cpp/Afps/Protocol/u8request.cpp \
     src/cpp/Afps/Protocol/wmvolley.cpp \
+    src/cpp/Afps/sampledata.cpp \
     src/cpp/crashhandler.cpp \
     src/cpp/rawlog.cpp \
     src/cpp/serialportcontrol.cpp \
@@ -102,6 +103,7 @@ HEADERS += \
     src/cpp/Afps/Protocol/requestqueue.h \
     src/cpp/Afps/Protocol/u8request.h \
     src/cpp/Afps/Protocol/wmvolley.h \
+    src/cpp/Afps/sampledata.h \
     src/cpp/crashhandler.h \
     src/cpp/rawlog.h \
     src/cpp/serialportcontrol.h \

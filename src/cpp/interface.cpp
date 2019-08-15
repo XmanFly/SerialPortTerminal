@@ -158,6 +158,11 @@ QString Interface::getCurPath()
     return QDir::currentPath();
 }
 
+Algorithm *Interface::getAlgorithm() const
+{
+    return mAlgorithm;
+}
+
 //获取数据Model
 QVariant Interface::getDataModel()
 {
@@ -215,9 +220,18 @@ QByteArray Interface::convertSendData(QString data, FormatModel::DisplayFormat f
     return sendData;
 }
 
+AfpsDataStorage *Interface::getAfpsDataStorage() const
+{
+    return mAfpsDataStorage;
+}
+
+AdChartModel *Interface::getAfpsAdChartModel() const
+{
+    return mAfpsAdChartModel;
+}
+
 void Interface::afpsInit() //初始化
 {
-    mAfpsModule = new AfpsModule();
     mAfpsAdChartModel = new AdChartModel();
     QThread *mAfpsAdChartModelTh = new QThread();
     mAfpsAdChartModel->moveToThread(mAfpsAdChartModelTh);
@@ -254,29 +268,19 @@ void Interface::afpsInit() //初始化
 #if AFPS_TEST == true
     mAfpsDummyData = new AfpsDummyData(70);
     connect(mAfpsDummyData, &AfpsDummyData::sig_data,
-            mAfpsModule->mAfpsParseModule, &AfpsParseModule::slot_receiveData);
-    connect(mAfpsDummyData, &AfpsDummyData::sig_data,
             this, &Interface::slot_serialReceive);
     connect(mAfpsDummyData, &AfpsDummyData::sig_cnt,
             mDataCntModule->getSendCnt(), &DataCntModel::slot_add);    
 #endif
 
-//    connect(mSerialPortControl, &SerialPortControl::sig_receive,
-//        mAfpsModule->mAfpsParseModule, &AfpsParseModule::slot_receiveData);
     connect(mSerialPortControl, &SerialPortControl::sig_state,
         mAfpsLogic, &AfpsLogic::slot_serialPortState);
-    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-            mAfpsAdChartModel, &AdChartModel::slot_rcvData, Qt::QueuedConnection);
     connect(mAfpsAdChartModel, &AdChartModel::sig_dataUpdate,
             this, &Interface::sig_afpsUpdateChart);
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
             mAfpsAdChartModel, &AdChartModel::slot_ctrl);
-    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-            mAfpsDataStorage, &AfpsDataStorage::on_addData);
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
             mAfpsDataStorage, &AfpsDataStorage::on_ctrl);
-//    connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-//            mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
     connect(mAlgorithm, &Algorithm::sig_result,
             mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateResult);
     connect(mAlgorithm, &Algorithm::sig_state,
@@ -297,8 +301,6 @@ void Interface::afpsStart(QStringList para)
 {
     qDebug() << "Interface::afpsStart " << para;
     if(mAfpsLogic->sampleCtrl(true, para)){
-        connect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-                mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
         mAlgorithm->setEnable(true);
         mAlgorithm->init();
 
@@ -314,8 +316,6 @@ void Interface::afpsStart(QStringList para)
 void Interface::afpsStop()
 {
     if(mAfpsLogic->sampleCtrl(false, QStringList())){
-        disconnect(mAfpsModule->mAdChannelDev, &AdChannelDev::sig_rcvData,
-                mAlgorithm, static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
         mAlgorithm->setEnable(false);
     } else {
         emit sig_message("设备未打开 禁止操作 ");

@@ -16,6 +16,7 @@
 #include "./Afps/Model/regfloatwritevm.h"
 #include "./Afps/Model/regfloatreadvm.h"
 #include "./Afps/Model/regmodulevm.h"
+#include "./Afps/sampledata.h"
 
 int main(int argc, char *argv[])
 {
@@ -64,6 +65,17 @@ int main(int argc, char *argv[])
     WmVolley::instance()->getRequestQueue()->setRawLog(rawLog);
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
                      WmVolley::instance()->getParseTh(), &ParseTh::slot_receiveData);
+    /* AD 采集数据 */
+    SampleData* sampleData = new SampleData();
+    QObject::connect(WmVolley::instance()->getParseTh(), &ParseTh::sig_upload,
+                     sampleData, &SampleData::slot_upload);
+    QObject::connect(sampleData, &SampleData::sig_rcvData,
+            mInterface->getAfpsAdChartModel(), &AdChartModel::slot_rcvData, Qt::QueuedConnection);
+    QObject::connect(sampleData, &SampleData::sig_rcvData,
+            mInterface->getAfpsDataStorage(), &AfpsDataStorage::on_addData);
+    QObject::connect(sampleData, &SampleData::sig_rcvData,
+            mInterface->getAlgorithm(), static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
+
     //荧光寄存器
     RegModuleVM* regModule = new RegModuleVM();
     RegFloatWriteVM* pump = new RegFloatWriteVM(Request::METHOD::SET, 0x01);

@@ -70,6 +70,12 @@ public:
     Baseline* mBaseline;
     Detection* mDetection;
 
+    AdChartModel *getAfpsAdChartModel() const;
+
+    AfpsDataStorage *getAfpsDataStorage() const;
+
+    Algorithm *getAlgorithm() const;
+
 private:
     QSerialPortInfo *mSerialPortInfo; //串口信息
     SerialPortPara *mSerialPortPara; //串口参数
@@ -92,7 +98,6 @@ private:
 
 //荧光
 private:
-    AfpsModule *mAfpsModule;
     AdChartModel *mAfpsAdChartModel;
     AfpsLogic *mAfpsLogic;
     AfpsDataStorage *mAfpsDataStorage;
