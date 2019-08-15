@@ -18,7 +18,7 @@ private:
     float setValue;
     float readValue;
     QByteArray valueToRaw(float value);
-    bool parseRgstValue(ProtContent response);
+    bool parseRgstValue();
 
 signals:
 

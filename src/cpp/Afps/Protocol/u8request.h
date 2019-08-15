@@ -15,7 +15,7 @@ private:
     quint8 setValue;
     quint8 readValue;
     QByteArray valueToRaw(quint8 value);
-    bool parseRgstValue(ProtContent response);
+    bool parseRgstValue();
 
 signals:
 

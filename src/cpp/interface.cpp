@@ -4,7 +4,7 @@ Interface::Interface(QObject *parent) :
     QObject(parent),
     serialState(false)
 {
-    qDebug() << "Interface thread id " << QThread::currentThreadId();
+    qDebug() << "Interface thread id " << QThread::currentThread();
     mSerialPortInfo = new QSerialPortInfo();
     mSerialPortControl = new SerialPortControl();
     mSerialPortThread = new QThread();

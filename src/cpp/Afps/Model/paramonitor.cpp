@@ -4,7 +4,8 @@ ParaMonitor::ParaMonitor(QString name, uchar rgstAddr, QObject *parent) :
     QObject(parent),
     name(name),
     rgstAddr(rgstAddr),
-    value(0)
+    value(0),
+    isReading(false)
 {
     timer = new QTimer();
     timer->callOnTimeout(this, &ParaMonitor::slot_read);
@@ -38,20 +39,26 @@ void ParaMonitor::regist()
 bool ParaMonitor::readTmp()
 {
     bool ret = false;
+    if(isReading){
+        qDebug() << TAG << name << "read temperature is reading";
+        return ret;
+    }
+    qDebug() << TAG << name << "read temperature begin";
+    isReading = true;
     FloatRequest* request = new FloatRequest(Request::POLL_REAL, rgstAddr);
     WmVolley::instance()->getRequestQueue()->addRequest(request);
-    RequestStyle::STATE st = request->getResponse();
-    if(st == RequestStyle::RESPONSED){
-        value = request->getReadValue();
-        ret = true;
-    }
+//    RequestStyle::STATE st = request->getResponse();
+//    if(st == RequestStyle::RESPONSED){
+//        setValue(request->getReadValue());
+//        ret = true;
+//    }
     WmVolley::instance()->getRequestQueue()->removeRequest(request);
+    isReading = false;
+    qDebug() << TAG << name << "read temperature read finish";
     return ret;
 }
 
 void ParaMonitor::slot_read()
 {
-    timer->stop();
     readTmp();
-    timer->start();
 }

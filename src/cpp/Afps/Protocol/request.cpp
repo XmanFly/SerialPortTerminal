@@ -2,6 +2,7 @@
 #include "requestqueue.h"
 #include "protutils.h"
 #include <QtQml>
+#include <QThread>
 
 
 Request::Request(Request::METHOD mMethod, uchar rgstAddr, QByteArray value, QObject *parent) :
@@ -19,7 +20,7 @@ Request::Request(Request::METHOD mMethod, uchar rgstAddr, QByteArray value, QObj
     /* 进入就绪状态 */
     setState(RequestStyle::STATE::READY);
     retryCnt = 1;
-    RETRY_MAX = 5;
+    RETRY_MAX = 1;
     timeoutThrold = 500;
 }
 
@@ -50,8 +51,8 @@ void Request::start()
 
 RequestStyle::STATE Request::getResponse()
 {
-//    qDebug() << "Request::getResponse()"
-//             << "thread id " << QThread::currentThread();
+    qDebug() << "Request::getResponse()"
+             << "thread id " << QThread::currentThread();
     while(state <= RequestStyle::IN_PROCESS){
         QCoreApplication::processEvents();
 //        qDebug() << "Request::wait response" << state;
@@ -98,13 +99,10 @@ void Request::sendSingle()
     emit sig_send(raw);
 }
 
-void Request::setRequestQueue(RequestQueue *value)
-{
-    requestQueue = value;
-}
-
 void Request::slot_timeout()
 {
+    qDebug() << "Request " << "slot_timeout thread id "
+                 << QThread::currentThread();
     if(retryCnt < RETRY_MAX){
         sendSingle(); //发送一条消息
         retryCnt++;
@@ -117,7 +115,8 @@ void Request::slot_timeout()
 
 void Request::slot_receiveResponse(ProtContent response)
 {
-    qDebug() << "Request " << "receiveResponse ";
+    qDebug() << "Request " << "receiveResponse thread id "
+             << QThread::currentThread();
     //时间戳与寄存器地址保持一致
     if(sendContent.timeStamp == response.timeStamp &&
             sendContent.addr == response.addr){
@@ -126,7 +125,7 @@ void Request::slot_receiveResponse(ProtContent response)
             setState(RequestStyle::RESPONSED);
             return;
         }
-        if(!parseRgstValue(response)){
+        if(!parseRgstValue()){
             setState(RequestStyle::ERROR_ST);
             errType = DECODE_ERR;
         } else {

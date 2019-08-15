@@ -88,6 +88,7 @@ int main(int argc, char *argv[])
     MonitorModule* monitor = new MonitorModule();
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_state,
             monitor, &MonitorModule::slot_serialPortState);
+    QQmlEngine::setObjectOwnership(monitor, QQmlEngine::CppOwnership);
 
     context->setContextProperty("mInterface",mInterface);
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);

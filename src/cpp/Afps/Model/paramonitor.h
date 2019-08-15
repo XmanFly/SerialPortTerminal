@@ -23,10 +23,12 @@ public:
     static void regist();
 
 private:
+    const QString TAG = "ParaMonitor";
     QString name;
     uchar rgstAddr;
     float value;
     QTimer* timer;
+    bool isReading; //正在读取中
     bool readTmp();
 
 signals:

@@ -1,9 +1,11 @@
-#ifndef SERIALPORTCONTROL_H
+﻿#ifndef SERIALPORTCONTROL_H
 #define SERIALPORTCONTROL_H
 
 #include <QObject>
 #include <QDebug>
 #include <QSerialPort>
+#include <QTimer>
+#include <QQueue>
 #include "serialportpara.h"
 #include "serialportparanonqobj.h"
 
@@ -16,6 +18,9 @@ public:
 
 private:
     QSerialPort *mSerialPort; //串口对象
+    QTimer* sendScheduler; //发送调度器
+    QQueue<QByteArray> sendBuffer; //发送buffer
+    void sendSchedulerInit();
 
 signals:
     void sig_state(bool isOpen); //状态返回
@@ -30,7 +35,7 @@ public slots:
     void slot_close();
     void slot_send(QByteArray data);
     void slot_receive(); //接收数据
-
+    void slot_sendSchedule(); //执行一次调度
 };
 
 #endif // SERIALPORTCONTROL_H

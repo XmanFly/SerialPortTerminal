@@ -1,8 +1,9 @@
 ﻿#include "monitormodule.h"
+#include <QDebug>
 
 MonitorModule::MonitorModule(QObject *parent) : QObject(parent)
 {
-    appendList(new ParaMonitor(QString("进样口"), 0x35));
+    appendList(new ParaMonitor(QString("进样口"), 0x34));
     appendList(new ParaMonitor(QString("腔体1"), 0x37));
     appendList(new ParaMonitor(QString("腔体2"), 0x3A));
     appendList(new ParaMonitor(QString("热解析"), 0x3D));
@@ -48,6 +49,7 @@ QList<ParaMonitor* >* MonitorModule::getRawList()
 
 void MonitorModule::slot_serialPortState(bool isOpen)
 {
+    qDebug() << TAG << "slot_serialPortState " << isOpen;
     foreach(ParaMonitor* each, list){
         each->ctrl(isOpen);
     }

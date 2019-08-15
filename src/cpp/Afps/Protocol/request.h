@@ -11,8 +11,6 @@
 #include <QtQml>
 #include "protcontent.h"
 
-class RequestQueue;
-
 class RequestStyle : public QObject
 {
     Q_OBJECT
@@ -55,7 +53,6 @@ public:
     int getRetryCnt();
     ERR_TYPE getErrType(); //错误类型
     QByteArray getRValue(); //raw
-    void setRequestQueue(RequestQueue *value);
 
 protected:
     ProtContent sendContent; //发送协议内容
@@ -64,16 +61,15 @@ protected:
     int timeoutThrold; //超时时间 单位:ms
     QTimer* timer; //超时定时器
     int retryCnt; //当前重试次数
-    int RETRY_MAX; //最大重试次数
+    int RETRY_MAX; //最大发送次数
     ERR_TYPE errType; //错误类型
 
     void setState(RequestStyle::STATE state);
     CMD_TYPE method2CmdType(Request::METHOD);
     void sendSingle(); //发送一条消息
-    virtual bool parseRgstValue(ProtContent response) = 0; //解析寄存器值
+    virtual bool parseRgstValue() = 0; //解析寄存器值
 
 private:
-    RequestQueue* requestQueue;
 
 signals:
     void sig_send(QByteArray data);

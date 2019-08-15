@@ -4,6 +4,16 @@
 SerialPortControl::SerialPortControl(QObject *parent) : QObject(parent)
 {
     mSerialPort = nullptr;
+    sendScheduler = nullptr;
+}
+
+void SerialPortControl::sendSchedulerInit()
+{
+    /* 开启发送调度器 */
+    sendScheduler = new QTimer();
+    connect(sendScheduler, &QTimer::timeout,
+            this, &SerialPortControl::slot_sendSchedule);
+    sendScheduler->setTimerType(Qt::TimerType::PreciseTimer);
 }
 
 void SerialPortControl::slot_init()
@@ -38,6 +48,10 @@ void SerialPortControl::slot_open(SerialPortParaNonQobj para)
            /* 连接串口接收数据槽 */
            connect(mSerialPort, &QSerialPort::readyRead,
                    this, &SerialPortControl::slot_receive);
+           if(sendScheduler == nullptr){
+                sendSchedulerInit();
+           }
+            sendScheduler->start(10);
            isOpen = true;
        } else {
            mSerialPort = nullptr; //串口打开失败
@@ -54,6 +68,7 @@ void SerialPortControl::slot_close()
     bool isOpen = true; //默认打开状态
     if(mSerialPort != nullptr){
         mSerialPort->close();
+        sendScheduler->stop();
         isOpen = false;
     }
     emit sig_state(isOpen);
@@ -64,10 +79,7 @@ void SerialPortControl::slot_close()
 void SerialPortControl::slot_send(QByteArray data)
 {
     if(mSerialPort != nullptr){
-        qint64 cnt = mSerialPort->write(data);
-        emit sig_sendCnt(static_cast<qint32>(cnt));
-        qDebug() << "SerialPortControl::slot_send "
-                 << data.toHex();
+        sendBuffer.enqueue(data);
     }
 }
 
@@ -79,5 +91,24 @@ void SerialPortControl::slot_receive()
     emit sig_receive(readBuf);
     emit sig_receiveCnt(readBuf.size());
     qDebug() << "SerialPortControl::slot_receive " << readBuf.toHex();
+}
+
+void SerialPortControl::slot_sendSchedule()
+{
+    if(mSerialPort == nullptr){
+        return;
+    }
+    if(sendBuffer.size() > 0) {
+        QByteArray data = sendBuffer.dequeue();
+        qint64 size = mSerialPort->write(data);
+        emit sig_sendCnt(static_cast<qint32>(size));
+        qDebug() << "SerialPortControl::slot_sendSchedule thread id "
+                 << QThread::currentThread() << " send size " << size;
+        if(size != data.length()){
+            qDebug() << "SerialPortControl::slot_sendSchedule err "
+                     << mSerialPort->error();
+        }
+        mSerialPort->flush();
+    }
 }
 

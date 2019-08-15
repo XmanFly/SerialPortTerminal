@@ -24,7 +24,7 @@ Item {
                         text: name
                     }
                     Text {
-                        text: value
+                        text: value.toFixed(1)
                         horizontalAlignment: Text.AlignRight
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         Layout.preferredWidth: parent.width * 0.5

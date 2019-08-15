@@ -24,6 +24,7 @@ public slots:
     void slot_serialPortState(bool isOpen); //串口状态
 
 private:
+    const QString TAG = "MonitorModule";
     QList<ParaMonitor* > list;
 
     static void appendList(QQmlListProperty<ParaMonitor>*, ParaMonitor*);

@@ -23,7 +23,7 @@ QByteArray FloatRequest::valueToRaw(float value)
     return res;
 }
 
-bool FloatRequest::parseRgstValue(ProtContent response)
+bool FloatRequest::parseRgstValue()
 {
     if(receiveContent.value.size() != 2){
         return false;

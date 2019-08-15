@@ -20,7 +20,7 @@ QByteArray U8Request::valueToRaw(quint8 value)
     return res;
 }
 
-bool U8Request::parseRgstValue(ProtContent response)
+bool U8Request::parseRgstValue()
 {
     if(receiveContent.value.size() != 1){
         return false;
