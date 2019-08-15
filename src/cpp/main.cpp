@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     Interface *mInterface = new Interface();
     QQmlEngine::setObjectOwnership(mInterface, QQmlEngine::CppOwnership);
     //通讯历史数据
-    RawLog* rawLog = new RawLog(10000);
+    RawLog* rawLog = new RawLog(1000);
     QQmlEngine::setObjectOwnership(rawLog, QQmlEngine::CppOwnership);
     //荧光协议
     WmVolley::instance()->getRequestQueue()->setSerial(mInterface->getSerialPortControl());
@@ -96,10 +96,6 @@ int main(int argc, char *argv[])
     context->setContextProperty("RegModule", regModule);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
-
-
-
-
 
     if (engine.rootObjects().isEmpty())
         return -1;

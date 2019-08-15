@@ -1,9 +1,11 @@
-#ifndef AFPSLOGIC_H
+﻿#ifndef AFPSLOGIC_H
 #define AFPSLOGIC_H
 
 #include <QObject>
 #include <QTime>
 #include <QDateTime>
+#include "../Afps/Protocol/wmvolley.h"
+#include "../Afps/Protocol/u8request.h"
 
 enum AFPS_STATE {
     UNINIT, //未初始化
@@ -25,6 +27,7 @@ public:
 
 private:
     AFPS_STATE state;
+    bool sampleCtrl(bool isOn); //采集控制
 
 signals:
     void sig_sampleCtrl(bool isStart, QString fileName); //采集控制
