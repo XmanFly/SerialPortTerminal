@@ -44,9 +44,16 @@ void ProtUtils::parseValue(QByteArray &src, int len, QByteArray& value)
     src.remove(0, len);
 }
 
-void ProtUtils::parseCrc(QByteArray &src, bool& ok)
+void ProtUtils::parseCrc(QByteArray &src, int start, int len, bool& ok)
 {
-    src.remove(0, ProtPara::CRC_LEN);
+    QByteArray crcCalc = CRC16::calc(src.mid(start, len), len);
+    if(crcCalc == src.right(2)){
+        ok = true;
+        src.remove(src.size()-ProtPara::CRC_LEN, ProtPara::CRC_LEN);
+    } else {
+        ok = false;
+        src.remove(0, start+len);
+    }
 }
 
 void ProtUtils::cmdTypeToRaw(CMD_TYPE type, QByteArray& raw)
@@ -76,7 +83,6 @@ void ProtUtils::contentToRaw(const ProtContent& src, QByteArray& dst)
     dst.append(type); //命令类型
     dst.append(static_cast<char>(src.addr)); //寄存器地址
     dst.append(src.value); //寄存器值
-    //TBD CRC
-    dst.append(0x11);
-    dst.append(0x22);
+    //CRC
+    dst.append(CRC16::calc(dst, dst.size()));
 }

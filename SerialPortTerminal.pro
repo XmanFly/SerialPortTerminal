@@ -92,6 +92,7 @@ HEADERS += \
     src/cpp/Afps/Model/regrwlistvm.h \
     src/cpp/Afps/Model/regu8readvm.h \
     src/cpp/Afps/Model/regu8writevm.h \
+    src/cpp/Afps/Protocol/crc16.h \
     src/cpp/Afps/Protocol/datarequest.h \
     src/cpp/Afps/Protocol/floatrequest.h \
     src/cpp/Afps/Protocol/parsefsm.h \

@@ -41,6 +41,9 @@ GroupBox {
                 enabled: !devState
                 model: [9600, 115200]
             }
+            Component.onCompleted: {
+                settingValue.currentIndex = 1
+            }
         }
         //位数
         SettingItem {
