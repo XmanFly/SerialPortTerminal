@@ -46,13 +46,42 @@ void ProtUtils::parseValue(QByteArray &src, int len, QByteArray& value)
 
 void ProtUtils::parseCrc(QByteArray &src, int start, int len, bool& ok)
 {
-    QByteArray crcCalc = CRC16::calc(src.mid(start, len), len);
+    QByteArray crcCalc = CRC16::calc(src.mid(start, len), len-ProtPara::CRC_LEN);
     if(crcCalc == src.right(2)){
         ok = true;
         src.remove(src.size()-ProtPara::CRC_LEN, ProtPara::CRC_LEN);
     } else {
         ok = false;
         src.remove(0, start+len);
+    }
+}
+
+void ProtUtils::parseErr(QByteArray errCode, ERR_TYPE &err)
+{
+    if(errCode.size() != 1){
+        err = ERR_TYPE::UNKNOWN;
+        return;
+    }
+    char code = errCode.at(0);
+    switch (code) {
+    case 0xe1:
+        err = ERR_TYPE::DEV_ADDR_ERR;
+        break;
+    case 0xe2:
+        err = ERR_TYPE::FUNC_CODE_ERR;
+        break;
+    case 0xe3:
+        err = ERR_TYPE::LEN_ERR;
+        break;
+    case 0xe4:
+        err = ERR_TYPE::CRC_ERR;
+        break;
+    case 0xe5:
+        err = ERR_TYPE::RGST_ADD_ERR;
+        break;
+    case 0xe6:
+        err = ERR_TYPE::OUT_RANGE_ERR;
+        break;
     }
 }
 

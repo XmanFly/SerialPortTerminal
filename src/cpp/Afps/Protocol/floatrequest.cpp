@@ -1,9 +1,12 @@
 ﻿#include "floatrequest.h"
 
 FloatRequest::FloatRequest(Request::METHOD mMethod, uchar rgstAddr, float setValue, float scale, QObject *parent) :
-    Request(mMethod, rgstAddr, nullptr, parent)
+    Request(mMethod, rgstAddr, nullptr, parent),
+    scale(scale)
 {
-    sendContent.value = valueToRaw(setValue*scale);
+    if(mMethod == Request::SET){
+        sendContent.value = valueToRaw(setValue*scale);
+    }
 }
 
 float FloatRequest::getReadValue() const
@@ -22,11 +25,10 @@ QByteArray FloatRequest::valueToRaw(float value)
 
 bool FloatRequest::parseRgstValue(ProtContent response)
 {
-    this->receiveContent = response;
     if(receiveContent.value.size() != 2){
         return false;
     }
-    readValue = (receiveContent.value.at(0) & 0xFF) ||
-                    ((receiveContent.value.at(1) & 0xFF) << 8);
+    readValue = ((receiveContent.value.at(0) & 0xFF) |
+                    ((receiveContent.value.at(1) & 0xFF) << 8)) / scale;
     return true;
 }

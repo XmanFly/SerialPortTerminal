@@ -3,7 +3,9 @@
 U8Request::U8Request(Request::METHOD mMethod, uchar rgstAddr, quint8 setValue, QObject *parent) :
     Request(mMethod, rgstAddr, nullptr, parent)
 {
-    sendContent.value = valueToRaw(setValue);
+    if(mMethod == Request::SET){
+        sendContent.value = valueToRaw(setValue);
+    }
 }
 
 quint8 U8Request::getReadValue() const
@@ -20,7 +22,6 @@ QByteArray U8Request::valueToRaw(quint8 value)
 
 bool U8Request::parseRgstValue(ProtContent response)
 {
-    this->receiveContent = response;
     if(receiveContent.value.size() != 1){
         return false;
     }

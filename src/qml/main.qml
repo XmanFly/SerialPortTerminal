@@ -9,7 +9,7 @@ ApplicationWindow {
     visible: true
     width: 1920
     height: 1080
-    title: qsTr("Tabs")
+    title: qsTr("苏州微木荧光调试软件")
 
     SwipeView {
         id: swipeView

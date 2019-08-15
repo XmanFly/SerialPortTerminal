@@ -57,7 +57,7 @@ public:
         WORD wCRCWord = 0xFFFF;
         while (wLength--)
         {
-            nTemp = *nData++ ^ static_cast<BYTE>(wCRCWord);
+            nTemp = *nData++ ^ wCRCWord;
             wCRCWord >>= 8;
             wCRCWord ^= wCRCTable[nTemp];
         }

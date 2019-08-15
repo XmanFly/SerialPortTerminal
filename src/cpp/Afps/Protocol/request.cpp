@@ -81,11 +81,11 @@ CMD_TYPE Request::method2CmdType(Request::METHOD method)
     case SET:
         type = CMD_TYPE::MASTER_SET;
         break;
-    case POLL_REAL:
-        type = CMD_TYPE::MASTER_POLL_SET;
-        break;
     case POLL_SET:
         type = CMD_TYPE::MASTER_POLL_SET;
+        break;
+    case POLL_REAL:
+        type = CMD_TYPE::MASTER_POLL_REAL;
         break;
     }
     return type;
@@ -121,13 +121,14 @@ void Request::slot_receiveResponse(ProtContent response)
     //时间戳与寄存器地址保持一致
     if(sendContent.timeStamp == response.timeStamp &&
             sendContent.addr == response.addr){
-        if(response.addr == ProtPara::HOST_ERR){
-            setState(RequestStyle::ERROR_ST);
+        receiveContent = response;
+        if(sendContent.cmdType == CMD_TYPE::MASTER_SET){
+            setState(RequestStyle::RESPONSED);
             return;
         }
-        receiveContent = response;
         if(!parseRgstValue(response)){
             setState(RequestStyle::ERROR_ST);
+            errType = DECODE_ERR;
         } else {
             setState(RequestStyle::RESPONSED);
         }
@@ -141,5 +142,6 @@ void Request::slot_receiveErr(ProtContent response)
     if(sendContent.timeStamp == response.timeStamp &&
             sendContent.addr == response.addr){
         setState(RequestStyle::ERROR_ST);
+        ProtUtils::parseErr(response.value, errType);
     }
 }

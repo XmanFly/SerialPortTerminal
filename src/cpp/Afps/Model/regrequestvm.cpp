@@ -46,10 +46,22 @@ QString RegRequestVM::getDbgMsg() const
             ret += QString("功能码");
             break;
         case LEN_ERR:
-            ret += QString("CRC");
+            ret += QString("数据长度");
+            break;
+        case CRC_ERR:
+            ret += QString("CRC校验");
             break;
         case RGST_ADD_ERR:
             ret += QString("寄存器地址");
+            break;
+        case OUT_RANGE_ERR:
+            ret += QString("设置值超限");
+            break;
+        case DECODE_ERR:
+            ret += QString("数值解码异常");
+            break;
+        case UNKNOWN:
+            ret += QString("未知");
             break;
         }
         break;

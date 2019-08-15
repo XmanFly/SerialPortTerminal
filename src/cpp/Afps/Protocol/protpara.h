@@ -20,6 +20,8 @@ enum ERR_TYPE {
     CRC_ERR, //CRC错误
     RGST_ADD_ERR, //寄存器地址错误
     OUT_RANGE_ERR, //设置数据超范围
+    DECODE_ERR, //解码异常
+    UNKNOWN, //未知
 };
 
 class ProtPara

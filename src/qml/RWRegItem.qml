@@ -71,7 +71,7 @@ Item {
                 var readSetFloatItem = Qt.createComponent("RegReadFloatItem.qml");
                 var readSetFloatObj = readSetFloatItem.createObject(rootLayout );
                 if (readSetFloatObj !== null) {
-                    readSetFloatObj.value.text = Qt.binding(function() { return floatRSet.value.toFixed(2)} )
+                    readSetFloatObj.value.text = Qt.binding(function() { return floatRSet.value.toFixed(1)} )
                     readSetFloatObj.msgTxt.text = Qt.binding(function() { return floatRSet.dbgMsg } )
                     readSetFloatObj.msgTxt.color = Qt.binding(function() { return getMsgColor(floatRSet.state) } )
                     readSetFloatObj.readBtn.enabled = Qt.binding(function() { return getIsEnable(floatRSet.state) } )
@@ -110,7 +110,7 @@ Item {
                 var readRealFloatObj = readRealFloatItem.createObject(rootLayout );
                 if (readRealFloatObj !== null) {
                     readRealFloatObj.value.text = Qt.binding(function() {
-                                                    return floatRReal.value.toFixed(2)
+                                                    return floatRReal.value.toFixed(1)
                                                     } )
                     readRealFloatObj.msgTxt.text = Qt.binding(function() { return floatRReal.dbgMsg } )
                     readRealFloatObj.msgTxt.color = Qt.binding(function() { return getMsgColor(floatRReal.state) } )
@@ -123,6 +123,23 @@ Item {
             }
         }
          if(u8RReal !== null){
+            //U8型
+            if(valueType === RegReadWriteModel.U8) {
+                var readRealU8Item = Qt.createComponent("RegReadFloatItem.qml");
+                var readRealU8Obj = readRealU8Item.createObject(rootLayout );
+                if (readRealU8Obj !== null) {
+                    readRealU8Obj.value.text = Qt.binding(function() {
+                                                    return u8RReal.value
+                                                    } )
+                    readRealU8Obj.msgTxt.text = Qt.binding(function() { return u8RReal.dbgMsg } )
+                    readRealU8Obj.msgTxt.color = Qt.binding(function() { return getMsgColor(u8RReal.state) } )
+                    readRealU8Obj.readBtn.enabled = Qt.binding(function() { return getIsEnable(u8RReal.state) } )
+                    readRealU8Obj.readBtn.clicked.connect(u8RReal.readSync)
+                    readRealU8Obj.readBtn.text = qsTr("读实时值")
+                } else {
+                    console.log("Error creating readRealFloatItem");
+                }
+            }
             //bool型
             if(valueType === RegReadWriteModel.BOOL){
                 var readRealBoolItem = Qt.createComponent("RegReadBoolItem.qml");

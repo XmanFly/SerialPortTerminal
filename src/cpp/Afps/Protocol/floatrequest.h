@@ -14,6 +14,7 @@ public:
     float getReadValue() const;
 
 private:
+    float scale;
     float setValue;
     float readValue;
     QByteArray valueToRaw(float value);
