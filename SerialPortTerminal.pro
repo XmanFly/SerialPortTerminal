@@ -24,7 +24,6 @@ SOURCES += \
     src/cpp/Afps/Model/regrwlistvm.cpp \
     src/cpp/Afps/Model/regu8readvm.cpp \
     src/cpp/Afps/Model/regu8writevm.cpp \
-    src/cpp/Afps/Protocol/datarequest.cpp \
     src/cpp/Afps/Protocol/floatrequest.cpp \
     src/cpp/Afps/Protocol/parsefsm.cpp \
     src/cpp/Afps/Protocol/parseth.cpp \
@@ -93,7 +92,6 @@ HEADERS += \
     src/cpp/Afps/Model/regu8readvm.h \
     src/cpp/Afps/Model/regu8writevm.h \
     src/cpp/Afps/Protocol/crc16.h \
-    src/cpp/Afps/Protocol/datarequest.h \
     src/cpp/Afps/Protocol/floatrequest.h \
     src/cpp/Afps/Protocol/parsefsm.h \
     src/cpp/Afps/Protocol/parseth.h \
