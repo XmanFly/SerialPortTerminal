@@ -32,5 +32,7 @@
         <file>src/qml/RegReadBoolItemForm.ui.qml</file>
         <file>src/qml/RegisterList.qml</file>
         <file>src/qml/RWRegItem.qml</file>
+        <file>src/qml/ParaMonitor.qml</file>
+        <file>src/qml/ParaMonitorForm.ui.qml</file>
     </qresource>
 </RCC>

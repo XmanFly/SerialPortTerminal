@@ -16,6 +16,7 @@
 #include "./Afps/Model/regfloatwritevm.h"
 #include "./Afps/Model/regfloatreadvm.h"
 #include "./Afps/Model/regmodulevm.h"
+#include "./Afps/Model/monitormodule.h"
 #include "./Afps/sampledata.h"
 
 int main(int argc, char *argv[])
@@ -50,6 +51,7 @@ int main(int argc, char *argv[])
     RequestStyle::registType();
     ProtContent::regist();
     RegReadWriteModel::regist();
+    ParaMonitor::regist();
 
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();
@@ -76,24 +78,22 @@ int main(int argc, char *argv[])
     QObject::connect(sampleData, &SampleData::sig_rcvData,
             mInterface->getAlgorithm(), static_cast<void(Algorithm::*)(AD_CHANNEDL_DATA)>(&Algorithm::slot_receiveData));
 
-    //荧光寄存器
+    /* 荧光寄存器 */
     RegModuleVM* regModule = new RegModuleVM();
-    RegFloatWriteVM* pump = new RegFloatWriteVM(Request::METHOD::SET, 0x01);
-    RegFloatReadVM* pumpReadSet = new RegFloatReadVM(Request::METHOD::POLL_SET, 0x01);
-    RegFloatReadVM* pumpReadReal = new RegFloatReadVM(Request::METHOD::POLL_REAL, 0x01);
-
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
             rawLog, &RawLog::slot_receive);
     QObject::connect(mInterface, &Interface::sig_sendData,
             rawLog, &RawLog::slot_send);
+    /* 参数监测 */
+    MonitorModule* monitor = new MonitorModule();
+    QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_state,
+            monitor, &MonitorModule::slot_serialPortState);
 
     context->setContextProperty("mInterface",mInterface);
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
     context->setContextProperty("RawLog", rawLog);
-    context->setContextProperty("Pump", pump);
-    context->setContextProperty("PumpReadSet", pumpReadSet);
-    context->setContextProperty("PumpReadReal", pumpReadReal);
     context->setContextProperty("RegModule", regModule);
+    context->setContextProperty("Monitor", monitor);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
 

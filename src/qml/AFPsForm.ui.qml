@@ -1,6 +1,6 @@
-﻿import QtQuick 2.9
+﻿import QtQuick 2.12
 import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.3
+import QtQuick.Layouts 1.12
 import QtCharts 2.3
 
 Page {
@@ -10,6 +10,7 @@ Page {
     property alias switchBtn: switchBtn
     property alias cfgParaRpt: cfgParaRpt
     property alias fileExp: fileExp
+    property alias paraMonitor: paraMonitor
 
     //数据文件加载区
     Explorer {
@@ -73,41 +74,36 @@ Page {
         }
     }
 
-    //算法区
-    AfpsAlgorithm {
-        id: algorithm
+    ColumnLayout {
+        id: algorLayout
         anchors {
             left: fileExp.right
             top: fileExp.top
             bottom: parent.bottom
             bottomMargin: 20
         }
-        width: parent.width * 2 / 8
-    }
+        width: parent.width * 0.15
+        spacing: 20
+        //参数监测区
+        ParaMonitor {
+            id: paraMonitor
+            Layout.fillWidth: true
+            Layout.preferredHeight: parent.height * 0.4
+        }
 
-    //    //算法区
-    //    ColumnLayout {
-    //        id: algorithm
-    //        anchors {
-    //            left: ctrlPanel.right
-    //            right: fileExp.right
-    //            top: ctrlPanel.top
-    //            bottom: parent.bottom
-    //            bottomMargin: 20
-    //        }
-    //        //检测结果
-    //        Text {
-    //            id: resultTxt
-    //            font.pixelSize: 20
-    //            text: AfpsAlgorithmViewModel.result
-    //        }
-    //    }
+        //算法区
+        AfpsAlgorithm {
+            id: algorithm
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
+    }
 
     //绘图区
     ColumnLayout {
         id: chartAera
         anchors {
-            left: algorithm.right
+            left: algorLayout.right
             right: parent.right
             top: parent.top
             bottom: parent.bottom
@@ -123,6 +119,12 @@ Page {
         }
     }
 }
+
+
+
+
+
+
 
 
 

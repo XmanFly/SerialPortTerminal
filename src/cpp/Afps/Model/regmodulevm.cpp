@@ -16,7 +16,7 @@ void RegModuleVM::load()
 {
     /* 基本区 */
     RegReadWriteModel* pumpSpeed = new RegReadWriteModel(
-                "泵速", 0x01, RegReadWriteModel::Set | RegReadWriteModel::Read_Set | RegReadWriteModel::Read_Real);
+                "流速", 0x01, RegReadWriteModel::Set | RegReadWriteModel::Read_Set | RegReadWriteModel::Read_Real);
     RegReadWriteModel* pumpCtrl = new RegReadWriteModel(
                 "泵控制", 0x02, RegReadWriteModel::Set | RegReadWriteModel::Read_Set, RegReadWriteModel::BOOL);
     RegReadWriteModel* uv1Current = new RegReadWriteModel(
