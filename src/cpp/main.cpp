@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
     RegModuleVM* regModule = new RegModuleVM();
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
             rawLog, &RawLog::slot_receive);
-    QObject::connect(mInterface, &Interface::sig_sendData,
+    QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_send,
             rawLog, &RawLog::slot_send);
     /* 参数监测 */
     MonitorModule* monitor = new MonitorModule();

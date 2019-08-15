@@ -76,6 +76,8 @@ public:
 
     Algorithm *getAlgorithm() const;
 
+    PeriodSend *getPeriodSend() const;
+
 private:
     QSerialPortInfo *mSerialPortInfo; //串口信息
     SerialPortPara *mSerialPortPara; //串口参数

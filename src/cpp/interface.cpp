@@ -163,6 +163,11 @@ Algorithm *Interface::getAlgorithm() const
     return mAlgorithm;
 }
 
+PeriodSend *Interface::getPeriodSend() const
+{
+    return mPeriodSend;
+}
+
 //获取数据Model
 QVariant Interface::getDataModel()
 {

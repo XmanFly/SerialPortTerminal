@@ -102,6 +102,7 @@ void SerialPortControl::slot_sendSchedule()
         QByteArray data = sendBuffer.dequeue();
         qint64 size = mSerialPort->write(data);
         emit sig_sendCnt(static_cast<qint32>(size));
+        emit sig_send(data);
         qDebug() << "SerialPortControl::slot_sendSchedule thread id "
                  << QThread::currentThread() << " send size " << size;
         if(size != data.length()){
