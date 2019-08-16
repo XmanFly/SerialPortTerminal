@@ -51,8 +51,8 @@ void Request::start()
 
 RequestStyle::STATE Request::getResponse()
 {
-    qDebug() << "Request::getResponse()"
-             << "thread id " << QThread::currentThread();
+//    qDebug() << "Request::getResponse()"
+//             << "thread id " << QThread::currentThread();
     while(state <= RequestStyle::IN_PROCESS){
         QCoreApplication::processEvents();
 //        qDebug() << "Request::wait response" << state;
@@ -115,8 +115,8 @@ void Request::slot_timeout()
 
 void Request::slot_receiveResponse(ProtContent response)
 {
-    qDebug() << "Request " << "receiveResponse thread id "
-             << QThread::currentThread();
+//    qDebug() << "Request " << "receiveResponse thread id "
+//             << QThread::currentThread();
     //时间戳与寄存器地址保持一致
     if(sendContent.timeStamp == response.timeStamp &&
             sendContent.addr == response.addr){

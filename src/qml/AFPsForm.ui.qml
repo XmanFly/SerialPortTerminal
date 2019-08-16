@@ -107,6 +107,7 @@ Page {
             right: parent.right
             top: parent.top
             bottom: parent.bottom
+            bottomMargin: 20
         }
         Repeater {
             id: chartRpt
@@ -119,14 +120,6 @@ Page {
         }
     }
 }
-
-
-
-
-
-
-
-
 
 
 

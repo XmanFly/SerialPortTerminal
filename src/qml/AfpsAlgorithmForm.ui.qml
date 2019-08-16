@@ -89,6 +89,7 @@ GroupBox {
             top: identifyCfg.bottom
             topMargin: 20
         }
+        clip: true
         //        height: parent.height * 1 / 5
         title: qsTr("输出")
 

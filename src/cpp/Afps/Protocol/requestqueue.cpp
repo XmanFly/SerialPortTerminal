@@ -34,8 +34,6 @@ Request *RequestQueue::addRequest(Request* req)
                 static_cast<uchar>(timeStampCreater->fetchAndAddAcquire(1)%256));
     connect(req, &Request::sig_send,
             serial, &SerialPortControl::slot_send);
-    connect(req, &Request::sig_send,
-            rawLog, &RawLog::slot_send);
     connect(parseTh, &ParseTh::sig_response,
             req, &Request::slot_receiveResponse);
     connect(parseTh, &ParseTh::sig_err,

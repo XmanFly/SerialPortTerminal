@@ -47,11 +47,11 @@ bool ParaMonitor::readTmp()
     isReading = true;
     FloatRequest* request = new FloatRequest(Request::POLL_REAL, rgstAddr);
     WmVolley::instance()->getRequestQueue()->addRequest(request);
-//    RequestStyle::STATE st = request->getResponse();
-//    if(st == RequestStyle::RESPONSED){
-//        setValue(request->getReadValue());
-//        ret = true;
-//    }
+    RequestStyle::STATE st = request->getResponse();
+    if(st == RequestStyle::RESPONSED){
+        setValue(request->getReadValue());
+        ret = true;
+    }
     WmVolley::instance()->getRequestQueue()->removeRequest(request);
     isReading = false;
     qDebug() << TAG << name << "read temperature read finish";

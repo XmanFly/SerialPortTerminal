@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         ./src/cpp/main.cpp \
+    src/cpp/Afps/Model/adchartvm.cpp \
     src/cpp/Afps/Model/monitormodule.cpp \
     src/cpp/Afps/Model/paramonitor.cpp \
     src/cpp/Afps/Model/regfloatreadvm.cpp \
@@ -86,6 +87,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    src/cpp/Afps/Model/adchartvm.h \
     src/cpp/Afps/Model/monitormodule.h \
     src/cpp/Afps/Model/paramonitor.h \
     src/cpp/Afps/Model/regfloatreadvm.h \
@@ -170,3 +172,5 @@ QMAKE_CFLAGS_DEBUG += /Zi
 QMAKE_LFLAGS_DEBUG += /debug /opt:ref
 
 DESTDIR = $$PWD/bin
+
+DISTFILES +=

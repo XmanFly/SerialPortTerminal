@@ -41,7 +41,6 @@ public:
     Q_PROPERTY(bool serialState READ getSerialPortState NOTIFY sig_serialPortState)
     Q_PROPERTY(NOTIFY sig_message)
     Q_PROPERTY(NOTIFY sig_resetDataList)
-    Q_PROPERTY(NOTIFY sig_afpsUpdateChart)
     Q_PROPERTY(QString curPath READ getCurPath CONSTANT)
 
     Q_INVOKABLE QList<QString> refreshDev(); //刷新串口设备
@@ -57,8 +56,6 @@ public:
 //荧光
     Q_INVOKABLE void afpsStart(QStringList para); //荧光开始
     Q_INVOKABLE void afpsStop(); //荧光停止
-    Q_INVOKABLE void afpsUpdateChannelChart(int channelId, QAbstractSeries *adChannel1, QAbstractAxis *xAxis); //荧光更新谱图
-    Q_INVOKABLE QVector<qreal> afpsGetDataRange(int id);
     Q_INVOKABLE bool afpsLoadFile(QString name);
 
     SerialPortControl *getSerialPortControl(); //获取串口控制
@@ -110,7 +107,6 @@ private:
     QThread *mAfpsAlgorithmTh;
     AlgorithmRespository *mAlgorithmRespository;
     void afpsInit(); //初始化
-    void afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, QVector<QPointF> &points);
 
 signals:
     void sig_afpsUpdateChart();

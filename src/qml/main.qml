@@ -19,6 +19,7 @@ ApplicationWindow {
         }
         currentIndex: tabBar.currentIndex
         interactive: false
+        clip: true
 
         Home {
             id: home
@@ -77,16 +78,6 @@ ApplicationWindow {
 
     //荧光
     Connections {
-        target: mInterface
-        onSig_afpsUpdateChart : {
-            for(var i = 0; i < 4; i++){
-                mInterface.afpsUpdateChannelChart(i, afps.getChart(i).updateSeries(0), afps.getChart(i).getXAxis())
-                afps.getChart(i).setYBkRange(mInterface.afpsGetDataRange(i)[0], mInterface.afpsGetDataRange(i)[1])
-                afps.getChart(i).adjustAxisY(0)
-            }
-        }
-    }
-    Connections {
         target: afps
         onSig_start : {
             console.log("afps start " + para)
@@ -102,9 +93,13 @@ ApplicationWindow {
 
     Component.onCompleted: {
         home.setInterface(mInterface)
-        home.receiveAera.setModel(RawLog)
+        home.receiveAera.setModel(RawLog)       
         //荧光默认数据文件目录
         var afpsDataPath = "file:///" + mInterface.curPath + "/Data"
         afps.setPath(afpsDataPath)
+        afps.getChart(0).setModel(AdChart1VM)
+        afps.getChart(1).setModel(AdChart2VM)
+        afps.getChart(2).setModel(AdChart3VM)
+        afps.getChart(3).setModel(AdChart4VM)
     }
 }

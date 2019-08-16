@@ -1,5 +1,6 @@
 ﻿#include "parseth.h"
 #include <QDebug>
+#include <QThread>
 
 ParseTh::ParseTh(QObject *parent) : QObject(parent)
 {
@@ -13,7 +14,8 @@ void ParseTh::setParseIf(ParseFsm *mParseIf)
 
 void ParseTh::slot_receiveData(QByteArray data)
 {
-    qDebug() << TAG << "slot_receiveData "
+    qDebug() << TAG << "slot_receiveData thread id "
+             << QThread::currentThread()
              << "buffer size " << buffer.size()
              << "receive size " << data.size()
              << data.toHex();

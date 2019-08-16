@@ -280,8 +280,6 @@ void Interface::afpsInit() //初始化
 
     connect(mSerialPortControl, &SerialPortControl::sig_state,
         mAfpsLogic, &AfpsLogic::slot_serialPortState);
-    connect(mAfpsAdChartModel, &AdChartModel::sig_dataUpdate,
-            this, &Interface::sig_afpsUpdateChart);
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
             mAfpsAdChartModel, &AdChartModel::slot_ctrl);
     connect(mAfpsLogic, &AfpsLogic::sig_sampleCtrl,
@@ -328,34 +326,6 @@ void Interface::afpsStop()
 #if AFPS_TEST == true
     mAfpsDummyData->stop();
 #endif
-}
-
-//荧光更新谱图
-void Interface::afpsUpdateChannelChart(int channelId, QAbstractSeries *adChannel1, QAbstractAxis *xAxis)
-{
-    afpsUpdateChart(adChannel1, xAxis, *mAfpsAdChartModel->channel.at(channelId));
-}
-
-void Interface::afpsUpdateChart(QAbstractSeries *series, QAbstractAxis *xAxis, QVector<QPointF> &points)
-{
-    QXYSeries *xySeries = static_cast<QXYSeries *>(series);
-    // Use replace instead of clear + append, it's optimized for performance
-    if(points.isEmpty()) {
-        xySeries->clear();
-        xAxis->setRange(0, 1);
-        return;
-    }
-    xySeries->replace(points);
-    xAxis->setMin(points.first().x());
-    xAxis->setMax(points.last().x());
-}
-
-QVector<qreal > Interface::afpsGetDataRange(int id)
-{
-    QVector<qreal > ret;
-    ret.append(mAfpsAdChartModel->channelRange.at(id).at(0));
-    ret.append(mAfpsAdChartModel->channelRange.at(id).at(1));
-    return ret;
 }
 
 bool Interface::afpsLoadFile(QString name)

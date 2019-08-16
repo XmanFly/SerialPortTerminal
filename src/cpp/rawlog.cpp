@@ -2,6 +2,7 @@
 #include "formatmodel.h"
 #include <QDateTime>
 #include <QDebug>
+#include <QThread>
 
 RawLog::RawLog(int maxSize, QObject *parent) :
     QAbstractListModel(parent),
@@ -56,18 +57,20 @@ QHash<int, QByteArray> RawLog::roleNames() const
 
 void RawLog::slot_receive(QByteArray data)
 {
-//    qDebug() << TAG << "receive ";
+    qDebug() << TAG << "receive thread id " << QThread::currentThread();
     addData(DataObject::Receive, data);
 }
 
 void RawLog::slot_send(QByteArray data)
 {
+    qDebug() << TAG << "send thread id " << QThread::currentThread();
     addData(DataObject::Send, data);
 }
 
 void RawLog::addData(DataObject::Type type, QByteArray data)
 {
     if(dataList.size() == maxSize){
+//        qDebug() << TAG << "addData full ";
         beginRemoveRows(QModelIndex(), 0, 0);
         dataList.removeFirst();
         endRemoveRows();

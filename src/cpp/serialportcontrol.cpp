@@ -51,7 +51,7 @@ void SerialPortControl::slot_open(SerialPortParaNonQobj para)
            if(sendScheduler == nullptr){
                 sendSchedulerInit();
            }
-            sendScheduler->start(10);
+            sendScheduler->start(20);
            isOpen = true;
        } else {
            mSerialPort = nullptr; //串口打开失败

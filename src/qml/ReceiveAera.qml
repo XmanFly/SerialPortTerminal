@@ -24,6 +24,7 @@ GroupBox {
             Layout.fillWidth: true
             Layout.fillHeight: true
             interactive: true
+            cacheBuffer: 10000
             clip: true
             delegate:
                 RowLayout {

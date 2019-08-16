@@ -18,6 +18,7 @@
 #include "./Afps/Model/regmodulevm.h"
 #include "./Afps/Model/monitormodule.h"
 #include "./Afps/sampledata.h"
+#include "./Afps/Model/adchartvm.h"
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +49,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<SerialPortParaNonQobj>("SerialPortParaNonQobj");
     qRegisterMetaType<QVector<QVector<QPointF>>>("QVector<QVector<QPointF>>");
     qRegisterMetaType<AD_CHANNEDL_DATA>("AD_CHANNEDL_DATA");
+    qRegisterMetaType<AxisRange>("AxisRange");
     RequestStyle::registType();
     ProtContent::regist();
     RegReadWriteModel::regist();
@@ -61,6 +63,10 @@ int main(int argc, char *argv[])
     QQmlEngine::setObjectOwnership(mInterface, QQmlEngine::CppOwnership);
     //通讯历史数据
     RawLog* rawLog = new RawLog(1000);
+    QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
+            rawLog, &RawLog::slot_receive);
+    QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_send,
+            rawLog, &RawLog::slot_send);
     QQmlEngine::setObjectOwnership(rawLog, QQmlEngine::CppOwnership);
     //荧光协议
     WmVolley::instance()->getRequestQueue()->setSerial(mInterface->getSerialPortControl());
@@ -80,21 +86,34 @@ int main(int argc, char *argv[])
 
     /* 荧光寄存器 */
     RegModuleVM* regModule = new RegModuleVM();
-    QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_receive,
-            rawLog, &RawLog::slot_receive);
-    QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_send,
-            rawLog, &RawLog::slot_send);
     /* 参数监测 */
     MonitorModule* monitor = new MonitorModule();
     QObject::connect(mInterface->getSerialPortControl(), &SerialPortControl::sig_state,
             monitor, &MonitorModule::slot_serialPortState);
     QQmlEngine::setObjectOwnership(monitor, QQmlEngine::CppOwnership);
+    /* 谱图VM */
+    AdChartVM* adChart1VM = new AdChartVM();
+    QObject::connect(mInterface->getAfpsAdChartModel(), &AdChartModel::sig_ch1Data,
+                     adChart1VM, &AdChartVM::slot_receiveData);
+    AdChartVM* adChart2VM = new AdChartVM();
+    QObject::connect(mInterface->getAfpsAdChartModel(), &AdChartModel::sig_ch2Data,
+                     adChart2VM, &AdChartVM::slot_receiveData);
+    AdChartVM* adChart3VM = new AdChartVM();
+    QObject::connect(mInterface->getAfpsAdChartModel(), &AdChartModel::sig_ch3Data,
+                     adChart3VM, &AdChartVM::slot_receiveData);
+    AdChartVM* adChart4VM = new AdChartVM();
+    QObject::connect(mInterface->getAfpsAdChartModel(), &AdChartModel::sig_ch4Data,
+                     adChart4VM, &AdChartVM::slot_receiveData);
 
     context->setContextProperty("mInterface",mInterface);
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
     context->setContextProperty("RawLog", rawLog);
     context->setContextProperty("RegModule", regModule);
     context->setContextProperty("Monitor", monitor);
+    context->setContextProperty("AdChart1VM", adChart1VM);
+    context->setContextProperty("AdChart2VM", adChart2VM);
+    context->setContextProperty("AdChart3VM", adChart3VM);
+    context->setContextProperty("AdChart4VM", adChart4VM);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
 
