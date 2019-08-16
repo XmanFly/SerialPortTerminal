@@ -26,6 +26,7 @@ AFPsForm {
                 for(var i=0; i<3; i++){
                     para.push(cfgParaRpt.itemAt(i).currentText)
                 }
+                para.push(userDefined.text)
                 sig_start(para)
             } else {
                 switchBtn.text = "开始"

@@ -306,7 +306,6 @@ void Interface::afpsStart(QStringList para)
     if(mAfpsLogic->sampleCtrl(true, para)){
         mAlgorithm->setEnable(true);
         mAlgorithm->init();
-
     } else {
         emit sig_message("设备未打开 禁止操作 ");
     }

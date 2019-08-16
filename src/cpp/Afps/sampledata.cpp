@@ -35,7 +35,7 @@ uint SampleData::getAd(const QByteArray &src)
     }
     uint ret = 0;
     for(int i=0; i<src.size(); i++){
-        ret |=  ((static_cast<uint>(src.at(i)) & 0xFF) << (src.size()-1-i)*8);
+        ret |=  ((static_cast<uint>(src.at(i)) & 0xFF) << i*8);
     }
     return ret;
 }

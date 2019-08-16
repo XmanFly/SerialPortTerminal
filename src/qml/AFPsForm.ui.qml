@@ -11,6 +11,7 @@ Page {
     property alias cfgParaRpt: cfgParaRpt
     property alias fileExp: fileExp
     property alias paraMonitor: paraMonitor
+    property alias userDefined: userDefined
 
     //数据文件加载区
     Explorer {
@@ -31,18 +32,19 @@ Page {
         id: ctrlPanel
         anchors {
             left: fileExp.left
-            //            right: fileExp.right
             bottom: parent.bottom
             bottomMargin: 20
         }
-        width: fileExp.width * 1 / 2
+        width: fileExp.width * 0.6
 
         //下拉列表
         Repeater {
             id: cfgParaRpt
+            Layout.fillWidth: true
             model: 3
             delegate: ComboBox {
                 id: eachItem
+                Layout.fillWidth: true
 
                 popup: Popup {
                     y: eachItem.height - 1
@@ -65,6 +67,21 @@ Page {
                         radius: 2
                     }
                 }
+            }
+        }
+        TextArea {
+            id: userDefined
+            placeholderText: qsTr("输入自定义内容")
+            color: "blue"
+            verticalAlignment: Text.AlignVCenter
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+            font {
+                pointSize: 12
+            }
+            selectByMouse: true
+            background: Rectangle {
+                border.color: "green"
             }
         }
         RoundButton {
@@ -120,6 +137,8 @@ Page {
         }
     }
 }
+
+
 
 
 

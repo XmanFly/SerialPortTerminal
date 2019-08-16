@@ -30,11 +30,19 @@ bool AfpsLogic::sampleCtrl(bool isStart, QStringList para)
 
 QString AfpsLogic::genFileName(const QStringList& para)
 {
-    QString fileName;
-    foreach(QString each, para){
-        fileName += QString("%1-").arg(each);
+    if(para.size() < 1){
+        return "";
     }
-    fileName.remove(fileName.size()-1, 1);
+    QString fileName;
+    fileName += QString("%1").arg(para.at(0));
+    foreach(QString each, para.mid(1, para.size()-1)){
+        QString tmp = each;
+        if(tmp.isEmpty() ||
+                tmp.remove(" ").isEmpty()){
+            continue;
+        }
+        fileName += QString("-%1").arg(each);
+    }
     return fileName;
 }
 

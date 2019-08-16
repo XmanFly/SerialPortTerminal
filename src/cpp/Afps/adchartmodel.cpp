@@ -42,10 +42,10 @@ void AdChartModel::slot_rcvData(AD_CHANNEDL_DATA data)
     if(!isWork){
         return;
     }
-    channel[0]->append(QPointF(channel[0]->size() + 1, data.channel1));
-    channel[1]->append(QPointF(channel[1]->size() + 1, data.channel2));
-    channel[2]->append(QPointF(channel[2]->size() + 1, data.channel3));
-    channel[3]->append(QPointF(channel[3]->size() + 1, data.channel4));
+    channel[0]->append(QPointF((channel[0]->size() + 1) * 0.07, data.channel1));
+    channel[1]->append(QPointF((channel[1]->size() + 1) * 0.07, data.channel2));
+    channel[2]->append(QPointF((channel[2]->size() + 1) * 0.07, data.channel3));
+    channel[3]->append(QPointF((channel[3]->size() + 1) * 0.07, data.channel4));
     calcRange();
     dataChanged();
     qDebug() << "AdChartModel thread id " << QThread::currentThreadId();
