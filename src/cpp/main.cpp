@@ -19,6 +19,7 @@
 #include "./Afps/Model/monitormodule.h"
 #include "./Afps/sampledata.h"
 #include "./Afps/Model/adchartvm.h"
+#include "./Afps/Model/singleaccuchartmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -104,6 +105,13 @@ int main(int argc, char *argv[])
     AdChartVM* adChart4VM = new AdChartVM();
     QObject::connect(mInterface->getAfpsAdChartModel(), &AdChartModel::sig_ch4Data,
                      adChart4VM, &AdChartVM::slot_receiveData);
+    /* 流量图 */
+    SingleAccuChartModel* flowModel = new SingleAccuChartModel(100);
+    AdChartVM* flowVM = new AdChartVM();
+    QObject::connect(monitor->get(7), &ParaMonitor::sig_valueChanged,
+                     flowModel, &SingleAccuChartModel::slot_receiveData);
+    QObject::connect(flowModel, &SingleAccuChartModel::sig_data,
+                     flowVM, &AdChartVM::slot_receiveData);
 
     context->setContextProperty("mInterface",mInterface);
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
@@ -114,6 +122,7 @@ int main(int argc, char *argv[])
     context->setContextProperty("AdChart2VM", adChart2VM);
     context->setContextProperty("AdChart3VM", adChart3VM);
     context->setContextProperty("AdChart4VM", adChart4VM);
+    context->setContextProperty("FlowVM", flowVM);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
 

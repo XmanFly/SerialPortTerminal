@@ -19,7 +19,7 @@ float ParaMonitor::getValue() const
 void ParaMonitor::setValue(float value)
 {
     this->value = value;
-    emit sig_valueChanged();
+    emit sig_valueChanged(value);
 }
 
 void ParaMonitor::ctrl(bool isOn)

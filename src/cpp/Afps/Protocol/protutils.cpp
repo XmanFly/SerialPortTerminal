@@ -1,5 +1,6 @@
 ﻿#include "protutils.h"
 #include "protpara.h"
+#include <QDebug>
 
 void ProtUtils::parseLen(QByteArray &src, uchar& len)
 {
@@ -47,10 +48,12 @@ void ProtUtils::parseValue(QByteArray &src, int len, QByteArray& value)
 void ProtUtils::parseCrc(QByteArray &src, int start, int len, bool& ok)
 {
     QByteArray crcCalc = CRC16::calc(src.mid(start, len), len-ProtPara::CRC_LEN);
-    if(crcCalc == src.right(2)){
+    if(crcCalc == src.mid(start+len-ProtPara::CRC_LEN, 2)){
         ok = true;
-        src.remove(src.size()-ProtPara::CRC_LEN, ProtPara::CRC_LEN);
+        src.remove(start+len-ProtPara::CRC_LEN, ProtPara::CRC_LEN);
     } else {
+        qDebug() << "ProtUtils parse crc error "
+                 << src.mid(start, len).toHex();
         ok = false;
         src.remove(0, start+len);
     }

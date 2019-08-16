@@ -32,7 +32,7 @@ private:
     bool readTmp();
 
 signals:
-    void sig_valueChanged();
+    void sig_valueChanged(float value);
 
 public slots:
     void slot_read();

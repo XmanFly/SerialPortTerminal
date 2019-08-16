@@ -42,7 +42,8 @@ bool ParseFsm::parse(QByteArray &buf)
     /* CRC校验 */
     ProtUtils::parseCrc(buf, headIdx, protLen, ok);
     if(!ok){
-        qDebug() << TAG << "parse crc error ";
+        qDebug() << TAG << "parse crc error "
+                 << buf.mid(headIdx, protLen).toHex();
         return false;
     }
     /* 解析各个字段 */

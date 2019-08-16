@@ -111,7 +111,7 @@ Page {
         }
         Repeater {
             id: chartRpt
-            model: 4
+            model: 5
             AdChart {
                 id: chart
                 Layout.preferredHeight: chartAera.height / chartRpt.count

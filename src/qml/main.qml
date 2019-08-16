@@ -101,5 +101,6 @@ ApplicationWindow {
         afps.getChart(1).setModel(AdChart2VM)
         afps.getChart(2).setModel(AdChart3VM)
         afps.getChart(3).setModel(AdChart4VM)
+        afps.getChart(4).setModel(FlowVM)
     }
 }
