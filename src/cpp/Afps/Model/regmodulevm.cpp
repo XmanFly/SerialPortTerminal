@@ -52,6 +52,8 @@ void RegModuleVM::load()
                 "腔体2温度控制", 0x3B, RegReadWriteModel::Set | RegReadWriteModel::Read_Set, RegReadWriteModel::BOOL);
     RegReadWriteModel* heatTmp = new RegReadWriteModel(
                 "热解析温度", 0x3D, RegReadWriteModel::Set | RegReadWriteModel::Read_Set | RegReadWriteModel::Read_Real);
+    RegReadWriteModel* heatCtrl = new RegReadWriteModel(
+                "热解析温度控制", 0x3E, RegReadWriteModel::Set | RegReadWriteModel::Read_Set, RegReadWriteModel::BOOL);
     /* 系统核心数据区 */
     RegReadWriteModel* sampleCtrl = new RegReadWriteModel(
                 "采样控制", 0xA3, RegReadWriteModel::Set, RegReadWriteModel::BOOL);
@@ -74,7 +76,6 @@ void RegModuleVM::load()
     rwList->appendRWList(cav2Tmp);
     rwList->appendRWList(cav2Ctrl);
     rwList->appendRWList(heatTmp);
+    rwList->appendRWList(heatCtrl);
     rwList->appendRWList(sampleCtrl);
 }
-
-
