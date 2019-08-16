@@ -1,8 +1,9 @@
 ﻿#include "paramonitor.h"
 
-ParaMonitor::ParaMonitor(QString name, uchar rgstAddr, QObject *parent) :
+ParaMonitor::ParaMonitor(QString name, uchar rgstAddr, QString unit, QObject *parent) :
     QObject(parent),
     name(name),
+    unit(unit),
     rgstAddr(rgstAddr),
     value(0),
     isReading(false)

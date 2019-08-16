@@ -19,15 +19,35 @@ Item {
                 height: 30
                 width: parent.width
                 RowLayout {
-                    anchors.fill: parent
+                    id: nameRow
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: parent.width * 0.3
                     Text {
                         text: name
                     }
+                }
+                RowLayout {
+                    id: itemRow
+                    anchors {
+                        right: parent.right
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+//                    width: parent.width * 0.7
                     Text {
                         text: value.toFixed(1)
                         horizontalAlignment: Text.AlignRight
-                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         Layout.preferredWidth: parent.width * 0.5
+                    }
+                    Text {
+                        text: unit
+                        horizontalAlignment: Text.AlignRight
+                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                        Layout.preferredWidth: 20
                     }
                 }
             }

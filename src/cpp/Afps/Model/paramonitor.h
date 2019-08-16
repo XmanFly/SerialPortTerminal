@@ -13,9 +13,10 @@ class ParaMonitor : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name MEMBER name CONSTANT)
+    Q_PROPERTY(QString unit MEMBER unit CONSTANT)
     Q_PROPERTY(float value MEMBER value READ getValue WRITE setValue NOTIFY sig_valueChanged)
 public:
-    explicit ParaMonitor(QString name="", uchar rgstAddr=0x00, QObject *parent = nullptr);
+    explicit ParaMonitor(QString name="", uchar rgstAddr=0x00, QString unit = "", QObject *parent = nullptr);
 
     float getValue() const;
     void setValue(float value);
@@ -25,6 +26,7 @@ public:
 private:
     const QString TAG = "ParaMonitor";
     QString name;
+    QString unit; //单位
     uchar rgstAddr;
     float value;
     QTimer* timer;

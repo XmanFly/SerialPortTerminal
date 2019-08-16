@@ -3,14 +3,14 @@
 
 MonitorModule::MonitorModule(QObject *parent) : QObject(parent)
 {
-    appendList(new ParaMonitor(QString("进样口"), 0x34));
-    appendList(new ParaMonitor(QString("腔体1"), 0x37));
-    appendList(new ParaMonitor(QString("腔体2"), 0x3A));
-    appendList(new ParaMonitor(QString("热解析"), 0x3D));
-    appendList(new ParaMonitor(QString("紫外灯1"), 0x04));
-    appendList(new ParaMonitor(QString("紫外灯2"), 0x07));
-    appendList(new ParaMonitor(QString("紫外灯3"), 0x0A));
-    appendList(new ParaMonitor(QString("流量"), 0x01));
+    appendList(new ParaMonitor(QString("进样口温度"), 0x34, "℃"));
+    appendList(new ParaMonitor(QString("腔体1温度"), 0x37, "℃"));
+    appendList(new ParaMonitor(QString("腔体2温度"), 0x3A, "℃"));
+    appendList(new ParaMonitor(QString("热解析温度"), 0x3D, "℃"));
+    appendList(new ParaMonitor(QString("紫外灯1电流"), 0x04, "mA"));
+    appendList(new ParaMonitor(QString("紫外灯2电流"), 0x07, "mA"));
+    appendList(new ParaMonitor(QString("紫外灯3电流"), 0x0A, "mA"));
+    appendList(new ParaMonitor(QString("流量"), 0x01, "mL"));
 }
 
 QQmlListProperty<ParaMonitor> MonitorModule::getList()
