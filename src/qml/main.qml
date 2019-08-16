@@ -97,10 +97,6 @@ ApplicationWindow {
         //荧光默认数据文件目录
         var afpsDataPath = "file:///" + mInterface.curPath + "/Data"
         afps.setPath(afpsDataPath)
-        afps.getChart(0).setModel(AdChart1VM)
-        afps.getChart(1).setModel(AdChart2VM)
-        afps.getChart(2).setModel(AdChart3VM)
-        afps.getChart(3).setModel(AdChart4VM)
-        afps.getChart(4).setModel(FlowVM)
+
     }
 }

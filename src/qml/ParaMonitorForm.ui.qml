@@ -37,17 +37,18 @@ Item {
                         top: parent.top
                         bottom: parent.bottom
                     }
-//                    width: parent.width * 0.7
+                    width: parent.width * 0.7
                     Text {
                         text: value.toFixed(1)
                         horizontalAlignment: Text.AlignRight
+                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         Layout.preferredWidth: parent.width * 0.5
                     }
                     Text {
                         text: unit
                         horizontalAlignment: Text.AlignRight
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                        Layout.preferredWidth: 20
+                        Layout.preferredWidth: 10
                     }
                 }
             }

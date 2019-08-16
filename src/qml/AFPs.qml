@@ -6,6 +6,7 @@ AFPsForm {
     signal sig_stop()
     signal sig_loadFile(var path)
 
+    property alias cfgPara: cfgPara
 
     AfpsCfgParaModule {
         id: cfgPara
@@ -52,5 +53,18 @@ AFPsForm {
         cfgParaRpt.itemAt(2).model = cfgPara.concentrationList;
         cfgParaRpt.itemAt(2).currentIndex = 0
         paraMonitor.paraList.model = Monitor.list
+
+        //算法模块使能控制
+        algorithm.visible = cfgPara.algorithmEn
+        //谱图模块使能控制
+        if(cfgPara.flowChartEn){
+            getChart(4).setModel(FlowVM)
+        } else {
+            chartRpt.model = 4
+        }
+        getChart(0).setModel(AdChart1VM)
+        getChart(1).setModel(AdChart2VM)
+        getChart(2).setModel(AdChart3VM)
+        getChart(3).setModel(AdChart4VM)
     }
 }

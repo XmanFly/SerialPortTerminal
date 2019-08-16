@@ -1,4 +1,4 @@
-#ifndef AFPSCFGPARAMODULE_H
+﻿#ifndef AFPSCFGPARAMODULE_H
 #define AFPSCFGPARAMODULE_H
 
 #include <QObject>
@@ -16,6 +16,8 @@ public:
     Q_PROPERTY(QStringList numList READ getNumList CONSTANT)
     Q_PROPERTY(QStringList nameList READ getNameList CONSTANT)
     Q_PROPERTY(QStringList concentrationList READ getConcentrationList CONSTANT)
+    Q_PROPERTY(bool algorithmEn MEMBER algorithmEn CONSTANT)
+    Q_PROPERTY(bool flowChartEn MEMBER flowChartEn CONSTANT)
 
     Q_INVOKABLE void setFileName(QString fileName){
         this->fileName = fileName;
@@ -41,6 +43,8 @@ private:
     QStringList numList; //编号
     QStringList nameList; //名称
     QStringList concentrationList; //浓度编号
+    bool algorithmEn; //算法使能
+    bool flowChartEn; //流量图使能
 
 signals:
 

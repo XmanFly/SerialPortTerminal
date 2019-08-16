@@ -12,6 +12,7 @@ Page {
     property alias fileExp: fileExp
     property alias paraMonitor: paraMonitor
     property alias userDefined: userDefined
+    property alias algorithm: algorithm
 
     //数据文件加载区
     Explorer {
@@ -106,6 +107,7 @@ Page {
             id: paraMonitor
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height * 0.4
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         }
 
         //算法区
