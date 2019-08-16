@@ -3,6 +3,7 @@ rem 支持中文显示 设为UTF-8
 chcp 65001
 rem 设置相关路径
 set SwName=SerialPortTerminal.exe
+set CfgName=config.ini
 set SwPath=C:\D\SerialPortTerminal\bin
 set QtMsvcPath="C:\Qt\Qt5.13.0\5.13.0\msvc2017\bin"
 set QtQmlPath=C:\Qt\Qt5.13.0\5.13.0\msvc2017\qml
@@ -30,6 +31,8 @@ rem 复制QtSerialPort.dll
 xcopy %QtMingwPath%\Qt5SerialPort.dll .\ /q
 rem 复制QtCharts文件夹
 xcopy %QtQmlPath%\QtCharts\*.* .\QtCharts\ /e/q
+rem 复制配置文件
+xcopy %SwPath%\%CfgName% .\ /q
 echo QtCharts文件夹复制完成
 set xxx=xxx
 echo 请等待...
