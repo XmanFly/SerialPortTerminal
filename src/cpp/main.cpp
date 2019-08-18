@@ -24,14 +24,24 @@
 int main(int argc, char *argv[])
 {
     qDebug() << "main thread id " << QThread::currentThread();
+
+#ifdef Q_OS_WIN32
     //注冊异常捕获函数
     SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)ApplicationCrashHandler);
+#endif
 
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+#ifndef Q_OS_WIN32
+    qputenv("QT_SCALE_FACTOR", "0.4");
+#endif
     QApplication app(argc, argv);
+//    qputenv("QT_SCALE_FACTOR", "10");
+//    qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "1");
+//    qputenv("QT_SCREEN_SCALE_FACTORS ", "3");
 
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setOrganizationName("WeiMu");
     QCoreApplication::setOrganizationDomain("weimu.com");
     QCoreApplication::setApplicationName("AFPS");
@@ -55,9 +65,6 @@ int main(int argc, char *argv[])
     ProtContent::regist();
     RegReadWriteModel::regist();
     ParaMonitor::regist();
-
-    QQmlApplicationEngine engine;
-    QQmlContext *context = engine.rootContext();
 
     //接口模块
     Interface *mInterface = new Interface();
@@ -113,6 +120,8 @@ int main(int argc, char *argv[])
     QObject::connect(flowModel, &SingleAccuChartModel::sig_data,
                      flowVM, &AdChartVM::slot_receiveData);
 
+    QQmlApplicationEngine engine;
+    QQmlContext *context = engine.rootContext();
     context->setContextProperty("mInterface",mInterface);
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
     context->setContextProperty("RawLog", rawLog);

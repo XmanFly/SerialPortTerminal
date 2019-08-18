@@ -24,6 +24,7 @@ GroupBox {
         //串口号
         SettingItem {
             id: portNum
+            Layout.fillWidth: true
             settingName {
                 text: qsTr("串口号")
             }
@@ -34,6 +35,7 @@ GroupBox {
         //波特率
         SettingItem {
             id: baudrate
+            Layout.fillWidth: true
             settingName {
                 text: qsTr("波特率")
             }
@@ -48,6 +50,7 @@ GroupBox {
         //位数
         SettingItem {
             id: dataBit
+            Layout.fillWidth: true
             settingName {
                 text: qsTr("数据位数")
             }
@@ -60,6 +63,7 @@ GroupBox {
         //停止位
         SettingItem {
             id: stopBit
+            Layout.fillWidth: true
             settingName {
                 text: qsTr("停止位")
             }
@@ -71,6 +75,7 @@ GroupBox {
         //校验位
         SettingItem {
             id: check
+            Layout.fillWidth: true
             settingName {
                 text: qsTr("校验位")
             }
@@ -82,6 +87,7 @@ GroupBox {
         //流控制
         SettingItem {
             id: flowControl
+            Layout.fillWidth: true
             settingName {
                 text: qsTr("流控制")
             }

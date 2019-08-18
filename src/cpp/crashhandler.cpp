@@ -1,8 +1,12 @@
 ﻿#include "crashhandler.h"
+
 #include <QTime>
 #include <QDebug>
 #include <QMessageBox>
 #include <QThread>
+#include <QtGlobal>
+
+#ifdef Q_OS_WIN32
 
 LONG ApplicationCrashHandler(EXCEPTION_POINTERS *pException){//程式异常捕获
     /*
@@ -31,3 +35,5 @@ LONG ApplicationCrashHandler(EXCEPTION_POINTERS *pException){//程式异常捕�
     return EXCEPTION_EXECUTE_HANDLER;
 }
 
+
+#endif

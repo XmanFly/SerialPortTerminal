@@ -1,4 +1,4 @@
-import QtQuick 2.9
+﻿import QtQuick 2.9
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 
@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.3
 /* 单个设置选项 */
 Rectangle {
     height: 30
-    Layout.fillWidth: true
+    width: 200
 
     property alias settingName: settingName
     property alias settingValue: settingValue

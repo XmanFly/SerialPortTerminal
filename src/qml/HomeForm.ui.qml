@@ -1,4 +1,4 @@
-import QtQuick 2.9
+﻿import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
@@ -20,18 +20,22 @@ Page {
             bottom: parent.bottom
             bottomMargin: 20
         }
-        width: parent.width * 2 / 10
+        width: parent.width * 0.18
         spacing: 10
 
         //控制面板
         ControlPanel {
             id: ctrlPanel
+            Layout.fillWidth: true
+            Layout.preferredHeight: parent.height * 0.6
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         }
 
         //数据信息
         DataInforPanel {
             id: dataInforPanel
+            Layout.fillWidth: true
+            Layout.preferredHeight: parent.height * 0.15
             Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
             implicitWidth: ctrlPanel.width
         }
