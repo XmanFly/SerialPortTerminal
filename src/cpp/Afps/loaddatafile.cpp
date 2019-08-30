@@ -46,7 +46,7 @@ bool LoadDataFile::parseFile(const QString &name, QVector<QVector<QPointF> > &da
             return false;
         }
         for(int i=0; i<4; i++){
-            data[i].append(QPointF(lineCnt-1, split.at(i+1).toDouble()));
+            data[i].append(QPointF((lineCnt-1)*0.07, split.at(i+1).toDouble()));
         }
     }
     filePtr.close();
