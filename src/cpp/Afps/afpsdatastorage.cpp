@@ -1,5 +1,7 @@
 ﻿#include "afpsdatastorage.h"
 #include <QTextCodec>
+#include <QDir>
+#include <QFileInfo>
 
 AfpsDataStorage::AfpsDataStorage(QObject *parent) :
     QObject(parent),
@@ -13,15 +15,22 @@ bool AfpsDataStorage::createFile(QFile** fp, QString fileName)
 {
     bool ret = false;
 
-    (*fp) = new QFile(fullPath+"/"+fileName + ".csv");
-    if ( (*fp)->open( QIODevice::ReadWrite )) {
+    QString name = fullPath+"/"+fileName + ".csv";
+//    (*fp) = new QFile(fullPath+"/"+fileName + ".csv");
+    //文件存在则重命名
+    while(QFileInfo(name).exists()){
+        name.replace(".csv", "-副本.csv");
+        qDebug() << "AfpsDataStorage " << "rename file " << name;
+    }
+    (*fp) = new QFile(name);
+    if ((*fp)->open( QIODevice::ReadWrite )) {
         addHead(fp);
         ret = true;
         qDebug() << "AfpsDataStorage " << "createFile " + fileName + "success ";
     } else {
         (*fp) = nullptr;
         emit sig_creatFileFail(); //文件创建失败
-        qDebug() << "AfpsDataStorage " << "createFile " + fileName + "faile ";
+        qDebug() << "AfpsDataStorage " << "createFile " + fileName + "failed ";
     }
     return ret;
 }
