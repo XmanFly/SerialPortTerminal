@@ -12,9 +12,13 @@ public:
     explicit RegModuleVM(QObject *parent = nullptr);
     RegRWListVM* getRwList();
 
+
+    RegReadWriteModel *getWashCtrl() const;
+
 private:
     const QString TAG = "RegModuleVM";
     RegRWListVM* rwList;
+    RegReadWriteModel* washCtrl;
     void load(); //加载所有寄存器
 
 signals:

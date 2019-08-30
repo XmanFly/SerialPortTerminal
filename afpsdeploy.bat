@@ -4,7 +4,7 @@ chcp 65001
 rem 设置相关路径
 set SwName=SerialPortTerminal.exe
 set CfgName=config.ini
-set SwPath=C:\D\SerialPortTerminal\bin
+set SwPath=C:\D\AfpsXJTU\SerialPortTerminal\bin
 set QtMsvcPath="C:\Qt\Qt5.13.0\5.13.0\msvc2017\bin"
 set QtQmlPath=C:\Qt\Qt5.13.0\5.13.0\msvc2017\qml
 set DeployFolder="Deploy"

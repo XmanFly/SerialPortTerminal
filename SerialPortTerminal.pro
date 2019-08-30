@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         ./src/cpp/main.cpp \
     src/cpp/Afps/Model/adchartvm.cpp \
+    src/cpp/Afps/Model/functionvm.cpp \
     src/cpp/Afps/Model/monitormodule.cpp \
     src/cpp/Afps/Model/paramonitor.cpp \
     src/cpp/Afps/Model/regfloatreadvm.cpp \
@@ -89,6 +90,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/cpp/Afps/Model/adchartvm.h \
+    src/cpp/Afps/Model/functionvm.h \
     src/cpp/Afps/Model/monitormodule.h \
     src/cpp/Afps/Model/paramonitor.h \
     src/cpp/Afps/Model/regfloatreadvm.h \

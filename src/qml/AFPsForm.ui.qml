@@ -13,6 +13,7 @@ Page {
     property alias paraMonitor: paraMonitor
     property alias userDefined: userDefined
     property alias algorithm: algorithm
+    property alias func: func
 
     //数据文件加载区
     Explorer {
@@ -144,8 +145,6 @@ Page {
         }
     }
 }
-
-
 
 
 

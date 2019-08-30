@@ -126,6 +126,7 @@ int main(int argc, char *argv[])
     context->setContextProperty("AfpsAlgorithmViewModel", mInterface->mAfpsAlgorithmViewModel);
     context->setContextProperty("RawLog", rawLog);
     context->setContextProperty("RegModule", regModule);
+    context->setContextProperty("WashCtrl", regModule->getWashCtrl());
     context->setContextProperty("Monitor", monitor);
     context->setContextProperty("AdChart1VM", adChart1VM);
     context->setContextProperty("AdChart2VM", adChart2VM);

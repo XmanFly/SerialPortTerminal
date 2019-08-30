@@ -53,6 +53,7 @@ AFPsForm {
         cfgParaRpt.itemAt(2).model = cfgPara.concentrationList;
         cfgParaRpt.itemAt(2).currentIndex = 0
         paraMonitor.paraList.model = Monitor.list
+        func.cleanBtn.onClicked.connect(function() { WashCtrl.u8W.writeSync(1) })
 
         //算法模块使能控制
         algorithm.visible = cfgPara.algorithmEn

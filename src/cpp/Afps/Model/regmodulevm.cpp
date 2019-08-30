@@ -12,6 +12,11 @@ RegRWListVM *RegModuleVM::getRwList()
     return rwList;
 }
 
+RegReadWriteModel *RegModuleVM::getWashCtrl() const
+{
+    return washCtrl;
+}
+
 void RegModuleVM::load()
 {
     /* 基本区 */
@@ -31,7 +36,7 @@ void RegModuleVM::load()
                 "紫外灯3 电流", 0x0A, RegReadWriteModel::Set | RegReadWriteModel::Read_Set | RegReadWriteModel::Read_Real);
     RegReadWriteModel* uv3Ctrl = new RegReadWriteModel(
                 "紫外灯3 控制", 0x0B, RegReadWriteModel::Set | RegReadWriteModel::Read_Set, RegReadWriteModel::BOOL);
-    RegReadWriteModel* washCtrl = new RegReadWriteModel(
+    washCtrl = new RegReadWriteModel(
                 "清洗", 0x16, RegReadWriteModel::Set | RegReadWriteModel::Read_Set, RegReadWriteModel::BOOL);
     /* 温度控制区 */
     RegReadWriteModel* ctrlTmp = new RegReadWriteModel(
