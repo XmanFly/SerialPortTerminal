@@ -115,19 +115,19 @@ GroupBox {
                 text: qsTr("基准值")
             }
             Text {
-                text: AfpsAlgorithmViewModel.baselineStandard
+                text: AfpsAlgorithmViewModel.baselineStandard.toFixed(2)
             }
             Text {
                 text: qsTr("差值")
             }
             Text {
-                text: AfpsAlgorithmViewModel.detectionDiff
+                text: AfpsAlgorithmViewModel.detectionDiff.toFixed(2)
             }
             Text {
                 text: qsTr("差值比例(%)")
             }
             Text {
-                text: AfpsAlgorithmViewModel.detectionFallRate
+                text: AfpsAlgorithmViewModel.detectionFallRate.toFixed(2)
             }
         }
     }
