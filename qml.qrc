@@ -34,5 +34,7 @@
         <file>src/qml/RWRegItem.qml</file>
         <file>src/qml/ParaMonitor.qml</file>
         <file>src/qml/ParaMonitorForm.ui.qml</file>
+        <file>src/qml/Function.qml</file>
+        <file>src/qml/FunctionForm.ui.qml</file>
     </qresource>
 </RCC>

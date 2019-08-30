@@ -109,7 +109,12 @@ Page {
             Layout.preferredHeight: parent.height * 0.4
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         }
-
+        //功能区
+        Function {
+            id: func
+            Layout.fillWidth: true
+            Layout.preferredHeight: parent.height * 0.1
+        }
         //算法区
         AfpsAlgorithm {
             id: algorithm

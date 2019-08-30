@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
 #ifndef Q_OS_WIN32
-    qputenv("QT_SCALE_FACTOR", "0.4");
+    qputenv("QT_SCALE_FACTOR", "0.23");
 #endif
     QApplication app(argc, argv);
 //    qputenv("QT_SCALE_FACTOR", "10");

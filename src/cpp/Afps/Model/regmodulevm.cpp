@@ -31,6 +31,8 @@ void RegModuleVM::load()
                 "紫外灯3 电流", 0x0A, RegReadWriteModel::Set | RegReadWriteModel::Read_Set | RegReadWriteModel::Read_Real);
     RegReadWriteModel* uv3Ctrl = new RegReadWriteModel(
                 "紫外灯3 控制", 0x0B, RegReadWriteModel::Set | RegReadWriteModel::Read_Set, RegReadWriteModel::BOOL);
+    RegReadWriteModel* washCtrl = new RegReadWriteModel(
+                "清洗", 0x16, RegReadWriteModel::Set | RegReadWriteModel::Read_Set, RegReadWriteModel::BOOL);
     /* 温度控制区 */
     RegReadWriteModel* ctrlTmp = new RegReadWriteModel(
                 "底控板温度", 0x30, RegReadWriteModel::Read_Real);
@@ -78,4 +80,5 @@ void RegModuleVM::load()
     rwList->appendRWList(heatTmp);
     rwList->appendRWList(heatCtrl);
     rwList->appendRWList(sampleCtrl);
+    rwList->appendRWList(washCtrl);
 }
