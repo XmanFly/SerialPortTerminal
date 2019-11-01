@@ -16,6 +16,8 @@ ApplicationWindow {
 
     Demo {
         anchors.fill: parent
+        mIf: mInterface
+        mAlgorithm: AfpsAlgorithmViewModel
     }
 
 }

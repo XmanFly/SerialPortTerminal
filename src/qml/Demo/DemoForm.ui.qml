@@ -12,6 +12,9 @@ Item {
             top: parent.top
         }
         width: parent.width
+        userName {
+            text: qsTr("刘伟")
+        }
     }
 
     ColumnLayout {

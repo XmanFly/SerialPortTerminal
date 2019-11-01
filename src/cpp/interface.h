@@ -106,6 +106,7 @@ private:
     QThread *mLoadDataFileTh;
     QThread *mAfpsAlgorithmTh;
     AlgorithmRespository *mAlgorithmRespository;
+    QSettings *mSettings; //设置参数
     void afpsInit(); //初始化
 
 signals:

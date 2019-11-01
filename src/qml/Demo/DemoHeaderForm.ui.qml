@@ -51,7 +51,7 @@ Item {
         }
         DemoLabel {
             id: userName
-            text: qsTr("微木员工1")
+            text: qsTr("")
         }
     }
     //错误信息

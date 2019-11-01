@@ -36,6 +36,21 @@ Interface::Interface(QObject *parent) :
     dataCntInit(); //收发数据个数初始化
     afpsInit(); //荧光模块初始化
 
+    /* 串口配置使能 */
+    mSettings = new QSettings("config.ini", QSettings::IniFormat);
+    mSettings->setIniCodec(QTextCodec::codecForName("GB2312"));
+    mSettings->beginGroup(QObject::tr("Com"));
+    bool comManual = mSettings->value("manualenable").toBool();
+    if(comManual){
+        mSerialPortParaNoQobj = new SerialPortParaNonQobj();
+        mSerialPortParaNoQobj->number = mSettings->value("name").toString();
+        mSerialPortParaNoQobj->baudrate = QSerialPort::Baud115200;
+        mSerialPortParaNoQobj->databit = QSerialPort::Data8;
+        mSerialPortParaNoQobj->stopbit = QSerialPort::OneStop;
+        switchDev(true);
+    }
+    mSettings->endGroup();
+
 #if 0
     table = new TableModel(this);
     table->insertRows(0, 1, QModelIndex());
