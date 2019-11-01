@@ -14,7 +14,7 @@ Item {
         width: parent.width
     }
 
-    Rectangle {
+    ColumnLayout {
         anchors {
             top: header.bottom
             bottom: simFunc.top
@@ -22,23 +22,20 @@ Item {
             bottomMargin: 20
         }
         width: parent.width
+        spacing: 40
         DemoStatusBar {
-            anchors {
-                top: parent.top
-            }
-            width: parent.width
-            height: 60
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+            Layout.preferredHeight: 60
+            Layout.fillWidth: true
         }
         DemoCountDown {
-            anchors.centerIn: parent
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
         DemoCheckBtn {
-            anchors {
-                bottom: parent.bottom
-                horizontalCenter: parent.horizontalCenter
-            }
-            width: parent.width * 0.6
-            height: 60
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+            Layout.preferredWidth: parent.width * 0.6
+            Layout.preferredHeight: 60
             txt: qsTr("开始检测")
             visible: true
         }
