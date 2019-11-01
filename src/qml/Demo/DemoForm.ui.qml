@@ -29,6 +29,9 @@ Item {
             width: parent.width
             height: 60
         }
+        DemoCountDown {
+            anchors.centerIn: parent
+        }
         DemoCheckBtn {
             anchors {
                 bottom: parent.bottom
