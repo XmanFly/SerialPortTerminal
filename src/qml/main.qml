@@ -4,6 +4,7 @@ import QtQuick.Dialogs 1.3
 import QtQuick.Window 2.12
 import SerialPortTerminal.Interface 1.0
 import SerialPortTerminal.SerialPortPara 1.0
+import "../qml/Demo"
 
 ApplicationWindow {
     id: root
@@ -22,6 +23,10 @@ ApplicationWindow {
         currentIndex: tabBar.currentIndex
         interactive: false
         clip: true
+
+        Demo {
+            id: demo
+        }
 
         Home {
             id: home
@@ -44,23 +49,30 @@ ApplicationWindow {
 
         TabButton {
             implicitHeight: parent.height
-            text: qsTr("端口")
+            text: qsTr("主页")
             background: Rectangle{
                 color: tabBar.currentIndex === 0 ? "lightblue" : "gray"
             }
         }
         TabButton {
             implicitHeight: parent.height
-            text: qsTr("谱图")
+            text: qsTr("端口")
             background: Rectangle{
                 color: tabBar.currentIndex === 1 ? "lightblue" : "gray"
             }
         }
         TabButton {
             implicitHeight: parent.height
-            text: qsTr("寄存器")
+            text: qsTr("谱图")
             background: Rectangle{
                 color: tabBar.currentIndex === 2 ? "lightblue" : "gray"
+            }
+        }
+        TabButton {
+            implicitHeight: parent.height
+            text: qsTr("寄存器")
+            background: Rectangle{
+                color: tabBar.currentIndex === 3 ? "lightblue" : "gray"
             }
         }
     }

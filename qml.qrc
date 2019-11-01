@@ -36,5 +36,20 @@
         <file>src/qml/ParaMonitorForm.ui.qml</file>
         <file>src/qml/Function.qml</file>
         <file>src/qml/FunctionForm.ui.qml</file>
+        <file>src/qml/Demo/Demo.qml</file>
+        <file>src/qml/Demo/DemoForm.ui.qml</file>
+        <file>src/qml/Demo/DemoHeader.qml</file>
+        <file>src/qml/Demo/DemoHeaderForm.ui.qml</file>
+        <file>src/qml/Demo/DemoLabel.qml</file>
+        <file>src/image/face.gif</file>
+        <file>src/image/logo.png</file>
+        <file>src/image/wifi.png</file>
+        <file>src/image/wifi100.png</file>
+        <file>src/image/wm.ico</file>
+        <file>src/qml/Demo/DemoStatusBar.qml</file>
+        <file>src/qml/Demo/DemoStatusBarForm.ui.qml</file>
+        <file>src/qml/Demo/DemoCheckBtn.qml</file>
+        <file>src/qml/Demo/DemoCheckBtnForm.ui.qml</file>
+        <file>src/image/simfunc.png</file>
     </qresource>
 </RCC>
