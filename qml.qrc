@@ -53,5 +53,6 @@
         <file>src/image/simfunc.png</file>
         <file>src/qml/Demo/DemoCountDown.qml</file>
         <file>src/qml/Demo/DemoCountDownForm.ui.qml</file>
+        <file>src/qml/DemoMain.qml</file>
     </qresource>
 </RCC>

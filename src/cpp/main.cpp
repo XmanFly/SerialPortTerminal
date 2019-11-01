@@ -21,6 +21,8 @@
 #include "./Afps/Model/adchartvm.h"
 #include "./Afps/Model/singleaccuchartmodel.h"
 
+#define DEMO true
+
 int main(int argc, char *argv[])
 {
     qDebug() << "main thread id " << QThread::currentThread();
@@ -134,7 +136,11 @@ int main(int argc, char *argv[])
     context->setContextProperty("AdChart4VM", adChart4VM);
     context->setContextProperty("FlowVM", flowVM);
 
+#if DEMO == false
     engine.load(QUrl(QStringLiteral("qrc:/src/qml/main.qml")));
+#else
+    engine.load(QUrl(QStringLiteral("qrc:/src/qml/DemoMain.qml")));
+#endif
 
     if (engine.rootObjects().isEmpty())
         return -1;
