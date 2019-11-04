@@ -10,6 +10,14 @@ DemoForm {
     property var mAlgorithm
     state: "Normal"
 
+    header {
+        shutdownBtn {
+            onClicked: {
+                Qt.quit()
+            }
+        }
+    }
+
     statusBar {
         statusLbl {
             text: mAlgorithm.state
