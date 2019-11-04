@@ -66,22 +66,22 @@ Item {
     }
 
     //检出时间文字
-    Text {
+    DemoLabel{
         id: checkTimeLbl
         anchors.centerIn: parent
-        bottomPadding: -20
+        bottomPadding: -55
         color: iColor
-        font.pixelSize: 180
+        font.pixelSize: 260
         text: value.toFixed(0)
         verticalAlignment: Text.AlignBottom
     }
     //检出物质文字
-    Text {
+    DemoLabel {
         id: detectedLbl
         anchors.centerIn: parent
         bottomPadding: -20
         color: cntDownRoot.state === "Detected" ? detectColor : iColor
-        font.pixelSize: 180
+        font.pixelSize: 170
         text: qsTr("")
         verticalAlignment: Text.AlignBottom
     }
