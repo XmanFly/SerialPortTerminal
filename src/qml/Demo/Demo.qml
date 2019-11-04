@@ -17,17 +17,17 @@ DemoForm {
 
     cntDown {
         from: 0
-        to: 60
-        value: 0
+        to: 15
+        value: 15
     }
 
     Timer {
         id: cntDownTimer
-        interval: 1000
+        interval: 20
         running: false
         repeat: true
         onTriggered: {
-            cntDown.value++
+            cntDown.value -= 0.02
         }
     }
 
@@ -47,8 +47,9 @@ DemoForm {
             var para = new Array();
 //                sig_start(para)
             mIf.afpsStart(para)
-            cntDown.value = 0
+            cntDown.value = 15
             cntDownTimer.running = true
+            cntDown.state = "Normal"
         } else {
             checkBtn.txt = "开始"
             mIf.afpsStop()
@@ -63,6 +64,12 @@ DemoForm {
             switch(state){
             case Algorithm.TIMEOUT:
                 ctrl(false)
+                break
+            case Algorithm.DETECTED:
+                ctrl(false)
+                cntDown.state = "Detected"
+                cntDown.value = cntDown.value //触发进度条重绘 重新上色
+                break
             }
         }
     }

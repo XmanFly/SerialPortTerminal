@@ -48,7 +48,8 @@ void Algorithm::process(double data)
     case WAITE_BASELINE_STABLE:
         mBaseline->stableJudge(data);
         if(mBaseline->isStable){
-            setState(BASELINE_UPDATE);
+//            setState(BASELINE_UPDATE);
+            setState(DETECTED);
             emit sig_state("请放物质");
             qDebug() << "Algorithm::process"
                      << "move to BASELINE_UPDATE";
