@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
     ProtContent::regist();
     RegReadWriteModel::regist();
     ParaMonitor::regist();
+    Algorithm::registType();
 
     //接口模块
     Interface *mInterface = new Interface();

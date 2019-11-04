@@ -14,7 +14,10 @@ class Algorithm : public QObject
 {
     Q_OBJECT
 public:
-    explicit Algorithm(Baseline *mBaseline, Detection *mDetection, Timeout *mTimeout, QObject *parent = nullptr);
+    explicit Algorithm(Baseline *mBaseline = nullptr,
+                       Detection *mDetection = nullptr,
+                       Timeout *mTimeout = nullptr,
+                       QObject *parent = nullptr);
 
     enum STATE {
         WAITE_BASELINE_STABLE, //等待背景稳定
@@ -23,14 +26,18 @@ public:
         DETECTED, //检出
         TIMEOUT, //超时
     };
+    Q_ENUM(STATE)
 
     void init();
     void setEnable(bool isEnable);
+    void setState(const STATE &state);
+    static void registType();
 
     Baseline *mBaseline;
     Detection *mDetection;
     Timeout *mTimeout; //超时模块
     STATE mState;
+
 
 private:
     void process(double data); //处理一个数据
@@ -40,6 +47,7 @@ private:
 signals:
     void sig_result(QString res); //本次检出结果
     void sig_state(QString state); //状态
+    void sig_stateEnum(STATE );
 
 public slots:
     void slot_receiveData(AD_CHANNEDL_DATA data);

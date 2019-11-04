@@ -158,14 +158,30 @@ void AfpsAlgorithmViewModel::setState(QString state)
     emit sig_state();
 }
 
+Algorithm::STATE AfpsAlgorithmViewModel::getStateEnum() const
+{
+    return stateEnum;
+}
+
+void AfpsAlgorithmViewModel::setStateEnum(const Algorithm::STATE &value)
+{
+    stateEnum = value;
+    emit sig_stateEnumChanged(stateEnum);
+}
+
 void AfpsAlgorithmViewModel::slot_updateState(QString state)
 {
     setState(state);
 }
 
+void AfpsAlgorithmViewModel::slot_updateStateEnum(Algorithm::STATE state)
+{
+    setStateEnum(state);
+}
+
 void AfpsAlgorithmViewModel::slot_updateStandard()
 {
-//    qDebug() << "AfpsAlgorithmViewModel::slot_updateStandard ";
+    //    qDebug() << "AfpsAlgorithmViewModel::slot_updateStandard ";
     setBaselineStandard(respository->getBaseline()->standard);
 }
 

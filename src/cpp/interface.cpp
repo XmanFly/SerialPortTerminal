@@ -268,7 +268,7 @@ void Interface::afpsInit() //初始化
     mAfpsAlgorithmViewModel = new AfpsAlgorithmViewModel();
     mBaseline = new Baseline(Baseline::Para(1, 51, 700));
     mDetection = new Detection(Detection::Para(31, 131, 0, 0.045));
-    mTimeout = new Timeout(60);
+    mTimeout = new Timeout(20);
     mAfpsAlgorithmTh = new QThread();
     mAlgorithm = new Algorithm(mBaseline, mDetection, mTimeout);
     mAlgorithm->moveToThread(mAfpsAlgorithmTh);
@@ -304,6 +304,8 @@ void Interface::afpsInit() //初始化
             mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateResult);
     connect(mAlgorithm, &Algorithm::sig_state,
             mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateState);
+    connect(mAlgorithm, &Algorithm::sig_stateEnum,
+            mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateStateEnum);
     connect(mLoadDataFile, &LoadDataFile::sig_data,
             mAlgorithm, static_cast<void(Algorithm::*)(QVector<QVector<QPointF> > )>(&Algorithm::slot_receiveData),
             Qt::QueuedConnection);

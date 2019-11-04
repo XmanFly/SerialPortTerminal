@@ -1,4 +1,5 @@
 ﻿#include "algorithm.h"
+#include <QtQml>
 
 Algorithm::Algorithm(Baseline *mBaseline, Detection *mDetection, Timeout *mTimeout, QObject *parent) :
     QObject(parent),
@@ -27,6 +28,19 @@ void Algorithm::setEnable(bool isEnable)
     qDebug() << "Algorithm::setEnable " << isEnable;
 }
 
+
+void Algorithm::setState(const STATE &state)
+{
+    mState = state;
+    emit sig_stateEnum(mState);
+}
+
+void Algorithm::registType()
+{
+    qmlRegisterType<Algorithm>("Algorithm", 1, 0, "Algorithm");
+    qRegisterMetaType<Algorithm::STATE>("STATE");
+}
+
 //处理一个数据
 void Algorithm::process(double data)
 {
@@ -34,7 +48,7 @@ void Algorithm::process(double data)
     case WAITE_BASELINE_STABLE:
         mBaseline->stableJudge(data);
         if(mBaseline->isStable){
-            mState = BASELINE_UPDATE;
+            setState(BASELINE_UPDATE);
             emit sig_state("请放物质");
             qDebug() << "Algorithm::process"
                      << "move to BASELINE_UPDATE";
@@ -43,7 +57,7 @@ void Algorithm::process(double data)
     case BASELINE_UPDATE:
         mBaseline->update(data);
         if(mBaseline->isUpdateOk) {
-            mState = DETECTION;
+            setState(DETECTION);
             mDetection->mPara.standard = mBaseline->standard;
             emit sig_state("检测物质中");
             qDebug() << "Algorithm::process"
@@ -54,7 +68,7 @@ void Algorithm::process(double data)
         mDetection->process(data);
         //检出物质
         if(mDetection->isDectected){
-            mState = DETECTED;
+            setState(DETECTED);
             emit sig_state("检出可疑物");
             qDebug() << "Algorithm::process"
                      << "move to DETECTED";
@@ -72,13 +86,15 @@ void Algorithm::process(double data)
     case TIMEOUT:
         break;
     }
-    /* 超时 */
-    mTimeout->increase();
-    if(mTimeout->isTimeout()){
-        mState = TIMEOUT;
-        emit sig_state("超时");
-        qDebug() << "Algorithm::process"
-                 << "move to TIMEOUT";
+    /* 超时检测 */
+    if(mState < DETECTED){
+        mTimeout->increase();
+        if(mTimeout->isTimeout()){
+            setState(TIMEOUT);
+            emit sig_state("超时");
+            qDebug() << "Algorithm::process"
+                     << "move to TIMEOUT";
+        }
     }
 }
 
