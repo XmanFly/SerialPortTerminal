@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.12
 Item {
     width: 1920
     height: 1080
+    property alias statusBar: statusBar
+    property alias checkBtn: checkBtn
 
     DemoHeader {
         id: header
@@ -27,6 +29,7 @@ Item {
         width: parent.width
         spacing: 40
         DemoStatusBar {
+            id: statusBar
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
             Layout.preferredHeight: 60
             Layout.fillWidth: true
@@ -36,10 +39,11 @@ Item {
             Layout.fillWidth: true
         }
         DemoCheckBtn {
+            id: checkBtn
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
             Layout.preferredWidth: parent.width * 0.6
             Layout.preferredHeight: 60
-            txt: qsTr("开始检测")
+            txt: qsTr("开始")
             visible: true
         }
     }

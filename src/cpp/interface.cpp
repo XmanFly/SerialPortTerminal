@@ -332,6 +332,7 @@ void Interface::afpsStart(QStringList para)
 //荧光停止
 void Interface::afpsStop()
 {
+    qDebug() << "Interface::afpsStop ";
     if(mAfpsLogic->sampleCtrl(false, QStringList())){
         mAlgorithm->setEnable(false);
     } else {
