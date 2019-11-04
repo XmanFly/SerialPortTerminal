@@ -8,12 +8,13 @@
 #include "../adchanneldev.h"
 #include "baseline.h"
 #include "detection.h"
+#include "timeout.h"
 
 class Algorithm : public QObject
 {
     Q_OBJECT
 public:
-    explicit Algorithm(Baseline *mBaseline, Detection *mDetection, QObject *parent = nullptr);
+    explicit Algorithm(Baseline *mBaseline, Detection *mDetection, Timeout *mTimeout, QObject *parent = nullptr);
 
     enum STATE {
         WAITE_BASELINE_STABLE, //等待背景稳定
@@ -28,6 +29,7 @@ public:
 
     Baseline *mBaseline;
     Detection *mDetection;
+    Timeout *mTimeout; //超时模块
     STATE mState;
 
 private:

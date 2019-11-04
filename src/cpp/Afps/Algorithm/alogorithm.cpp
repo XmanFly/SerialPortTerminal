@@ -1,9 +1,10 @@
 ﻿#include "algorithm.h"
 
-Algorithm::Algorithm(Baseline *mBaseline, Detection *mDetection, QObject *parent) :
+Algorithm::Algorithm(Baseline *mBaseline, Detection *mDetection, Timeout *mTimeout, QObject *parent) :
     QObject(parent),
     mBaseline(mBaseline),
     mDetection(mDetection),
+    mTimeout(mTimeout),
     mState(STATE::WAITE_BASELINE_STABLE),
     isEnable(false)
 {
@@ -15,6 +16,7 @@ void Algorithm::init()
     mState = WAITE_BASELINE_STABLE;
     mBaseline->init();
     mDetection->init();
+    mTimeout->clear();
     emit sig_result("");
     emit sig_state("基线稳定中");
 }
@@ -58,17 +60,25 @@ void Algorithm::process(double data)
                      << "move to DETECTED";
         }
         //超时
-        if(mDetection->isTimeout){
-            mState = TIMEOUT;
-            emit sig_state("超时");
-            qDebug() << "Algorithm::process"
-                     << "move to TIMEOUT";
-        }
+//        if(mDetection->isTimeout){
+//            mState = TIMEOUT;
+//            emit sig_state("超时");
+//            qDebug() << "Algorithm::process"
+//                     << "move to TIMEOUT";
+//        }
         break;
     case DETECTED:
         break;
     case TIMEOUT:
         break;
+    }
+    /* 超时 */
+    mTimeout->increase();
+    if(mTimeout->isTimeout()){
+        mState = TIMEOUT;
+        emit sig_state("超时");
+        qDebug() << "Algorithm::process"
+                 << "move to TIMEOUT";
     }
 }
 

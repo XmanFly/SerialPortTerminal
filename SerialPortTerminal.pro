@@ -15,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         ./src/cpp/main.cpp \
+    src/cpp/Afps/Algorithm/timeout.cpp \
     src/cpp/Afps/Model/adchartvm.cpp \
     src/cpp/Afps/Model/functionvm.cpp \
     src/cpp/Afps/Model/monitormodule.cpp \
@@ -89,6 +90,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    src/cpp/Afps/Algorithm/timeout.h \
     src/cpp/Afps/Model/adchartvm.h \
     src/cpp/Afps/Model/functionvm.h \
     src/cpp/Afps/Model/monitormodule.h \

@@ -66,6 +66,7 @@ public:
     Algorithm* mAlgorithm;
     Baseline* mBaseline;
     Detection* mDetection;
+    Timeout* mTimeout;
 
     AdChartModel *getAfpsAdChartModel() const;
 

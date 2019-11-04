@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 Item {
     width: 1920
     height: 1080
+    property alias cntDown: cntDown
     property alias statusBar: statusBar
     property alias checkBtn: checkBtn
 
@@ -35,6 +36,7 @@ Item {
             Layout.fillWidth: true
         }
         DemoCountDown {
+            id: cntDown
             Layout.fillHeight: true
             Layout.fillWidth: true
         }

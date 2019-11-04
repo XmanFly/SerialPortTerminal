@@ -1,9 +1,10 @@
 ﻿#include "algorithmrespository.h"
 
-AlgorithmRespository::AlgorithmRespository(Baseline *baseline, Detection *detection, QObject *parent) :
+AlgorithmRespository::AlgorithmRespository(Baseline *baseline, Detection *detection, Timeout *timeout, QObject *parent) :
     QObject(parent),
     baseline(baseline),
-    detection(detection)
+    detection(detection),
+    timeout(timeout)
 {
 
 }
@@ -37,4 +38,9 @@ void AlgorithmRespository::setBaselinePara(Baseline::Para para)
 void AlgorithmRespository::setDetectionPara(Detection::Para para)
 {
     detection->updatePara(para);
+}
+
+Timeout *AlgorithmRespository::getTimeout()
+{
+    return timeout;
 }

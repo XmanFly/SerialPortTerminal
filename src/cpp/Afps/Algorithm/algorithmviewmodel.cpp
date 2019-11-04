@@ -17,7 +17,7 @@ void AfpsAlgorithmViewModel::loadPara()
     setBaselineWin(respository->getBaselinePara().windowLen);
     setBaselineThrold(respository->getBaselinePara().stableThrold);
     setBaselineStandard(respository->getBaseline()->standard);
-    setDetectionTimeout(respository->getDetectionPara().timeout);
+    setDetectionTimeout(respository->getTimeout()->throldTime());
     setDetectionThrold(respository->getDetectionPara().throld * 100);
     setDetectionDiff(respository->getDetection()->diff);
     setDetectionFallRate(respository->getDetection()->fallRate);
@@ -101,9 +101,13 @@ int AfpsAlgorithmViewModel::getDetectionTimeout()
 void AfpsAlgorithmViewModel::setDetectionTimeout(int detectionTimeout)
 {
     this->detectionTimeout = detectionTimeout;
+#if 0
     Detection::Para para = respository->getDetectionPara();
     para.timeout = detectionTimeout;
     respository->setDetectionPara(para);
+#else
+    respository->getTimeout()->updateThroldPoints(detectionTimeout);
+#endif
     emit sig_detectionTimeout();
 }
 

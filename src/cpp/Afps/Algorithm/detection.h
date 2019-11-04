@@ -23,7 +23,7 @@ public:
         }
         Para(){
             this->windowLen = 31;
-            this->timeout = 131;
+            this->timeout = 10;
             this->standard = 1;
             this->throld = 0.045;
         }

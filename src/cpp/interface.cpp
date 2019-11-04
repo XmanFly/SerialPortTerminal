@@ -268,14 +268,15 @@ void Interface::afpsInit() //初始化
     mAfpsAlgorithmViewModel = new AfpsAlgorithmViewModel();
     mBaseline = new Baseline(Baseline::Para(1, 51, 700));
     mDetection = new Detection(Detection::Para(31, 131, 0, 0.045));
+    mTimeout = new Timeout(60);
     mAfpsAlgorithmTh = new QThread();
-    mAlgorithm = new Algorithm(mBaseline, mDetection);
+    mAlgorithm = new Algorithm(mBaseline, mDetection, mTimeout);
     mAlgorithm->moveToThread(mAfpsAlgorithmTh);
     mAfpsAlgorithmTh->start();
     //数据仓库
 //    Baseline::Para mBaselinePara = Baseline::Para(1, 51, 700);
 //    Detection::Para mDetectionPara = Detection::Para(31, 131, 0, 700);
-    mAlgorithmRespository = new AlgorithmRespository(mBaseline, mDetection);
+    mAlgorithmRespository = new AlgorithmRespository(mBaseline, mDetection, mTimeout);
     mAfpsAlgorithmViewModel->setRespository(mAlgorithmRespository);
 
     connect(mLoadDataFile, &LoadDataFile::sig_sampleCtrl,
