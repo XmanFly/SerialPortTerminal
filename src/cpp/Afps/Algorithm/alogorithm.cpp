@@ -48,8 +48,7 @@ void Algorithm::process(double data)
     case WAITE_BASELINE_STABLE:
         mBaseline->stableJudge(data);
         if(mBaseline->isStable){
-//            setState(BASELINE_UPDATE);
-            setState(DETECTED);
+            setState(BASELINE_UPDATE);
             emit sig_state("请放物质");
             qDebug() << "Algorithm::process"
                      << "move to BASELINE_UPDATE";
@@ -92,7 +91,7 @@ void Algorithm::process(double data)
         mTimeout->increase();
         if(mTimeout->isTimeout()){
             setState(TIMEOUT);
-            emit sig_state("超时");
+            emit sig_state("未检出");
             qDebug() << "Algorithm::process"
                      << "move to TIMEOUT";
         }

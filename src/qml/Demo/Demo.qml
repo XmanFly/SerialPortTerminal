@@ -2,12 +2,13 @@
 import Algorithm 1.0
 
 DemoForm {
-
+    id: demoRoot
     signal sig_start(var para)
     signal sig_stop()
 
     property var mIf
     property var mAlgorithm
+    state: "Normal"
 
     statusBar {
         statusLbl {
@@ -28,6 +29,10 @@ DemoForm {
         repeat: true
         onTriggered: {
             cntDown.value -= 0.02
+            if(Math.abs(cntDown.value, 0) < 0.0001){
+                cntDownTimer.stop()
+                ctrl(false)
+            }
         }
     }
 
@@ -47,9 +52,10 @@ DemoForm {
             var para = new Array();
 //                sig_start(para)
             mIf.afpsStart(para)
+            state = "Normal"
+            cntDown.state = "Normal"
             cntDown.value = 15
             cntDownTimer.running = true
-            cntDown.state = "Normal"
         } else {
             checkBtn.txt = "开始"
             mIf.afpsStop()
@@ -63,15 +69,35 @@ DemoForm {
         onSig_stateEnumChanged : {
             switch(state){
             case Algorithm.TIMEOUT:
-                ctrl(false)
+//                ctrl(false)
+                cntDown.state = "Timeout"
+                cntDown.value = cntDown.value //触发进度条重绘 重新上色
                 break
             case Algorithm.DETECTED:
                 ctrl(false)
+                demoRoot.state = "Detected"
                 cntDown.state = "Detected"
                 cntDown.value = cntDown.value //触发进度条重绘 重新上色
                 break
             }
         }
     }
+
+    states: [
+        State {
+            name: "Normal"
+            PropertyChanges {
+                target: statusBar.statusLbl
+                color: "white"
+            }
+        },
+        State {
+            name: "Detected"
+            PropertyChanges {
+                target: statusBar.statusLbl
+                color: "red"
+            }
+        }
+    ]
 
 }

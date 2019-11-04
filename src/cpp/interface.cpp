@@ -266,9 +266,9 @@ void Interface::afpsInit() //初始化
     mLoadDataFile->moveToThread(mLoadDataFileTh);
     mLoadDataFileTh->start();
     mAfpsAlgorithmViewModel = new AfpsAlgorithmViewModel();
-    mBaseline = new Baseline(Baseline::Para(1, 51, 700));
+    mBaseline = new Baseline(Baseline::Para(1, 51, 2000));
     mDetection = new Detection(Detection::Para(31, 131, 0, 0.045));
-    mTimeout = new Timeout(20);
+    mTimeout = new Timeout(15);
     mAfpsAlgorithmTh = new QThread();
     mAlgorithm = new Algorithm(mBaseline, mDetection, mTimeout);
     mAlgorithm->moveToThread(mAfpsAlgorithmTh);

@@ -55,12 +55,12 @@ Item {
             var centreX = canvas.width / 2.0;
             var centreY = canvas.height / 2.0;
             var ctx = canvas.getContext('2d');
-            ctx.strokeStyle =  cntDownRoot.state === "Normal" ? iColor : detectColor;
+            ctx.strokeStyle = cntDownRoot.state === "Detected" ? detectColor : iColor;
             ctx.lineWidth = progressWidth;
             ctx.lineCap = "round"
             ctx.beginPath();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.arc(centreX, centreY, (outerRadius+innerRadius)/2.0, -Math.PI/2.0, calcAngle(value), false);
+            ctx.arc(centreX, centreY, (outerRadius+innerRadius)/2.0, -Math.PI/2.0, calcAngle(value), true);
             ctx.stroke();
         }
     }
@@ -80,9 +80,9 @@ Item {
         id: detectedLbl
         anchors.centerIn: parent
         bottomPadding: -20
-        color: detectColor
-        font.pixelSize: 200
-        text: qsTr("可疑物")
+        color: cntDownRoot.state === "Detected" ? detectColor : iColor
+        font.pixelSize: 180
+        text: qsTr("")
         verticalAlignment: Text.AlignBottom
     }
     //时间单位
@@ -116,8 +116,9 @@ Item {
     }
 
     function calcAngle(data) {
-        var ret = (data * 1.0 / to) * 2 * Math.PI
+        var ret = -(data * 1.0 / to) * 2 * Math.PI
         ret -= Math.PI / 2
+//        ret = Math.PI * 2 - ret
         console.log("calc angle " + data + " " + to + " " + ret)
         return ret
     }
@@ -175,6 +176,41 @@ Item {
             PropertyChanges {
                 target: detectedLbl
                 visible: true
+            }
+            PropertyChanges {
+                target: detectedLbl
+                text: qsTr("危险品")
+            }
+        },
+        State {
+            name: "Timeout"
+            PropertyChanges {
+                target: outerCir
+                border.color: iColor
+            }
+            PropertyChanges {
+                target: innerCir
+                border.color: iColor
+            }
+            PropertyChanges {
+                target: checkTimeLbl
+                visible: false
+            }
+            PropertyChanges {
+                target: timeUnitLbl
+                visible: false
+            }
+            PropertyChanges {
+                target: timeDescribeLbl
+                visible: false
+            }
+            PropertyChanges {
+                target: detectedLbl
+                visible: true
+            }
+            PropertyChanges {
+                target: detectedLbl
+                text: qsTr("安全")
             }
         }
     ]
