@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 Item {
     width: 1920
     height: 1080
+    property alias cleanBtn: cleanBtn
     property alias header: header
     property alias cntDown: cntDown
     property alias statusBar: statusBar

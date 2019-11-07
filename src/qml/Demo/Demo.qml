@@ -54,6 +54,25 @@ DemoForm {
         }
     }
 
+
+    Timer {
+        id: washTimer
+        interval: 5500
+        running: false
+        repeat: false
+        onTriggered: {
+            cleanBtn.txt = qsTr("清洁")
+        }
+    }
+
+    cleanBtn {
+        onClicked: {
+            washTimer.restart()
+            cleanBtn.txt = qsTr("清洁中...")
+            WashCtrl.u8W.writeSync(1)
+        }
+    }
+
     function ctrl(isOn){
         if(isOn){
             checkBtn.txt = qsTr("停止")
