@@ -41,13 +41,30 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
-        DemoCheckBtn {
-            id: checkBtn
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-            Layout.preferredWidth: parent.width * 0.6
+        Item {
+            Layout.fillWidth: true
             Layout.preferredHeight: 60
-            txt: qsTr("开始")
-            visible: true
+            DemoCheckBtn {
+                id: checkBtn
+                anchors.centerIn: parent
+                width: parent.width * 0.6
+                height: 60
+                txt: qsTr("开始")
+                visible: true
+            }
+            DemoCheckBtn {
+                id: cleanBtn
+                anchors {
+                    left: checkBtn.right
+                    leftMargin: 40
+                    bottom: checkBtn.bottom
+                }
+                width: 200
+                height: 40
+                fontSize: 20
+                txt: qsTr("清洁")
+                visible: true
+            }
         }
     }
     Image {
