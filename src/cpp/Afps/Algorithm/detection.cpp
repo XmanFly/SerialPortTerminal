@@ -9,6 +9,20 @@ Detection::Detection(Para mPara, QObject *parent) :
 {
     setDiff(0);
     setFallRate(0);
+    setMaxDiff(0);
+    setMaxDiffFallRate(0);
+}
+
+void Detection::setMaxDiffFallRate(double value)
+{
+    maxDiffFallRate = value;
+    emit sig_updateMaxDiffFallRate();
+}
+
+void Detection::setMaxDiff(double value)
+{
+    maxDiff = value;
+    emit sig_updateMaxDiff();
 }
 
 void Detection::init()
@@ -18,6 +32,8 @@ void Detection::init()
     isTimeout = false;
     setDiff(0);
     setFallRate(0);
+    setMaxDiff(0);
+    setMaxDiffFallRate(0);
 }
 
 //物质判定
@@ -28,6 +44,8 @@ void Detection::process(double data)
         //下降比例
         setDiff(mPara.standard - data);
         setFallRate(diff / mPara.standard);
+        setMaxDiff(qMax(maxDiff, diff));
+        setMaxDiffFallRate(maxDiff / mPara.standard);
         if(fallRate > mPara.throld){
             isDectected = true;
         }

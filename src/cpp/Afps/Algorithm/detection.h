@@ -36,7 +36,9 @@ public:
     bool isTimeout;
     double fallRate;
     double diff;
-    Para mPara; //参数    
+    double maxDiff; //下降最大值
+    double maxDiffFallRate; //下降最大值比例
+    Para mPara; //参数
 
     void init();
     void process(double data); //物质判定
@@ -45,10 +47,14 @@ public:
 private:
     void setDiff(double diff);
     void setFallRate(double fallRate);
+    void setMaxDiff(double value);
+    void setMaxDiffFallRate(double value);
 
 signals:
     void sig_updateDiff();
     void sig_updateFallRate();
+    void sig_updateMaxDiff();
+    void sig_updateMaxDiffFallRate();
 
 };
 

@@ -295,6 +295,10 @@ void Interface::afpsInit() //初始化
             mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateStandard);
     connect(mAlgorithm->mDetection, &Detection::sig_updateDiff,
             mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateDetectionDiff);
+    connect(mAlgorithm->mDetection, &Detection::sig_updateMaxDiff,
+            mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateDetectionMaxDiff);
+    connect(mAlgorithm->mDetection, &Detection::sig_updateMaxDiffFallRate,
+            mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateDetectionMaxDiffFallRate);
     connect(mAlgorithm->mDetection, &Detection::sig_updateFallRate,
             mAfpsAlgorithmViewModel, &AfpsAlgorithmViewModel::slot_updateDetectionFallRate);
 }

@@ -118,7 +118,7 @@ GroupBox {
                 text: AfpsAlgorithmViewModel.baselineStandard.toFixed(2)
             }
             Text {
-                text: qsTr("差值")
+                text: qsTr("当前差值")
             }
             Text {
                 text: AfpsAlgorithmViewModel.detectionDiff.toFixed(2)
@@ -128,6 +128,18 @@ GroupBox {
             }
             Text {
                 text: AfpsAlgorithmViewModel.detectionFallRate.toFixed(2)
+            }
+            Text {
+                text: qsTr("最大差值")
+            }
+            Text {
+                text: AfpsAlgorithmViewModel.detectionMaxDiff.toFixed(2)
+            }
+            Text {
+                text: qsTr("最大差值比例(%)")
+            }
+            Text {
+                text: AfpsAlgorithmViewModel.detectionMaxDiffFallRate.toFixed(2)
             }
         }
     }

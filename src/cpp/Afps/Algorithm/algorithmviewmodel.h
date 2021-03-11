@@ -18,6 +18,8 @@ class AfpsAlgorithmViewModel : public QObject
     Q_PROPERTY(double detectionThrold READ getDetectionThrold WRITE setDetectionThrold NOTIFY sig_detectionThrold)
     Q_PROPERTY(double detectionDiff READ getDetectionDiff WRITE setDetectionDiff NOTIFY sig_detectionDiff)
     Q_PROPERTY(double detectionFallRate READ getDetectionFallRate WRITE setDetectionFallRate NOTIFY sig_detectionFallRate)
+    Q_PROPERTY(double detectionMaxDiff READ getDetectionMaxDiff WRITE setDetectionMaxDiff NOTIFY sig_detectionMaxDiff)
+    Q_PROPERTY(double detectionMaxDiffFallRate READ getDetectionMaxDiffFallRate WRITE setDetectionMaxDiffFallRate NOTIFY sig_detectionMaxDiffFallRate)
     Q_PROPERTY(QString state READ getState WRITE setState NOTIFY sig_state)
 
 public:
@@ -42,6 +44,10 @@ public:
     void	setDetectionFallRate(double detectionFallRate);
     QString	getState();
     void	setState(QString state);
+    double getDetectionMaxDiff() const;
+    void setDetectionMaxDiff(double value);
+    double getDetectionMaxDiffFallRate() const;
+    void setDetectionMaxDiffFallRate(double value);
 
 private:
     int baselineWin; //基线窗口
@@ -53,6 +59,8 @@ private:
     double baselineStandard; //基线 基准值
     double detectionDiff; //下降差值
     double fallRate; //下降比例
+    double detectionMaxDiff; //下降最大值
+    double detectionMaxDiffFallRate; //下降最大值比例
     AlgorithmRespository *respository;
 
     void loadPara();
@@ -67,6 +75,8 @@ signals:
     void sig_detectionDiff();
     void sig_detectionFallRate();
     void sig_state();
+    void sig_detectionMaxDiff();
+    void sig_detectionMaxDiffFallRate();
 
 public slots:
     void slot_updateResult(QString result);
@@ -76,6 +86,8 @@ public slots:
     void slot_updateDetectionDiff();
     void slot_updateDetectionFallRate();
     void slot_updateState(QString state);
+    void slot_updateDetectionMaxDiff();
+    void slot_updateDetectionMaxDiffFallRate();
 };
 
 #endif // ALGORITHMVIEWMODEL_H

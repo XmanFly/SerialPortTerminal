@@ -36,5 +36,6 @@ void AlgorithmRespository::setBaselinePara(Baseline::Para para)
 
 void AlgorithmRespository::setDetectionPara(Detection::Para para)
 {
+    qDebug() << "AlgorithmRespository::setDetectionPara " ;
     detection->updatePara(para);
 }

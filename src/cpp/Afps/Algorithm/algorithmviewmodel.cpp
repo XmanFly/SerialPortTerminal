@@ -21,6 +21,7 @@ void AfpsAlgorithmViewModel::loadPara()
     setDetectionThrold(respository->getDetectionPara().throld * 100);
     setDetectionDiff(respository->getDetection()->diff);
     setDetectionFallRate(respository->getDetection()->fallRate);
+    setDetectionMaxDiff(respository->getDetection()->maxDiff);
 }
 
 QString AfpsAlgorithmViewModel::getResult()
@@ -100,6 +101,7 @@ int AfpsAlgorithmViewModel::getDetectionTimeout()
 
 void AfpsAlgorithmViewModel::setDetectionTimeout(int detectionTimeout)
 {
+    qDebug() << "AfpsAlgorithmViewModel::setDetectionTimeout " << detectionTimeout;
     this->detectionTimeout = detectionTimeout;
     Detection::Para para = respository->getDetectionPara();
     para.timeout = detectionTimeout;
@@ -154,14 +156,46 @@ void AfpsAlgorithmViewModel::setState(QString state)
     emit sig_state();
 }
 
+double AfpsAlgorithmViewModel::getDetectionMaxDiff() const
+{
+    return detectionMaxDiff;
+}
+
+void AfpsAlgorithmViewModel::setDetectionMaxDiff(double value)
+{
+    detectionMaxDiff = value;
+    emit sig_detectionMaxDiff();
+}
+
+double AfpsAlgorithmViewModel::getDetectionMaxDiffFallRate() const
+{
+    return detectionMaxDiffFallRate * 100;
+}
+
+void AfpsAlgorithmViewModel::setDetectionMaxDiffFallRate(double value)
+{
+    detectionMaxDiffFallRate = value;
+    emit sig_detectionMaxDiffFallRate();
+}
+
 void AfpsAlgorithmViewModel::slot_updateState(QString state)
 {
     setState(state);
 }
 
+void AfpsAlgorithmViewModel::slot_updateDetectionMaxDiff()
+{
+    setDetectionMaxDiff(respository->getDetection()->maxDiff);
+}
+
+void AfpsAlgorithmViewModel::slot_updateDetectionMaxDiffFallRate()
+{
+    setDetectionMaxDiffFallRate(respository->getDetection()->maxDiffFallRate);
+}
+
 void AfpsAlgorithmViewModel::slot_updateStandard()
 {
-//    qDebug() << "AfpsAlgorithmViewModel::slot_updateStandard ";
+    //    qDebug() << "AfpsAlgorithmViewModel::slot_updateStandard ";
     setBaselineStandard(respository->getBaseline()->standard);
 }
 
